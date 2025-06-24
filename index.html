@@ -1,757 +1,911 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intra Swadaya Hidayat - Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
+    <meta charset="utf-8">
+    <title>Dashboard Produksi Songket - Monitoring Sistem</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="dashboard, songket, produksi, monitoring" name="keywords">
+    <meta content="Dashboard untuk monitoring sistem pengelolaan data produksi songket" name="description">
 
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
 
-        .typing-animation {
-            border-right: 2px solid #fff;
-            animation: blink 1s infinite;
-        }
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        @keyframes blink {
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-            0%,
-            50% {
-                border-color: transparent;
-            }
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
-            51%,
-            100% {
-                border-color: #fff;
-            }
-        }
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-        .card-hover {
-            transition: all 0.3s ease;
-        }
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
 
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .skill-bar {
-            transition: width 2s ease-in-out;
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .navbar-scroll {
-            transition: all 0.3s ease;
-        }
-
-        .project-overlay {
-            background: rgba(0, 0, 0, 0.8);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .project-overlay {
-            opacity: 1;
-        }
-    </style>
+    <!-- Songket Dashboard Custom Stylesheet -->
+    <link href="css/songket-dashboard.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-white shadow-lg">
-        <div class="container mx-auto px-6 py-3">
-            <div class="flex justify-between items-center">
-                <div class="text-2xl font-bold text-gray-800">
-                    Intra<span class="text-purple-600">Dev</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="nav-link text-gray-600 hover:text-purple-600 transition-colors">Beranda</a>
-                    <a href="#about" class="nav-link text-gray-600 hover:text-purple-600 transition-colors">Tentang</a>
-                    <a href="#skills"
-                        class="nav-link text-gray-600 hover:text-purple-600 transition-colors">Keahlian</a>
-                    <a href="#projects"
-                        class="nav-link text-gray-600 hover:text-purple-600 transition-colors">Proyek</a>
-                    <a href="#contact" class="nav-link text-gray-600 hover:text-purple-600 transition-colors">Kontak</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-purple-600">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
-            <div class="px-6 py-4 space-y-3">
-                <a href="#home" class="block text-gray-600 hover:text-purple-600">Beranda</a>
-                <a href="#about" class="block text-gray-600 hover:text-purple-600">Tentang</a>
-                <a href="#skills" class="block text-gray-600 hover:text-purple-600">Keahlian</a>
-                <a href="#projects" class="block text-gray-600 hover:text-purple-600">Proyek</a>
-                <a href="#contact" class="block text-gray-600 hover:text-purple-600">Kontak</a>
-            </div>
+        <!-- Spinner End -->
+
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fas fa-square me-2"></i>Songket Pro</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <div
+                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0">Admin Produksi</h6>
+                        <span>Supervisor</span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="index.html" class="nav-item nav-link active"><i
+                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="production.html" class="nav-item nav-link"><i class="fas fa-cogs me-2"></i>Data
+                        Produksi</a>
+                    <a href="patterns.html" class="nav-item nav-link"><i class="fas fa-palette me-2"></i>Pola
+                        Songket</a>
+                    <a href="stock.html" class="nav-item nav-link"><i class="fas fa-boxes me-2"></i>Stok</a>
+                    <a href="reports.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Laporan</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fas fa-tools me-2"></i>Pengaturan</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="users.html" class="dropdown-item">Pengguna</a>
+                            <a href="categories.html" class="dropdown-item">Kategori Pola</a>
+                            <a href="settings.html" class="dropdown-item">Konfigurasi</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </div>
-    </nav>
+        <!-- Sidebar End -->
 
-    <!-- Hero Section -->
-    <section id="home" class="gradient-bg min-h-screen flex items-center">
-        <div class="container mx-auto px-6 text-center text-white">
-            <div class="fade-in">
-                <img src="https://via.placeholder.com/200x200/667eea/ffffff?text=IH" alt="Intra Hidayat"
-                    class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-lg">
-                <h1 class="text-5xl md:text-7xl font-bold mb-4">
-                    Intra Swadaya Hidayat
-                </h1>
-                <div class="text-xl md:text-2xl mb-8">
-                    Saya seorang <span id="typing-text" class="typing-animation font-semibold"></span>
-                </div>
-                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-                    Passionate developer yang mencintai teknologi dan inovasi.
-                    Mengubah ide menjadi kenyataan dengan kode yang elegan dan solusi yang kreatif.
-                </p>
-                <div class="space-x-4">
-                    <a href="#projects"
-                        class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
-                        Lihat Portfolio
-                    </a>
-                    <a href="#contact"
-                        class="border-2 border-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-colors">
-                        Hubungi Saya
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Tentang Saya</h2>
-                <div class="w-20 h-1 bg-purple-600 mx-auto"></div>
-            </div>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="fade-in">
-                    <h3 class="text-3xl font-bold text-gray-800 mb-6">Halo! Saya Intra Swadaya Hidayat</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Saya adalah seorang pengembang web full-stack dengan passion dalam menciptakan
-                        aplikasi web yang inovatif dan user-friendly. Dengan pengalaman dalam berbagai
-                        teknologi modern, saya selalu berusaha memberikan solusi terbaik untuk setiap
-                        tantangan yang dihadapi.
-                    </p>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Ketika tidak sedang coding, saya senang mempelajari teknologi baru, membaca buku
-                        tentang pengembangan software, dan berkontribusi pada proyek open source.
-                    </p>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-800">Lokasi</h4>
-                            <p class="text-gray-600">Indonesia</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-800">Email</h4>
-                            <p class="text-gray-600">intra@example.com</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-800">Telepon</h4>
-                            <p class="text-gray-600">+62 xxx xxxx xxxx</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-800">Freelance</h4>
-                            <p class="text-green-600 font-semibold">Tersedia</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="fade-in">
-                    <div class="bg-gray-50 rounded-lg p-8">
-                        <h4 class="text-2xl font-bold text-gray-800 mb-6">Pengalaman & Prestasi</h4>
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div
-                                    class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">
-                                    <i class="fas fa-code text-sm"></i>
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fas fa-industry"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4">
+                    <input class="form-control border-0" type="search" placeholder="Cari pola, produksi...">
+                </form>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Message</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="img/user.jpg" alt=""
+                                        style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Produksi selesai</h6>
+                                        <small>15 menit yang lalu</small>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h5 class="font-semibold text-gray-800">3+ Tahun Pengalaman</h5>
-                                    <p class="text-gray-600">Dalam pengembangan web dan aplikasi</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div
-                                    class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">
-                                    <i class="fas fa-project-diagram text-sm"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-semibold text-gray-800">20+ Proyek Selesai</h5>
-                                    <p class="text-gray-600">Berbagai jenis aplikasi dan website</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div
-                                    class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">
-                                    <i class="fas fa-users text-sm"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-semibold text-gray-800">Klien Puas</h5>
-                                    <p class="text-gray-600">Membangun hubungan jangka panjang</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Keahlian Saya</h2>
-                <div class="w-20 h-1 bg-purple-600 mx-auto mb-6"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Berikut adalah teknologi dan tools yang saya kuasai dalam pengembangan aplikasi modern
-                </p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="fade-in">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Frontend</h3>
-                    <div class="space-y-4">
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-semibold text-gray-800">HTML/CSS</span>
-                                <span class="text-purple-600 font-semibold">95%</span>
-                            </div>
-                            <div class="bg-gray-200 rounded-full h-3">
-                                <div class="skill-bar bg-purple-600 h-3 rounded-full" data-width="95"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-semibold text-gray-800">JavaScript</span>
-                                <span class="text-purple-600 font-semibold">90%</span>
-                            </div>
-                            <div class="bg-gray-200 rounded-full h-3">
-                                <div class="skill-bar bg-purple-600 h-3 rounded-full" data-width="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-semibold text-gray-800">React</span>
-                                <span class="text-purple-600 font-semibold">85%</span>
-                            </div>
-                            <div class="bg-gray-200 rounded-full h-3">
-                                <div class="skill-bar bg-purple-600 h-3 rounded-full" data-width="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-semibold text-gray-800">Vue.js</span>
-                                <span class="text-purple-600 font-semibold">80%</span>
-                            </div>
-                            <div class="bg-gray-200 rounded-full h-3">
-                                <div class="skill-bar bg-purple-600 h-3 rounded-full" data-width="80"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="fade-in">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Backend</h3>
-                    <div class="space-y-4">
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-semibold text-gray-800">Node.js</span>
-                                <span class="text-purple-600 font-semibold">88%</span>
-                            </div>
-                            <div class="bg-gray-200 rounded-full h-3">
-                                <div class="skill-bar bg-purple-600 h-3 rounded-full" data-width="88"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-semibold text-gray-800">Python</span>
-                                <span class="text-purple-600 font-semibold">82%</span>
-                            </div>
-                            <div class="bg-gray-200 rounded-full h-3">
-                                <div class="skill-bar bg-purple-600 h-3 rounded-full" data-width="82"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-semibold text-gray-800">Database (MySQL/MongoDB)</span>
-                                <span class="text-purple-600 font-semibold">85%</span>
-                            </div>
-                            <div class="bg-gray-200 rounded-full h-3">
-                                <div class="skill-bar bg-purple-600 h-3 rounded-full" data-width="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-semibold text-gray-800">PHP/Laravel</span>
-                                <span class="text-purple-600 font-semibold">78%</span>
-                            </div>
-                            <div class="bg-gray-200 rounded-full h-3">
-                                <div class="skill-bar bg-purple-600 h-3 rounded-full" data-width="78"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tech Stack Icons -->
-            <div class="mt-16 fade-in">
-                <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Teknologi yang Saya Gunakan</h3>
-                <div class="grid grid-cols-3 md:grid-cols-6 gap-8 items-center justify-items-center">
-                    <div class="tech-icon text-orange-500 text-5xl hover:scale-110 transition-transform">
-                        <i class="fab fa-html5"></i>
-                    </div>
-                    <div class="tech-icon text-blue-500 text-5xl hover:scale-110 transition-transform">
-                        <i class="fab fa-css3-alt"></i>
-                    </div>
-                    <div class="tech-icon text-yellow-500 text-5xl hover:scale-110 transition-transform">
-                        <i class="fab fa-js-square"></i>
-                    </div>
-                    <div class="tech-icon text-blue-400 text-5xl hover:scale-110 transition-transform">
-                        <i class="fab fa-react"></i>
-                    </div>
-                    <div class="tech-icon text-green-500 text-5xl hover:scale-110 transition-transform">
-                        <i class="fab fa-node-js"></i>
-                    </div>
-                    <div class="tech-icon text-blue-600 text-5xl hover:scale-110 transition-transform">
-                        <i class="fab fa-python"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Portfolio Proyek</h2>
-                <div class="w-20 h-1 bg-purple-600 mx-auto mb-6"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Berikut adalah beberapa proyek yang telah saya kerjakan dengan berbagai teknologi modern
-                </p>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card card-hover bg-white rounded-lg shadow-lg overflow-hidden relative fade-in">
-                    <div class="relative">
-                        <img src="https://via.placeholder.com/400x250/667eea/ffffff?text=E-Commerce+App"
-                            alt="E-Commerce App" class="w-full h-48 object-cover">
-                        <div class="project-overlay absolute inset-0 flex items-center justify-center">
-                            <div class="text-center text-white">
-                                <h4 class="text-xl font-bold mb-2">E-Commerce Platform</h4>
-                                <p class="mb-4">Platform e-commerce modern dengan React & Node.js</p>
-                                <div class="space-x-2">
-                                    <a href="#"
-                                        class="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition-colors">
-                                        <i class="fas fa-eye mr-2"></i>Demo
-                                    </a>
-                                    <a href="#"
-                                        class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-700 transition-colors">
-                                        <i class="fab fa-github mr-2"></i>Code
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">E-Commerce Platform</h3>
-                        <p class="text-gray-600 mb-4">
-                            Platform e-commerce lengkap dengan fitur keranjang belanja, payment gateway, dan admin
-                            dashboard.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">React</span>
-                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Node.js</span>
-                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">MongoDB</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card card-hover bg-white rounded-lg shadow-lg overflow-hidden relative fade-in">
-                    <div class="relative">
-                        <img src="https://via.placeholder.com/400x250/764ba2/ffffff?text=Task+Manager"
-                            alt="Task Manager" class="w-full h-48 object-cover">
-                        <div class="project-overlay absolute inset-0 flex items-center justify-center">
-                            <div class="text-center text-white">
-                                <h4 class="text-xl font-bold mb-2">Task Manager App</h4>
-                                <p class="mb-4">Aplikasi manajemen tugas dengan Vue.js</p>
-                                <div class="space-x-2">
-                                    <a href="#"
-                                        class="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition-colors">
-                                        <i class="fas fa-eye mr-2"></i>Demo
-                                    </a>
-                                    <a href="#"
-                                        class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-700 transition-colors">
-                                        <i class="fab fa-github mr-2"></i>Code
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Task Manager App</h3>
-                        <p class="text-gray-600 mb-4">
-                            Aplikasi produktivitas untuk mengelola tugas harian dengan fitur drag & drop dan notifikasi.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Vue.js</span>
-                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Laravel</span>
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">MySQL</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card card-hover bg-white rounded-lg shadow-lg overflow-hidden relative fade-in">
-                    <div class="relative">
-                        <img src="https://via.placeholder.com/400x250/4facfe/ffffff?text=Weather+App" alt="Weather App"
-                            class="w-full h-48 object-cover">
-                        <div class="project-overlay absolute inset-0 flex items-center justify-center">
-                            <div class="text-center text-white">
-                                <h4 class="text-xl font-bold mb-2">Weather Dashboard</h4>
-                                <p class="mb-4">Dashboard cuaca real-time dengan API integration</p>
-                                <div class="space-x-2">
-                                    <a href="#"
-                                        class="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 transition-colors">
-                                        <i class="fas fa-eye mr-2"></i>Demo
-                                    </a>
-                                    <a href="#"
-                                        class="bg-gray-600 px-4 py-2 rounded hover:bg-gray-700 transition-colors">
-                                        <i class="fab fa-github mr-2"></i>Code
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Weather Dashboard</h3>
-                        <p class="text-gray-600 mb-4">
-                            Dashboard cuaca interaktif dengan data real-time, prediksi 7 hari, dan visualisasi data.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                            <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Chart.js</span>
-                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">API</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 fade-in">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Hubungi Saya</h2>
-                <div class="w-20 h-1 bg-purple-600 mx-auto mb-6"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Mari berdiskusi tentang proyek Anda atau sekadar berkenalan. Saya selalu terbuka untuk peluang baru!
-                </p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="fade-in">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Mari Terhubung</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-center">
-                            <div
-                                class="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Email</h4>
-                                <p class="text-gray-600">intra.hidayat@example.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <div
-                                class="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Telepon</h4>
-                                <p class="text-gray-600">+62 xxx xxxx xxxx</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <div
-                                class="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Lokasi</h4>
-                                <p class="text-gray-600">Indonesia</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Social Media -->
-                    <div class="mt-8">
-                        <h4 class="font-semibold text-gray-800 mb-4">Ikuti Saya</h4>
-                        <div class="flex space-x-4">
-                            <a href="#"
-                                class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
-                                <i class="fab fa-linkedin-in"></i>
                             </a>
-                            <a href="#"
-                                class="bg-gray-800 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-900 transition-colors">
-                                <i class="fab fa-github"></i>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all message</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notification</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Stok bahan rendah</h6>
+                                <small>15 menit yang lalu</small>
                             </a>
-                            <a href="#"
-                                class="bg-blue-400 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
-                                <i class="fab fa-twitter"></i>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Pola baru ditambahkan</h6>
+                                <small>30 menit yang lalu</small>
                             </a>
-                            <a href="#"
-                                class="bg-pink-600 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors">
-                                <i class="fab fa-instagram"></i>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Mesin maintenance</h6>
+                                <small>1 jam yang lalu</small>
                             </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all notifications</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                                style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">Admin Songket</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
+            </nav>
+            <!-- Navbar End -->
 
-                <div class="fade-in">
-                    <form id="contact-form" class="bg-white rounded-lg shadow-lg p-8">
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Nama</label>
-                            <input
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-600 transition-colors"
-                                id="name" type="text" placeholder="Nama Anda" required>
+            <!-- Page Header Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light rounded h-100 p-4 page-header">
+                            <div class="d-flex align-items-center justify-content-between mb-0">
+                                <div class="d-flex align-items-center">
+                                    <div class="status-indicator me-3">
+                                        <span class="status-dot bg-success"></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">Monitoring Produksi Songket</h6>
+                                        <small class="text-muted">Sistem aktif dan terhubung</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3 text-end">
+                                        <span id="live-date" class="text-muted d-block small"></span>
+                                        <span id="live-clock" class="fw-bold text-primary digital-clock"></span>
+                                    </div>
+                                    <div class="clock-icon">
+                                        <i class="fas fa-clock text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                            <input
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-600 transition-colors"
-                                id="email" type="email" placeholder="Email Anda" required>
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="subject">Subjek</label>
-                            <input
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-600 transition-colors"
-                                id="subject" type="text" placeholder="Subjek Pesan" required>
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="message">Pesan</label>
-                            <textarea
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-600 transition-colors h-32 resize-none"
-                                id="message" placeholder="Pesan Anda" required></textarea>
-                        </div>
-                        <button type="submit"
-                            class="w-full bg-purple-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-purple-700 transition-colors">
-                            <i class="fas fa-paper-plane mr-2"></i>Kirim Pesan
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
+            <!-- Page Header End -->
+
+            <!-- Monitoring Cards Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 monitoring-card position-relative"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Total produksi songket hari ini dalam satuan centimeter">
+                            <div class="icon-container">
+                                <i class="fas fa-industry fa-3x text-primary"></i>
+                                <div class="pulse-indicator position-absolute top-0 end-0">
+                                    <span class="badge bg-success rounded-pill pulse-dot">Live</span>
+                                </div>
+                            </div>
+                            <div class="ms-3 text-content">
+                                <p class="mb-2">Produksi Hari Ini</p>
+                                <h6 class="mb-0">1,250 cm</h6>
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up"></i> +5% dari kemarin
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 monitoring-card position-relative"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Total stok songket tersedia dari semua pola">
+                            <div class="icon-container">
+                                <i class="fas fa-boxes fa-3x text-success"></i>
+                                <div class="pulse-indicator position-absolute top-0 end-0">
+                                    <span class="badge bg-primary rounded-pill pulse-dot">OK</span>
+                                </div>
+                            </div>
+                            <div class="ms-3 text-content">
+                                <p class="mb-2">Total Stok</p>
+                                <h6 class="mb-0">15,750 cm</h6>
+                                <small class="text-info">
+                                    <i class="fas fa-chart-line"></i> Status normal
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 monitoring-card position-relative"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Jumlah pola songket yang tersedia untuk produksi">
+                            <div class="icon-container">
+                                <i class="fas fa-palette fa-3x text-warning"></i>
+                                <div class="pulse-indicator position-absolute top-0 end-0">
+                                    <span class="badge bg-warning rounded-pill pulse-dot text-dark">Active</span>
+                                </div>
+                            </div>
+                            <div class="ms-3 text-content">
+                                <p class="mb-2">Jumlah Pola</p>
+                                <h6 class="mb-0">12 Pola</h6>
+                                <small class="text-warning">
+                                    <i class="fas fa-plus-circle"></i> 2 pola baru
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 monitoring-card position-relative"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Total produksi songket dalam bulan berjalan">
+                            <div class="icon-container">
+                                <i class="fas fa-chart-line fa-3x text-info"></i>
+                                <div class="pulse-indicator position-absolute top-0 end-0">
+                                    <span class="badge bg-info rounded-pill pulse-dot">Trending</span>
+                                </div>
+                            </div>
+                            <div class="ms-3 text-content">
+                                <p class="mb-2">Produksi Bulan Ini</p>
+                                <h6 class="mb-0">28,950 cm</h6>
+                                <small class="text-success">
+                                    <i class="fas fa-trophy"></i> Target tercapai 80%
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Monitoring Cards End -->
+
+
+            <!-- Production Chart Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light text-center rounded p-4 h-100 chart-card">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0"><i class="fas fa-chart-line me-2 text-primary"></i>Produksi Mingguan
+                                </h6>
+                                <a href="" class="btn btn-sm btn-outline-primary">Lihat Detail</a>
+                            </div>
+                            <div class="chart-container position-relative">
+                                <canvas id="weekly-production"></canvas>
+                                <div class="chart-overlay d-none">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light text-center rounded p-4 h-100 chart-card">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0"><i class="fas fa-chart-pie me-2 text-success"></i>Stok per Pola</h6>
+                                <a href="" class="btn btn-sm btn-outline-success">Lihat Detail</a>
+                            </div>
+                            <div class="chart-container position-relative">
+                                <canvas id="stock-by-pattern"></canvas>
+                                <div class="chart-overlay d-none">
+                                    <div class="spinner-border text-success" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Production Chart End -->
+
+
+            <!-- Songket Patterns Stock Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Stok Pola Songket</h6>
+                        <a href="">Lihat Semua</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Pola</th>
+                                    <th scope="col">Kategori</th>
+                                    <th scope="col">Stok (cm)</th>
+                                    <th scope="col">Produksi Hari Ini</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Pola Bunga Melati</td>
+                                    <td>Klasik</td>
+                                    <td><span class="fw-bold text-success">2,850 cm</span></td>
+                                    <td>150 cm</td>
+                                    <td><span class="badge bg-success">Tersedia</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Pola Tengkulok</td>
+                                    <td>Tradisional</td>
+                                    <td><span class="fw-bold text-success">1,950 cm</span></td>
+                                    <td>120 cm</td>
+                                    <td><span class="badge bg-success">Tersedia</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Pola Pucuk Rebung</td>
+                                    <td>Modern</td>
+                                    <td><span class="fw-bold text-warning">850 cm</span></td>
+                                    <td>95 cm</td>
+                                    <td><span class="badge bg-warning">Terbatas</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Pola Bungo Tanjung</td>
+                                    <td>Klasik</td>
+                                    <td><span class="fw-bold text-success">3,200 cm</span></td>
+                                    <td>180 cm</td>
+                                    <td><span class="badge bg-success">Tersedia</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Pola Itik Pulang Petang</td>
+                                    <td>Tradisional</td>
+                                    <td><span class="fw-bold text-danger">450 cm</span></td>
+                                    <td>75 cm</td>
+                                    <td><span class="badge bg-danger">Menipis</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Pola Saik Akar</td>
+                                    <td>Modern</td>
+                                    <td><span class="fw-bold text-success">1,750 cm</span></td>
+                                    <td>110 cm</td>
+                                    <td><span class="badge bg-success">Tersedia</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Songket Patterns Stock End -->
+
+
+            <!-- Production Widgets Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="h-100 bg-light rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 class="mb-0">Status Produksi</h6>
+                                <a href="">Lihat Semua</a>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Pola Bunga Melati</h6>
+                                        <small>Selesai</small>
+                                    </div>
+                                    <span>Produksi 150 cm berhasil diselesaikan</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <div class="bg-warning rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="fas fa-clock text-white"></i>
+                                </div>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Pola Tengkulok</h6>
+                                        <small>Proses</small>
+                                    </div>
+                                    <span>Sedang produksi 120 cm (75% selesai)</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <div class="bg-info rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="fas fa-play text-white"></i>
+                                </div>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Pola Pucuk Rebung</h6>
+                                        <small>Mulai</small>
+                                    </div>
+                                    <span>Memulai produksi 95 cm</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pt-3">
+                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="fas fa-plus text-white"></i>
+                                </div>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Antrian Produksi</h6>
+                                        <small>3 Pola</small>
+                                    </div>
+                                    <span>Menunggu jadwal produksi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="h-100 bg-light rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Target vs Realisasi</h6>
+                                <a href="">Detail</a>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-2">
+                                <i class="fas fa-calendar-day fa-2x text-primary"></i>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Target Harian</h6>
+                                        <span class="text-success">1,200 cm</span>
+                                    </div>
+                                    <div class="progress" style="height: 5px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 104%;"
+                                            aria-valuenow="104" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-success">Tercapai: 1,250 cm (104%)</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-2">
+                                <i class="fas fa-calendar-week fa-2x text-warning"></i>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Target Mingguan</h6>
+                                        <span class="text-warning">8,400 cm</span>
+                                    </div>
+                                    <div class="progress" style="height: 5px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 78%;"
+                                            aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-warning">Tercapai: 6,550 cm (78%)</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pt-2">
+                                <i class="fas fa-calendar-alt fa-2x text-info"></i>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Target Bulanan</h6>
+                                        <span class="text-info">36,000 cm</span>
+                                    </div>
+                                    <div class="progress" style="height: 5px;">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%;"
+                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-info">Tercapai: 28,950 cm (80%)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="h-100 bg-light rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Kalender Produksi</h6>
+                                <a href="">Lihat Kalender</a>
+                            </div>
+                            <div class="calendar-widget">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h6 class="mb-0" id="calendar-month">Juni 2025</h6>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-primary" id="prev-month"
+                                            onclick="changeMonth(-1)">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-primary ms-1" id="next-month"
+                                            onclick="changeMonth(1)">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row text-center mb-2 calendar-header">
+                                    <div class="col">Min</div>
+                                    <div class="col">Sen</div>
+                                    <div class="col">Sel</div>
+                                    <div class="col">Rab</div>
+                                    <div class="col">Kam</div>
+                                    <div class="col">Jum</div>
+                                    <div class="col">Sab</div>
+                                </div>
+                                <div id="calendar-days-container">
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span class="text-muted"></span></div>
+                                        <div class="col"><span class="text-muted"></span></div>
+                                        <div class="col"><span class="text-muted"></span></div>
+                                        <div class="col"><span class="text-muted"></span></div>
+                                        <div class="col"><span>1</span></div>
+                                        <div class="col"><span>2</span></div>
+                                        <div class="col"><span>3</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span>4</span></div>
+                                        <div class="col"><span>5</span></div>
+                                        <div class="col"><span>6</span></div>
+                                        <div class="col"><span>7</span></div>
+                                        <div class="col"><span>8</span></div>
+                                        <div class="col"><span>9</span></div>
+                                        <div class="col"><span>10</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span>11</span></div>
+                                        <div class="col"><span>12</span></div>
+                                        <div class="col"><span>13</span></div>
+                                        <div class="col"><span>14</span></div>
+                                        <div class="col"><span>15</span></div>
+                                        <div class="col"><span>16</span></div>
+                                        <div class="col"><span>17</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span>18</span></div>
+                                        <div class="col"><span>19</span></div>
+                                        <div class="col"><span>20</span></div>
+                                        <div class="col"><span>21</span></div>
+                                        <div class="col"><span>22</span></div>
+                                        <div class="col"><span
+                                                class="bg-primary text-white rounded-circle p-1">23</span></div>
+                                        <div class="col"><span>24</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span>25</span></div>
+                                        <div class="col"><span>26</span></div>
+                                        <div class="col"><span>27</span></div>
+                                        <div class="col"><span>28</span></div>
+                                        <div class="col"><span>29</span></div>
+                                        <div class="col"><span>30</span></div>
+                                        <div class="col"><span class="text-muted">1</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span class="text-muted">2</span></div>
+                                        <div class="col"><span class="text-muted">3</span></div>
+                                        <div class="col"><span class="text-muted">4</span></div>
+                                        <div class="col"><span class="text-muted">5</span></div>
+                                        <div class="col"><span class="text-muted">6</span></div>
+                                        <div class="col"><span class="text-muted">7</span></div>
+                                        <div class="col"><span class="text-muted">8</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <!-- <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                        </div>
+                        <div class="col-12 col-sm-6 text-center text-sm-end">
+                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            </br>
+                            Distributed By <a class="border-bottom" href="https://themewagon.com"
+                                target="_blank">ThemeWagon</a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <!-- Footer End -->
         </div>
-    </section>
+        <!-- Content End -->
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 Intra Swadaya Hidayat. All rights reserved.</p>
-            <p class="mt-2 text-gray-400">Dibuat dengan ❤️ menggunakan HTML, CSS, dan JavaScript</p>
-        </div>
-    </footer>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top"
-        class="fixed bottom-6 right-6 bg-purple-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-purple-700 transition-all transform scale-0">
-        <i class="fas fa-chevron-up"></i>
-    </button>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
 
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Songket Production Dashboard Scripts -->
     <script>
-        // Typing Animation
-        const texts = ['Web Developer', 'Full-Stack Developer', 'UI/UX Enthusiast', 'Problem Solver'];
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typingElement = document.getElementById('typing-text');
+        // Initialize Bootstrap tooltips on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Bootstrap tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
 
-        function typeText() {
-            const currentText = texts[textIndex];
+        // Weekly Production Chart
+        var ctx1 = $("#weekly-production").get(0).getContext("2d");
+        var weeklyProductionChart = new Chart(ctx1, {
+            type: "line",
+            data: {
+                labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
+                datasets: [{
+                    label: "Produksi (cm)",
+                    data: [1200, 1350, 1100, 1450, 1250, 900, 750],
+                    backgroundColor: "rgba(0, 156, 255, .2)",
+                    borderColor: "rgba(0, 156, 255, 1)",
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: "rgba(0, 156, 255, 1)",
+                    pointBorderColor: "#fff",
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            callback: function (value) {
+                                return value + ' cm';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
 
-            if (isDeleting) {
-                typingElement.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typingElement.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
+        // Stock by Pattern Chart (Doughnut)
+        var ctx2 = $("#stock-by-pattern").get(0).getContext("2d");
+        var stockByPatternChart = new Chart(ctx2, {
+            type: "doughnut",
+            data: {
+                labels: ["Bunga Melati", "Tengkulok", "Pucuk Rebung", "Bungo Tanjung", "Itik Pulang Petang", "Saik Akar"],
+                datasets: [{
+                    data: [2850, 1950, 850, 3200, 450, 1750],
+                    backgroundColor: [
+                        "rgba(0, 156, 255, .8)",
+                        "rgba(40, 167, 69, .8)",
+                        "rgba(255, 193, 7, .8)",
+                        "rgba(23, 162, 184, .8)",
+                        "rgba(220, 53, 69, .8)",
+                        "rgba(108, 117, 125, .8)"
+                    ],
+                    borderWidth: 3,
+                    borderColor: "rgba(255, 255, 255, 1)",
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.label + ': ' + context.parsed.toLocaleString('id-ID') + ' cm';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Auto-refresh data every 30 seconds (simulation)
+        setInterval(function () {
+            // Update production numbers (simulation)
+            var productionToday = Math.floor(Math.random() * 200) + 1150;
+            const productionElement = document.querySelector('.monitoring-card .text-content h6');
+            if (productionElement) {
+                productionElement.textContent = productionToday.toLocaleString('id-ID') + ' cm';
             }
 
-            let typeSpeed = isDeleting ? 50 : 100;
+            // Update progress bars animation
+            document.querySelectorAll('.progress-bar').forEach(function (bar) {
+                var width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(function () {
+                    bar.style.width = width;
+                }, 100);
+            });
 
-            if (!isDeleting && charIndex === currentText.length) {
-                typeSpeed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % texts.length;
-                typeSpeed = 500;
-            }
+            // Pulse animation for monitoring cards
+            document.querySelectorAll('.monitoring-card').forEach(function (card, index) {
+                setTimeout(() => {
+                    card.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        card.style.transform = 'scale(1)';
+                    }, 200);
+                }, index * 100);
+            });
+        }, 30000);
 
-            setTimeout(typeText, typeSpeed);
+        // Real-time clock
+        function updateClock() {
+            var now = new Date();
+            var timeString = now.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            var dateString = now.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Update if clock element exists
+            document.querySelectorAll('#live-clock').forEach(element => {
+                element.textContent = timeString;
+            });
+            document.querySelectorAll('#live-date').forEach(element => {
+                element.textContent = dateString;
+            });
         }
 
-        // Start typing animation
-        typeText();
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        // Calendar Navigation Functions
+        let currentMonth = 5; // Juni (0-based, jadi Juni = 5)
+        let currentYear = 2025;
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.classList.add('navbar-scroll');
-            } else {
-                navbar.classList.remove('navbar-scroll');
+        const monthNames = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
+        function changeMonth(direction) {
+            currentMonth += direction;
+
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
             }
-        });
 
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+            updateCalendarDisplay();
+        }
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Fade in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Skill bars animation
-        const skillObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const skillBars = entry.target.querySelectorAll('.skill-bar');
-                    skillBars.forEach(bar => {
-                        const width = bar.getAttribute('data-width');
-                        setTimeout(() => {
-                            bar.style.width = width + '%';
-                        }, 200);
-                    });
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('#skills').forEach(el => {
-            skillObserver.observe(el);
-        });
-
-        // Contact form submission
-        document.getElementById('contact-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Simple form validation
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-
-            if (name && email && subject && message) {
-                alert('Terima kasih! Pesan Anda telah dikirim. Saya akan menghubungi Anda segera.');
-                this.reset();
-            } else {
-                alert('Mohon lengkapi semua field!');
+        function updateCalendarDisplay() {
+            const monthElement = document.getElementById('calendar-month');
+            if (monthElement) {
+                monthElement.textContent = monthNames[currentMonth] + ' ' + currentYear;
             }
-        });
 
-        // Back to top button
-        const backToTopBtn = document.getElementById('back-to-top');
+            // Generate calendar days for the new month
+            generateCalendarDays();
+        }
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.remove('scale-0');
-                backToTopBtn.classList.add('scale-100');
-            } else {
-                backToTopBtn.classList.remove('scale-100');
-                backToTopBtn.classList.add('scale-0');
+        function generateCalendarDays() {
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const today = new Date();
+            const isCurrentMonth = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
+            const todayDate = today.getDate();
+
+            // Find calendar container
+            const calendarContainer = document.getElementById('calendar-days-container');
+            if (!calendarContainer) return;
+
+            // Clear existing calendar days
+            calendarContainer.innerHTML = '';
+
+            // Generate new calendar
+            let html = '';
+            let date = 1;
+
+            // Generate 6 weeks (6 rows)
+            for (let week = 0; week < 6; week++) {
+                html += '<div class="row text-center calendar-week">';
+
+                // Generate 7 days per week
+                for (let day = 0; day < 7; day++) {
+                    if (week === 0 && day < firstDay) {
+                        // Empty cells before first day of month
+                        html += '<div class="col"><span class="text-muted"></span></div>';
+                    } else if (date > daysInMonth) {
+                        // Days from next month
+                        const nextMonthDate = date - daysInMonth;
+                        html += `<div class="col"><span class="text-muted">${nextMonthDate}</span></div>`;
+                        date++;
+                    } else {
+                        // Current month days
+                        const isToday = isCurrentMonth && date === todayDate;
+                        const todayClass = isToday ? 'bg-primary text-white' : '';
+                        html += `<div class="col"><span class="${todayClass}">${date}</span></div>`;
+                        date++;
+                    }
+                }
+
+                html += '</div>';
+
+                // Stop if we've filled all weeks and shown all days
+                if (date > daysInMonth + 7) break;
             }
-        });
 
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+            // Insert new calendar HTML
+            calendarContainer.innerHTML = html;
+        }
 
-        // Add active state to navigation links
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('text-purple-600');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('text-purple-600');
-                }
-            });
-        });
-
-        // Initialize skill bar widths to 0
-        document.querySelectorAll('.skill-bar').forEach(bar => {
-            bar.style.width = '0%';
+        // Initialize calendar on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCalendarDisplay();
         });
     </script>
 </body>
