@@ -1,2 +1,0 @@
-#ngapain dibaca?
-terserahlah.

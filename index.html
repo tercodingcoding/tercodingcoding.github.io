@@ -1,450 +1,913 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-   <!-- basic -->
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- mobile metas -->
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="viewport" content="initial-scale=1, maximum-scale=1"> <!-- site metas -->
-   <title>Jajanan D'Sa</title>
-   <meta name="keywords" content="jajanan indonesia, kue tradisional, putu ayu, brownies, mochi">
-   <meta name="description" content="Jajanan D'Sa - Jajanan Indonesia yang bikin ketagihan">
-   <meta name="author" content="Jajanan D'Sa">
-   <!-- bootstrap css -->
-   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-   <!-- style css -->
-   <link rel="stylesheet" type="text/css" href="css/style.css">
-   <!-- Responsive-->
-   <link rel="stylesheet" href="css/responsive.css">
-   <!-- fevicon -->
-   <link rel="icon" href="images/fevicon.png" type="image/gif" />
-   <!-- font css -->
-   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
-   <!-- Scrollbar Custom CSS -->
-   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-   <!-- Tweaks for older IEs-->
-   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <meta charset="utf-8">
+    <title>Dashboard Produksi Songket - Monitoring Sistem</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="dashboard, songket, produksi, monitoring" name="keywords">
+    <meta content="Dashboard untuk monitoring sistem pengelolaan data produksi songket" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Songket Dashboard Custom Stylesheet -->
+    <link href="css/songket-dashboard.css" rel="stylesheet">
 </head>
 
 <body>
-   <div class="header_section">
-      <div class="container">
-         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="index.html"><img src="https://placehold.co/200x50?text=Logo"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-               <ul class="navbar-nav ml-auto">
-                  <li class="nav-item active">
-                     <a class="nav-link" href="index.html">Beranda</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="about.html">Tentang</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="jajanan.html">Jajanan</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="services.html">Layanan</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="blog.html">Blog</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="contact.html">Kontak</a>
-                  </li>
-               </ul>
-               <form class="form-inline my-2 my-lg-0">
-                  <div class="login_bt"><a href="#">Login <span style="color: #222222;"><i class="fa fa-user"
-                              aria-hidden="true"></i></span></a></div>
-                  <div class="fa fa-search form-control-feedback"></div>
-               </form>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
-         </nav>
-      </div>
-      <!-- banner section start -->
-      <div class="banner_section layout_padding">
-         <div class="container">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-               <ol class="carousel-indicators">
-                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">01</li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="1">02</li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="2">03</li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="3">04</li>
-               </ol>
-               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                     <div class="row">
-                        <div class="col-sm-6">
-                           <h1 class="banner_taital">Jajanan D'Sa</h1>
-                           <p class="banner_text">Nikmati kelezatan jajanan tradisional Indonesia yang dibuat dengan
-                              resep turun temurun. Cita rasa autentik yang bikin ketagihan!</p>
-                           <div class="started_text"><a href="#">Pesan Sekarang</a></div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fas fa-square me-2"></i>Songket Pro</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <div
+                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
-                        <div class="col-sm-6">
-                           <div class="banner_img"><img src="https://placehold.co/600x400?text=Jajanan+D'Sa"></div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0">Admin Produksi</h6>
+                        <span>Supervisor</span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="index.html" class="nav-item nav-link active"><i
+                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="production.html" class="nav-item nav-link"><i class="fas fa-cogs me-2"></i>Data
+                        Produksi</a>
+                    <a href="patterns.html" class="nav-item nav-link"><i class="fas fa-palette me-2"></i>Pola
+                        Songket</a>
+                    <a href="stock.html" class="nav-item nav-link"><i class="fas fa-boxes me-2"></i>Stok</a>
+                    <a href="reports.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Laporan</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fas fa-tools me-2"></i>Pengaturan</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="users.html" class="dropdown-item">Pengguna</a>
+                            <a href="categories.html" class="dropdown-item">Kategori Pola</a>
+                            <a href="settings.html" class="dropdown-item">Konfigurasi</a>
                         </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="row">
-                        <div class="col-sm-6">
-                           <h1 class="banner_taital">Rasa Tradisional</h1>
-                           <p class="banner_text">Dari Putu Ayu yang lembut hingga Brownies yang nikmat, setiap gigitan
-                              adalah petualangan cita rasa yang tak terlupakan!</p>
-                           <div class="started_text"><a href="#">Pesan Sekarang</a></div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="banner_img"><img src="https://placehold.co/600x400?text=Rasa+Tradisional"></div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="row">
-                        <div class="col-sm-6">
-                           <h1 class="banner_taital">Bikin Ketagihan</h1>
-                           <p class="banner_text">Mochi isi coklat, Kue Lapis, Srikaya Ketan - semua dibuat dengan resep
-                              rahasia yang bikin ketagihan!</p>
-                           <div class="started_text"><a href="#">Pesan Sekarang</a></div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="banner_img"><img src="https://placehold.co/600x400?text=Bikin+Ketagihan"></div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="row">
-                        <div class="col-sm-6">
-                           <h1 class="banner_taital">Camilan Nusantara</h1>
-                           <p class="banner_text">Risol, Martabak, Tahu Jeletot - camilan autentik Indonesia yang
-                              menggoyang lidah dengan kelezatan tiada tara!</p>
-                           <div class="started_text"><a href="#">Pesan Sekarang</a></div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="banner_img"><img src="https://placehold.co/600x400?text=Camilan+Nusantara"></div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- banner section end -->
-   </div>
-   <!-- header section end -->
-   <!-- about sectuion start -->
-   <div class="about_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-6">
-               <div class="about_img"><img src="https://placehold.co/600x400?text=Tentang+Jajanan+D'Sa"></div>
-            </div>
-            <div class="col-md-6">
-               <h1 class="about_taital">Tentang Jajanan D'Sa</h1>
-               <p class="about_text">Jajanan D'Sa adalah usaha rumahan yang menyajikan berbagai jajanan tradisional
-                  Indonesia dengan cita rasa autentik. Dibuat dengan bahan-bahan berkualitas dan resep turun temurun,
-                  setiap produk kami dirancang untuk memberikan pengalaman kuliner yang tak terlupakan. Slogan kami
-                  "bikin ketagihan" bukan hanya janji, tapi jaminan kualitas rasa yang akan membuat Anda kembali lagi!
-               </p>
-               <div class="read_bt_1"><a href="#">Selengkapnya</a></div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- about sectuion end -->
-   <!-- cream sectuion start -->
-   <div class="cream_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <h1 class="cream_taital">Jajanan Unggulan Kami</h1>
-               <p class="cream_text">Pilihan jajanan terbaik yang bikin ketagihan</p>
-            </div>
-         </div>
-         <div class="cream_section_2">
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Putu+Ayu"></div>
-                     <div class="price_text">Rp 15K</div>
-                     <h6 class="strawberry_text">Putu Ayu</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Brownies"></div>
-                     <div class="price_text">Rp 20K</div>
-                     <h6 class="strawberry_text">Brownies</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Caramel"></div>
-                     <div class="price_text">Rp 18K</div>
-                     <h6 class="strawberry_text">Caramel</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="cream_section_2">
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Mochi+Isi+Coklat"></div>
-                     <div class="price_text">Rp 12K</div>
-                     <h6 class="strawberry_text">Mochi Isi Coklat</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Kue+Lapis"></div>
-                     <div class="price_text">Rp 22K</div>
-                     <h6 class="strawberry_text">Kue Lapis</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Srikaya+Ketan"></div>
-                     <div class="price_text">Rp 16K</div>
-                     <h6 class="strawberry_text">Srikaya Ketan</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="cream_section_2">
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Risol+Kentang+Wortel"></div>
-                     <div class="price_text">Rp 8K</div>
-                     <h6 class="strawberry_text">Risol Kentang Wortel</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Martabak+Isi+Kentang"></div>
-                     <div class="price_text">Rp 10K</div>
-                     <h6 class="strawberry_text">Martabak Isi Kentang</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Risol+Isi+Bihun"></div>
-                     <div class="price_text">Rp 7K</div>
-                     <h6 class="strawberry_text">Risol Isi Bihun</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="cream_section_2">
-            <div class="row">
-               <div class="col-md-6">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Rogout"></div>
-                     <div class="price_text">Rp 25K</div>
-                     <h6 class="strawberry_text">Rogout</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-               <div class="col-md-6">
-                  <div class="cream_box">
-                     <div class="cream_img"><img src="https://placehold.co/300x300?text=Tahu+Jeletot"></div>
-                     <div class="price_text">Rp 9K</div>
-                     <h6 class="strawberry_text">Tahu Jeletot</h6>
-                     <div class="cart_bt"><a href="#">Pesan</a></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="seemore_bt"><a href="#">Lihat Semua</a></div>
-      </div>
-   </div>
-   <!-- cream sectuion end -->
-   <!-- services section start -->
-   <div class="services_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <h1 class="services_taital">Layanan Jajanan D'Sa</h1>
-               <p class="services_text">Pelayanan terbaik untuk kepuasan pelanggan</p>
-            </div>
-         </div>
-         <div class="services_section_2">
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="services_box">
-                     <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-1.png"></span>Pesan Antar</h5>
-                     <p class="lorem_text">Kami menyediakan layanan pesan antar untuk kenyamanan Anda. Jajanan segar
-                        langsung ke rumah Anda!</p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="services_box">
-                     <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-2.png"></span>Pre Order</h5>
-                     <p class="lorem_text">Pesan terlebih dahulu untuk acara spesial Anda. Kami siap menyiapkan jajanan
-                        dalam jumlah besar.</p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="services_box">
-                     <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-1.png"></span>Kualitas Terjamin
-                     </h5>
-                     <p class="lorem_text">Semua jajanan dibuat dengan bahan berkualitas dan higienis. Kepuasan
-                        pelanggan adalah prioritas utama.</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="seemore_bt"><a href="#">Selengkapnya</a></div>
-      </div>
-   </div>
-   <!-- services section end -->
-   <!-- testimonial section start -->
-   <div class="testimonial_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <h1 class="testimonial_taital">Testimonial</h1>
-            </div>
-         </div>
-         <div class="testimonial_section_2">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="testimonial_box">
-                     <div id="main_slider" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                           <div class="carousel-item active">
-                              <p class="testimonial_text">Jajanan D'Sa benar-benar bikin ketagihan! Putu Ayu dan
-                                 Brownies-nya sangat lezat. Rasa tradisional yang autentik dengan kualitas modern. Pasti
-                                 akan pesan lagi!</p>
-                              <h4 class="client_name">Sari Indah</h4>
-                              <div class="client_img"><img src="https://placehold.co/100x100?text=SI"></div>
-                           </div>
-                           <div class="carousel-item">
-                              <p class="testimonial_text">Mochi isi coklat dan Kue Lapis dari Jajanan D'Sa sangat enak!
-                                 Harganya terjangkau dan rasanya premium. Pelayanan juga ramah dan cepat.</p>
-                              <h4 class="client_name">Budi Santoso</h4>
-                              <div class="client_img"><img src="https://placehold.co/100x100?text=BS"></div>
-                           </div>
-                           <div class="carousel-item">
-                              <p class="testimonial_text">Saya suka sekali dengan Risol dan Martabak dari Jajanan D'Sa.
-                                 Beneran bikin ketagihan seperti slogannya. Recommended banget!</p>
-                              <h4 class="client_name">Maya Putri</h4>
-                              <div class="client_img"><img src="https://placehold.co/100x100?text=MP"></div>
-                           </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-                           <i class="fa fa-angle-left"></i>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fas fa-industry"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4">
+                    <input class="form-control border-0" type="search" placeholder="Cari pola, produksi...">
+                </form>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Message</span>
                         </a>
-                        <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-                           <i class="fa fa-angle-right"></i>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <img class="rounded-circle" src="img/user.jpg" alt=""
+                                        style="width: 40px; height: 40px;">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">Produksi selesai</h6>
+                                        <small>15 menit yang lalu</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all message</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notification</span>
                         </a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- testimonial section end -->
-   <!-- contact section start -->
-   <div class="contact_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-4">
-               <div class="contact_main">
-                  <h1 class="contact_taital">Hubungi Kami</h1>
-                  <form action="/action_page.php">
-                     <div class="form-group">
-                        <input type="text" class="email-bt" placeholder="Nama" name="Name">
-                     </div>
-                     <div class="form-group">
-                        <input type="text" class="email-bt" placeholder="Email" name="Email">
-                     </div>
-                     <div class="form-group">
-                        <input type="text" class="email-bt" placeholder="Nomor Telepon" name="Phone">
-                     </div>
-                     <div class="form-group">
-                        <textarea class="massage-bt" placeholder="Pesan" rows="5" id="comment"
-                           name="Message"></textarea>
-                     </div>
-                  </form>
-                  <div class="main_bt"><a href="#">KIRIM</a></div>
-               </div>
-            </div>
-            <div class="col-md-8">
-               <div class="location_text">
-                  <ul>
-                     <li>
-                        <a href="#">
-                           <span class="padding_left_10 active"><i class="fa fa-map-marker"
-                                 aria-hidden="true"></i></span>Jl. Raya No. 123, Jakarta Selatan</a>
-                     </li>
-                     <li>
-                        <a href="#">
-                           <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>Call : +62
-                           812 3456 7890
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Stok bahan rendah</h6>
+                                <small>15 menit yang lalu</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Pola baru ditambahkan</h6>
+                                <small>30 menit yang lalu</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Mesin maintenance</h6>
+                                <small>1 jam yang lalu</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all notifications</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                                style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">Admin Songket</span>
                         </a>
-                     </li>
-                     <li>
-                        <a href="#">
-                           <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>Email :
-                           info@jajanandsa.com
-                        </a>
-                     </li>
-                  </ul>
-               </div>
-               <div class="mail_main">
-                  <h3 class="newsletter_text">Newsletter</h3>
-                  <div class="form-group">
-                     <textarea class="update_mail" placeholder="Masukkan Email Anda" rows="5" id="comment"
-                        name="Enter Your Email"></textarea>
-                     <div class="subscribe_bt"><a href="#">Berlangganan</a></div>
-                  </div>
-               </div>
-               <div class="footer_social_icon">
-                  <ul>
-                     <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                  </ul>
-               </div>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+            <!-- Page Header Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light rounded h-100 p-4 page-header">
+                            <div class="d-flex align-items-center justify-content-between mb-0">
+                                <div class="d-flex align-items-center">
+                                    <div class="status-indicator me-3">
+                                        <span class="status-dot bg-success"></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">Monitoring Produksi Songket</h6>
+                                        <small class="text-muted">Sistem aktif dan terhubung</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3 text-end">
+                                        <span id="live-date" class="text-muted d-block small"></span>
+                                        <span id="live-clock" class="fw-bold text-primary digital-clock"></span>
+                                    </div>
+                                    <div class="clock-icon">
+                                        <i class="fas fa-clock text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
-   <!-- contact section end --> <!-- copyright section start -->
-   <div class="copyright_section">
-      <div class="container">
-         <p class="copyright_text">2024 Jajanan D'Sa. Semua Hak Dilindungi. "Bikin Ketagihan" - Slogan Resmi Kami</p>
-      </div>
-   </div>
-   <!-- copyright section end -->
-   <!-- Javascript files-->
-   <script src="js/jquery.min.js"></script>
-   <script src="js/popper.min.js"></script>
-   <script src="js/bootstrap.bundle.min.js"></script>
-   <script src="js/jquery-3.0.0.min.js"></script>
-   <script src="js/plugin.js"></script>
-   <!-- sidebar -->
-   <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-   <script src="js/custom.js"></script>
-   <!-- javascript -->
+            <!-- Page Header End -->
+
+            <!-- Monitoring Cards Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 monitoring-card position-relative"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Total produksi songket hari ini dalam satuan centimeter">
+                            <div class="icon-container">
+                                <i class="fas fa-industry fa-3x text-primary"></i>
+                                <div class="pulse-indicator position-absolute top-0 end-0">
+                                    <span class="badge bg-success rounded-pill pulse-dot">Live</span>
+                                </div>
+                            </div>
+                            <div class="ms-3 text-content">
+                                <p class="mb-2">Produksi Hari Ini</p>
+                                <h6 class="mb-0">1,250 cm</h6>
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up"></i> +5% dari kemarin
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 monitoring-card position-relative"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Total stok songket tersedia dari semua pola">
+                            <div class="icon-container">
+                                <i class="fas fa-boxes fa-3x text-success"></i>
+                                <div class="pulse-indicator position-absolute top-0 end-0">
+                                    <span class="badge bg-primary rounded-pill pulse-dot">OK</span>
+                                </div>
+                            </div>
+                            <div class="ms-3 text-content">
+                                <p class="mb-2">Total Stok</p>
+                                <h6 class="mb-0">15,750 cm</h6>
+                                <small class="text-info">
+                                    <i class="fas fa-chart-line"></i> Status normal
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 monitoring-card position-relative"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Jumlah pola songket yang tersedia untuk produksi">
+                            <div class="icon-container">
+                                <i class="fas fa-palette fa-3x text-warning"></i>
+                                <div class="pulse-indicator position-absolute top-0 end-0">
+                                    <span class="badge bg-warning rounded-pill pulse-dot text-dark">Active</span>
+                                </div>
+                            </div>
+                            <div class="ms-3 text-content">
+                                <p class="mb-2">Jumlah Pola</p>
+                                <h6 class="mb-0">12 Pola</h6>
+                                <small class="text-warning">
+                                    <i class="fas fa-plus-circle"></i> 2 pola baru
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 monitoring-card position-relative"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Total produksi songket dalam bulan berjalan">
+                            <div class="icon-container">
+                                <i class="fas fa-chart-line fa-3x text-info"></i>
+                                <div class="pulse-indicator position-absolute top-0 end-0">
+                                    <span class="badge bg-info rounded-pill pulse-dot">Trending</span>
+                                </div>
+                            </div>
+                            <div class="ms-3 text-content">
+                                <p class="mb-2">Produksi Bulan Ini</p>
+                                <h6 class="mb-0">28,950 cm</h6>
+                                <small class="text-success">
+                                    <i class="fas fa-trophy"></i> Target tercapai 80%
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Monitoring Cards End -->
+
+
+            <!-- Production Chart Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light text-center rounded p-4 h-100 chart-card">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0"><i class="fas fa-chart-line me-2 text-primary"></i>Produksi Mingguan
+                                </h6>
+                                <a href="" class="btn btn-sm btn-outline-primary">Lihat Detail</a>
+                            </div>
+                            <div class="chart-container position-relative">
+                                <canvas id="weekly-production"></canvas>
+                                <div class="chart-overlay d-none">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light text-center rounded p-4 h-100 chart-card">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0"><i class="fas fa-chart-pie me-2 text-success"></i>Stok per Pola</h6>
+                                <a href="" class="btn btn-sm btn-outline-success">Lihat Detail</a>
+                            </div>
+                            <div class="chart-container position-relative">
+                                <canvas id="stock-by-pattern"></canvas>
+                                <div class="chart-overlay d-none">
+                                    <div class="spinner-border text-success" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Production Chart End -->
+
+
+            <!-- Songket Patterns Stock Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Stok Pola Songket</h6>
+                        <a href="">Lihat Semua</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Pola</th>
+                                    <th scope="col">Kategori</th>
+                                    <th scope="col">Stok (cm)</th>
+                                    <th scope="col">Produksi Hari Ini</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Pola Bunga Melati</td>
+                                    <td>Klasik</td>
+                                    <td><span class="fw-bold text-success">2,850 cm</span></td>
+                                    <td>150 cm</td>
+                                    <td><span class="badge bg-success">Tersedia</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Pola Tengkulok</td>
+                                    <td>Tradisional</td>
+                                    <td><span class="fw-bold text-success">1,950 cm</span></td>
+                                    <td>120 cm</td>
+                                    <td><span class="badge bg-success">Tersedia</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Pola Pucuk Rebung</td>
+                                    <td>Modern</td>
+                                    <td><span class="fw-bold text-warning">850 cm</span></td>
+                                    <td>95 cm</td>
+                                    <td><span class="badge bg-warning">Terbatas</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Pola Bungo Tanjung</td>
+                                    <td>Klasik</td>
+                                    <td><span class="fw-bold text-success">3,200 cm</span></td>
+                                    <td>180 cm</td>
+                                    <td><span class="badge bg-success">Tersedia</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Pola Itik Pulang Petang</td>
+                                    <td>Tradisional</td>
+                                    <td><span class="fw-bold text-danger">450 cm</span></td>
+                                    <td>75 cm</td>
+                                    <td><span class="badge bg-danger">Menipis</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Pola Saik Akar</td>
+                                    <td>Modern</td>
+                                    <td><span class="fw-bold text-success">1,750 cm</span></td>
+                                    <td>110 cm</td>
+                                    <td><span class="badge bg-success">Tersedia</span></td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Songket Patterns Stock End -->
+
+
+            <!-- Production Widgets Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="h-100 bg-light rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 class="mb-0">Status Produksi</h6>
+                                <a href="">Lihat Semua</a>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Pola Bunga Melati</h6>
+                                        <small>Selesai</small>
+                                    </div>
+                                    <span>Produksi 150 cm berhasil diselesaikan</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <div class="bg-warning rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="fas fa-clock text-white"></i>
+                                </div>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Pola Tengkulok</h6>
+                                        <small>Proses</small>
+                                    </div>
+                                    <span>Sedang produksi 120 cm (75% selesai)</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-3">
+                                <div class="bg-info rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="fas fa-play text-white"></i>
+                                </div>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Pola Pucuk Rebung</h6>
+                                        <small>Mulai</small>
+                                    </div>
+                                    <span>Memulai produksi 95 cm</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pt-3">
+                                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px;">
+                                    <i class="fas fa-plus text-white"></i>
+                                </div>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Antrian Produksi</h6>
+                                        <small>3 Pola</small>
+                                    </div>
+                                    <span>Menunggu jadwal produksi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="h-100 bg-light rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Target vs Realisasi</h6>
+                                <a href="">Detail</a>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-2">
+                                <i class="fas fa-calendar-day fa-2x text-primary"></i>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Target Harian</h6>
+                                        <span class="text-success">1,200 cm</span>
+                                    </div>
+                                    <div class="progress" style="height: 5px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 104%;"
+                                            aria-valuenow="104" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-success">Tercapai: 1,250 cm (104%)</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center border-bottom py-2">
+                                <i class="fas fa-calendar-week fa-2x text-warning"></i>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Target Mingguan</h6>
+                                        <span class="text-warning">8,400 cm</span>
+                                    </div>
+                                    <div class="progress" style="height: 5px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 78%;"
+                                            aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-warning">Tercapai: 6,550 cm (78%)</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center pt-2">
+                                <i class="fas fa-calendar-alt fa-2x text-info"></i>
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">Target Bulanan</h6>
+                                        <span class="text-info">36,000 cm</span>
+                                    </div>
+                                    <div class="progress" style="height: 5px;">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%;"
+                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <small class="text-info">Tercapai: 28,950 cm (80%)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="h-100 bg-light rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Kalender Produksi</h6>
+                                <a href="">Lihat Kalender</a>
+                            </div>
+                            <div class="calendar-widget">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h6 class="mb-0" id="calendar-month">Juni 2025</h6>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-primary" id="prev-month"
+                                            onclick="changeMonth(-1)">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-primary ms-1" id="next-month"
+                                            onclick="changeMonth(1)">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row text-center mb-2 calendar-header">
+                                    <div class="col">Min</div>
+                                    <div class="col">Sen</div>
+                                    <div class="col">Sel</div>
+                                    <div class="col">Rab</div>
+                                    <div class="col">Kam</div>
+                                    <div class="col">Jum</div>
+                                    <div class="col">Sab</div>
+                                </div>
+                                <div id="calendar-days-container">
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span class="text-muted"></span></div>
+                                        <div class="col"><span class="text-muted"></span></div>
+                                        <div class="col"><span class="text-muted"></span></div>
+                                        <div class="col"><span class="text-muted"></span></div>
+                                        <div class="col"><span>1</span></div>
+                                        <div class="col"><span>2</span></div>
+                                        <div class="col"><span>3</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span>4</span></div>
+                                        <div class="col"><span>5</span></div>
+                                        <div class="col"><span>6</span></div>
+                                        <div class="col"><span>7</span></div>
+                                        <div class="col"><span>8</span></div>
+                                        <div class="col"><span>9</span></div>
+                                        <div class="col"><span>10</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span>11</span></div>
+                                        <div class="col"><span>12</span></div>
+                                        <div class="col"><span>13</span></div>
+                                        <div class="col"><span>14</span></div>
+                                        <div class="col"><span>15</span></div>
+                                        <div class="col"><span>16</span></div>
+                                        <div class="col"><span>17</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span>18</span></div>
+                                        <div class="col"><span>19</span></div>
+                                        <div class="col"><span>20</span></div>
+                                        <div class="col"><span>21</span></div>
+                                        <div class="col"><span>22</span></div>
+                                        <div class="col"><span
+                                                class="bg-primary text-white rounded-circle p-1">23</span></div>
+                                        <div class="col"><span>24</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span>25</span></div>
+                                        <div class="col"><span>26</span></div>
+                                        <div class="col"><span>27</span></div>
+                                        <div class="col"><span>28</span></div>
+                                        <div class="col"><span>29</span></div>
+                                        <div class="col"><span>30</span></div>
+                                        <div class="col"><span class="text-muted">1</span></div>
+                                    </div>
+                                    <div class="row text-center calendar-week">
+                                        <div class="col"><span class="text-muted">2</span></div>
+                                        <div class="col"><span class="text-muted">3</span></div>
+                                        <div class="col"><span class="text-muted">4</span></div>
+                                        <div class="col"><span class="text-muted">5</span></div>
+                                        <div class="col"><span class="text-muted">6</span></div>
+                                        <div class="col"><span class="text-muted">7</span></div>
+                                        <div class="col"><span class="text-muted">8</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <!-- <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                        </div>
+                        <div class="col-12 col-sm-6 text-center text-sm-end">
+                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            </br>
+                            Distributed By <a class="border-bottom" href="https://themewagon.com"
+                                target="_blank">ThemeWagon</a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Songket Production Dashboard Scripts -->
+    <script>
+        // Initialize Bootstrap tooltips on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Bootstrap tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+
+        // Weekly Production Chart
+        var ctx1 = $("#weekly-production").get(0).getContext("2d");
+        var weeklyProductionChart = new Chart(ctx1, {
+            type: "line",
+            data: {
+                labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
+                datasets: [{
+                    label: "Produksi (cm)",
+                    data: [1200, 1350, 1100, 1450, 1250, 900, 750],
+                    backgroundColor: "rgba(0, 156, 255, .2)",
+                    borderColor: "rgba(0, 156, 255, 1)",
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: "rgba(0, 156, 255, 1)",
+                    pointBorderColor: "#fff",
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            callback: function (value) {
+                                return value + ' cm';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        // Stock by Pattern Chart (Doughnut)
+        var ctx2 = $("#stock-by-pattern").get(0).getContext("2d");
+        var stockByPatternChart = new Chart(ctx2, {
+            type: "doughnut",
+            data: {
+                labels: ["Bunga Melati", "Tengkulok", "Pucuk Rebung", "Bungo Tanjung", "Itik Pulang Petang", "Saik Akar"],
+                datasets: [{
+                    data: [2850, 1950, 850, 3200, 450, 1750],
+                    backgroundColor: [
+                        "rgba(0, 156, 255, .8)",
+                        "rgba(40, 167, 69, .8)",
+                        "rgba(255, 193, 7, .8)",
+                        "rgba(23, 162, 184, .8)",
+                        "rgba(220, 53, 69, .8)",
+                        "rgba(108, 117, 125, .8)"
+                    ],
+                    borderWidth: 3,
+                    borderColor: "rgba(255, 255, 255, 1)",
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.label + ': ' + context.parsed.toLocaleString('id-ID') + ' cm';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Auto-refresh data every 30 seconds (simulation)
+        setInterval(function () {
+            // Update production numbers (simulation)
+            var productionToday = Math.floor(Math.random() * 200) + 1150;
+            const productionElement = document.querySelector('.monitoring-card .text-content h6');
+            if (productionElement) {
+                productionElement.textContent = productionToday.toLocaleString('id-ID') + ' cm';
+            }
+
+            // Update progress bars animation
+            document.querySelectorAll('.progress-bar').forEach(function (bar) {
+                var width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(function () {
+                    bar.style.width = width;
+                }, 100);
+            });
+
+            // Pulse animation for monitoring cards
+            document.querySelectorAll('.monitoring-card').forEach(function (card, index) {
+                setTimeout(() => {
+                    card.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        card.style.transform = 'scale(1)';
+                    }, 200);
+                }, index * 100);
+            });
+        }, 30000);
+
+        // Real-time clock
+        function updateClock() {
+            var now = new Date();
+            var timeString = now.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            var dateString = now.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Update if clock element exists
+            document.querySelectorAll('#live-clock').forEach(element => {
+                element.textContent = timeString;
+            });
+            document.querySelectorAll('#live-date').forEach(element => {
+                element.textContent = dateString;
+            });
+        }
+
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call
+
+        // Calendar Navigation Functions
+        let currentMonth = 5; // Juni (0-based, jadi Juni = 5)
+        let currentYear = 2025;
+
+        const monthNames = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
+        function changeMonth(direction) {
+            currentMonth += direction;
+
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+
+            updateCalendarDisplay();
+        }
+
+        function updateCalendarDisplay() {
+            const monthElement = document.getElementById('calendar-month');
+            if (monthElement) {
+                monthElement.textContent = monthNames[currentMonth] + ' ' + currentYear;
+            }
+
+            // Generate calendar days for the new month
+            generateCalendarDays();
+        }
+
+        function generateCalendarDays() {
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const today = new Date();
+            const isCurrentMonth = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
+            const todayDate = today.getDate();
+
+            // Find calendar container
+            const calendarContainer = document.getElementById('calendar-days-container');
+            if (!calendarContainer) return;
+
+            // Clear existing calendar days
+            calendarContainer.innerHTML = '';
+
+            // Generate new calendar
+            let html = '';
+            let date = 1;
+
+            // Generate 6 weeks (6 rows)
+            for (let week = 0; week < 6; week++) {
+                html += '<div class="row text-center calendar-week">';
+
+                // Generate 7 days per week
+                for (let day = 0; day < 7; day++) {
+                    if (week === 0 && day < firstDay) {
+                        // Empty cells before first day of month
+                        html += '<div class="col"><span class="text-muted"></span></div>';
+                    } else if (date > daysInMonth) {
+                        // Days from next month
+                        const nextMonthDate = date - daysInMonth;
+                        html += `<div class="col"><span class="text-muted">${nextMonthDate}</span></div>`;
+                        date++;
+                    } else {
+                        // Current month days
+                        const isToday = isCurrentMonth && date === todayDate;
+                        const todayClass = isToday ? 'bg-primary text-white' : '';
+                        html += `<div class="col"><span class="${todayClass}">${date}</span></div>`;
+                        date++;
+                    }
+                }
+
+                html += '</div>';
+
+                // Stop if we've filled all weeks and shown all days
+                if (date > daysInMonth + 7) break;
+            }
+
+            // Insert new calendar HTML
+            calendarContainer.innerHTML = html;
+        }
+
+        // Initialize calendar on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCalendarDisplay();
+        });
+    </script>
 </body>
 
 </html>
