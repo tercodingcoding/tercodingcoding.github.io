@@ -1,8 +1,40 @@
 /********** Template CSS **********/
 :root {
     --primary: #009CFF;
-    --light: #F3F6F9;
-    --dark: #191C24;
+    --light: #191C24;
+    --dark: #000000;
+    --secondary: #191C24;
+    --content-bg: #000000;
+    --sidebar-bg: #191C24;
+    --text-primary: #ffffff;
+    --text-body: #6C7293;
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--text-body);
+}
+
+.bg-white, .bg-light {
+    background-color: var(--light) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+    text-shadow: 0 0 15px rgba(0, 156, 255, 0.2);
+}
+
+.text-dark {
+    color: var(--text-primary) !important;
+}
+
+hr {
+    color: var(--text-body);
 }
 
 .back-to-top {
@@ -36,6 +68,14 @@
 
 .btn.btn-primary {
     color: #FFFFFF;
+    background: linear-gradient(135deg, var(--primary) 0%, #0056b3 100%);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 156, 255, 0.3);
+}
+
+.btn.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 156, 255, 0.4);
 }
 
 .btn-square {
@@ -74,15 +114,16 @@
     width: 250px;
     height: 100vh;
     overflow-y: auto;
-    background: var(--light);
+    background: var(--sidebar-bg);
     transition: 0.5s;
     z-index: 999;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .content {
     margin-left: 250px;
     min-height: 100vh;
-    background: #FFFFFF;
+    background: var(--content-bg);
     transition: 0.5s;
 }
 
@@ -124,9 +165,9 @@
 /*** Navbar ***/
 .sidebar .navbar .navbar-nav .nav-link {
     padding: 7px 20px;
-    color: var(--dark);
+    color: var(--text-body);
     font-weight: 500;
-    border-left: 3px solid var(--light);
+    border-left: 3px solid var(--sidebar-bg);
     border-radius: 0 30px 30px 0;
     outline: none;
 }
@@ -134,7 +175,7 @@
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
     color: var(--primary);
-    background: #FFFFFF;
+    background: var(--dark);
     border-color: var(--primary);
 }
 
@@ -144,13 +185,18 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF;
+    background: var(--dark);
     border-radius: 40px;
+}
+
+.navbar {
+    backdrop-filter: blur(10px);
+    background: rgba(25, 28, 36, 0.9) !important;
 }
 
 .sidebar .navbar .navbar-nav .nav-link:hover i,
 .sidebar .navbar .navbar-nav .nav-link.active i {
-    background: var(--light);
+    background: var(--sidebar-bg);
 }
 
 .sidebar .navbar .dropdown-toggle::after {
@@ -176,7 +222,7 @@
 .content .navbar .navbar-nav .nav-link {
     margin-left: 25px;
     padding: 12px 0;
-    color: var(--dark);
+    color: var(--text-body);
     outline: none;
 }
 
@@ -192,7 +238,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF;
+    background: var(--dark);
     border-radius: 40px;
 }
 
@@ -274,4 +320,57 @@
 .testimonial-carousel .owl-dot.active {
     background: var(--dark);
     border-color: var(--primary);
+}
+
+/********** Biography and Personal Content Styling **********/
+.biography-content p {
+    line-height: 1.8;
+    color: var(--text-body);
+    margin-bottom: 1.5rem;
+}
+
+.biography-content h4 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--light);
+    padding-bottom: 0.5rem;
+    margin-top: 2.5rem;
+}
+
+.biography-content .lead {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.blog-purpose ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.blog-purpose ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.blog-purpose ul li::before {
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+}
+
+.belief-statement {
+    transition: all 0.3s ease;
+    background-color: var(--dark) !important;
+}
+
+.belief-statement:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
+}
+
+.italic {
+    font-style: italic;
 }
