@@ -327,3 +327,17 @@
 .italic {
     font-style: italic;
 }
+
+/* Skip Link Styling */
+.visually-hidden-focusable:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 10001 !important;
+    padding: 1rem;
+    background-color: var(--primary);
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
