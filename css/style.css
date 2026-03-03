@@ -327,3 +327,7 @@
 .italic {
     font-style: italic;
 }
+
+.visually-hidden-focusable:focus {
+    z-index: 10001 !important;
+}
