@@ -128,7 +128,6 @@
     font-weight: 500;
     border-left: 3px solid var(--light);
     border-radius: 0 30px 30px 0;
-    outline: none;
 }
 
 .sidebar .navbar .navbar-nav .nav-link:hover,
@@ -177,7 +176,6 @@
     margin-left: 25px;
     padding: 12px 0;
     color: var(--dark);
-    outline: none;
 }
 
 .content .navbar .navbar-nav .nav-link:hover,
@@ -330,4 +328,21 @@
 
 .visually-hidden-focusable:focus {
     z-index: 10001 !important;
+}
+
+/* Custom Focus Indicator for Accessibility */
+:focus-visible {
+    outline: 3px solid var(--primary) !important;
+    outline-offset: 2px !important;
+    border-radius: 2px !important;
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible,
+.dropdown-item:focus-visible {
+    border-radius: 4px !important;
+}
+
+.sidebar .nav-link:focus-visible {
+    border-radius: 0 30px 30px 0 !important;
 }
