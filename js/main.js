@@ -10,8 +10,13 @@
         }, 1);
     };
     spinner();
-    
-    
+
+    // Initialize Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
