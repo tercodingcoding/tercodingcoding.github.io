@@ -331,3 +331,17 @@
 .visually-hidden-focusable:focus {
     z-index: 10001 !important;
 }
+
+/* Custom focus ring for keyboard accessibility */
+:focus-visible {
+    outline: 3px solid var(--primary) !important;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(0, 156, 255, 0.25);
+    border-radius: 2px;
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible,
+.sidebar-toggler:focus-visible {
+    border-radius: 5px;
+}
