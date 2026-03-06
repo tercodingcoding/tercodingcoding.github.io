@@ -5,6 +5,12 @@
     --dark: #191C24;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        scroll-behavior: smooth;
+    }
+}
+
 .back-to-top {
     position: fixed;
     display: none;
@@ -344,4 +350,13 @@
 .nav-link:focus-visible,
 .sidebar-toggler:focus-visible {
     border-radius: 5px;
+}
+
+.img-hover {
+    transition: all 0.3s ease;
+}
+
+.img-hover:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
 }
