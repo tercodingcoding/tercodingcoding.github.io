@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="utf-8">
@@ -39,7 +39,7 @@
         <div id="spinner"
             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
+                <span class="visually-hidden">Memuat...</span>
             </div>
         </div>
         <!-- Spinner End -->
@@ -93,7 +93,7 @@
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fas fa-chart-bar"></i></h2>
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
+                <a href="#" class="sidebar-toggler flex-shrink-0" aria-label="Tampilkan/Sembunyikan Sidebar" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tampilkan/Sembunyikan Sidebar">
                     <i class="fa fa-bars"></i>
                 </a>
                 <form class="d-none d-md-flex ms-4">
@@ -163,7 +163,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-0">
                                 <div class="d-flex align-items-center">
                                     <div class="status-indicator me-3">
-                                        <span class="status-dot bg-info"></span>
+                                        <span class="status-dot bg-info" aria-label="Status: Aktif"></span>
                                     </div>
                                     <div>
                                         <h6 class="mb-0">Laporan Produksi Songket</h6>
@@ -634,7 +634,7 @@
         <!-- Content End -->
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" aria-label="Kembali ke Atas" data-bs-toggle="tooltip" data-bs-placement="left" title="Kembali ke Atas"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
