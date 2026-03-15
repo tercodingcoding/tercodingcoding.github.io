@@ -1,6 +1,28 @@
 (function ($) {
     "use strict";
 
+    // Search focus shortcut
+    $(document).ready(function () {
+        $(document).keydown(function (e) {
+            if (e.key === "/" && !$(e.target).is("input, textarea")) {
+                var $searchInput = $('input[type="search"]:visible').first();
+                if ($searchInput.length > 0) {
+                    e.preventDefault();
+                    $searchInput.focus();
+                }
+            }
+        });
+
+        // Add shortcut hint to search placeholder
+        $('input[type="search"]').each(function () {
+            var $el = $(this);
+            var placeholder = $el.attr('placeholder');
+            if (placeholder && !placeholder.includes('[/]')) {
+                $el.attr('placeholder', placeholder + ' [/]');
+            }
+        });
+    });
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
@@ -208,6 +230,5 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    
 })(jQuery);
 
