@@ -1,6 +1,22 @@
 (function ($) {
     "use strict";
 
+    // Search input focus with '/' key
+    $(document).keydown(function (e) {
+        if (e.key === "/" && !$(e.target).is("input, textarea")) {
+            e.preventDefault();
+            $('input[type="search"]:visible').first().focus();
+        }
+    });
+
+    // Add [/] hint to search placeholders
+    $('input[type="search"]').each(function () {
+        var placeholder = $(this).attr('placeholder');
+        if (placeholder && !placeholder.includes('[/]')) {
+            $(this).attr('placeholder', placeholder + ' [/]');
+        }
+    });
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
