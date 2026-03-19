@@ -1,6 +1,54 @@
 (function ($) {
     "use strict";
 
+    // Palette UX: Accessibility & Keyboard shortcuts
+    const isID = $('html').attr('lang') === 'id';
+    const labels = {
+        sidebar: isID ? 'Tampilkan/Sembunyikan Sidebar' : 'Show/Hide Sidebar',
+        backToTop: isID ? 'Kembali ke Atas' : 'Back to Top'
+    };
+
+    // Shortcut [/] to search
+    $(document).on('keydown', function (e) {
+        if (e.key === '/' && !$(e.target).is('input, textarea')) {
+            const $search = $('input[type="search"]:visible').first();
+            if ($search.length) {
+                e.preventDefault();
+                $search.focus();
+            }
+        }
+    });
+
+    // Add shortcuts hint and a11y attributes
+    $(document).ready(function () {
+        $('input[type="search"]').each(function () {
+            const placeholder = $(this).attr('placeholder');
+            if (placeholder && !placeholder.includes('[/]')) {
+                $(this).attr('placeholder', `${placeholder} [/]`);
+            }
+        });
+
+        $('.nav-link.active').attr('aria-current', 'page');
+
+        $('.sidebar-toggler').attr({
+            'aria-label': labels.sidebar,
+            'title': labels.sidebar,
+            'data-bs-toggle': 'tooltip',
+            'data-bs-placement': 'bottom'
+        }).each(function () {
+            new bootstrap.Tooltip(this);
+        });
+
+        $('.back-to-top').attr({
+            'aria-label': labels.backToTop,
+            'title': labels.backToTop,
+            'data-bs-toggle': 'tooltip',
+            'data-bs-placement': 'left'
+        }).each(function () {
+            new bootstrap.Tooltip(this);
+        });
+    });
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
