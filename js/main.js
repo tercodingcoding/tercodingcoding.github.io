@@ -1,6 +1,28 @@
 (function ($) {
     "use strict";
 
+    // Global keyboard shortcut ('/') to focus search bar
+    $(document).keydown(function (e) {
+        // Only trigger if '/' is pressed and user is not in an input, textarea, select or contenteditable
+        if (e.key === "/" && !$(e.target).is("input, textarea, select, [contenteditable]")) {
+            var $searchInput = $('input[type="search"]:visible').first();
+            if ($searchInput.length > 0) {
+                e.preventDefault();
+                $searchInput.focus();
+            }
+        }
+    });
+
+    // Add keyboard shortcut hint to search input placeholders
+    $(document).ready(function () {
+        $('input[type="search"]').each(function () {
+            var currentPlaceholder = $(this).attr("placeholder");
+            if (currentPlaceholder && !currentPlaceholder.includes("[/]")) {
+                $(this).attr("placeholder", currentPlaceholder + " [/]");
+            }
+        });
+    });
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
