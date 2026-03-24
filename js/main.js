@@ -208,6 +208,30 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
+    // Search input focus with '/'
+    $(document).keydown(function (e) {
+        if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+            var $searchInput = $('input[type="search"]:visible').first();
+            if ($searchInput.length > 0) {
+                e.preventDefault();
+                $searchInput.focus();
+            }
+        }
+    });
+
+    // Add [/] hint to search placeholders
+    function addSearchHint() {
+        $('input[type="search"]').each(function () {
+            var placeholder = $(this).attr('placeholder');
+            if (placeholder && !placeholder.includes(' [/]')) {
+                $(this).attr('placeholder', placeholder + ' [/]');
+            }
+        });
+    }
+
+    addSearchHint();
+    $(document).ready(addSearchHint);
+
     
 })(jQuery);
 
