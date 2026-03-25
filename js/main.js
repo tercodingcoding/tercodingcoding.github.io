@@ -208,6 +208,31 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
+    // Global Search Shortcut [/]
+    var initSearchShortcut = function() {
+        var $searchInput = $('input[type="search"]');
+        if ($searchInput.length > 0) {
+            $searchInput.each(function() {
+                var placeholder = $(this).attr('placeholder');
+                if (placeholder && !placeholder.includes(' [/]')) {
+                    $(this).attr('placeholder', placeholder + ' [/]');
+                }
+                $(this).attr('aria-keyshortcuts', '/');
+            });
+
+            $(document).on('keydown', function(e) {
+                if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+                    var $visibleSearch = $('input[type="search"]').filter(':visible').first();
+                    if ($visibleSearch.length > 0) {
+                        e.preventDefault();
+                        $visibleSearch.focus();
+                    }
+                }
+            });
+        }
+    };
+    initSearchShortcut();
+
     
 })(jQuery);
 
