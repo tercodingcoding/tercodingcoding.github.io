@@ -208,6 +208,28 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    
+    // Search focus shortcut
+    $(document).keydown(function (e) {
+        if (e.key === "/" && !$(e.target).is("input, textarea, select, [contenteditable]")) {
+            var $searchInput = $('input[type="search"]:visible').first();
+            if ($searchInput.length > 0) {
+                e.preventDefault();
+                $searchInput.focus();
+            }
+        }
+    });
+
+    // Add shortcut hint to search placeholders
+    $(document).ready(function () {
+        $('input[type="search"]').each(function () {
+            var $this = $(this);
+            var placeholder = $this.attr('placeholder');
+            if (placeholder && !placeholder.includes('[/]')) {
+                $this.attr('placeholder', placeholder + ' [/]');
+            }
+            $this.attr('aria-keyshortcuts', '/');
+        });
+    });
+
 })(jQuery);
 
