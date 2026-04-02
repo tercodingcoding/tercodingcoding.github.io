@@ -1,6 +1,17 @@
 (function ($) {
     "use strict";
 
+    // Keyboard shortcut for search
+    $(document).on('keydown', function (e) {
+        if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+            var $search = $('input[type="search"]:visible').first();
+            if ($search.length > 0) {
+                e.preventDefault();
+                $search.focus();
+            }
+        }
+    });
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
