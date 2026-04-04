@@ -1,6 +1,30 @@
 (function ($) {
     "use strict";
 
+    // Search keyboard shortcut logic
+    $(document).on('keydown', function (e) {
+        if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+            var searchInput = $('input[type="search"]:visible').first();
+            if (searchInput.length > 0) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        }
+    });
+
+    // Add search shortcut hint and accessibility attributes
+    $('input[type="search"]').each(function () {
+        var $this = $(this);
+        var currentPlaceholder = $this.attr('placeholder') || '';
+        if (currentPlaceholder && !currentPlaceholder.includes('[/]')) {
+            $this.attr('placeholder', currentPlaceholder + ' [/]');
+        }
+        $this.attr('aria-keyshortcuts', '/');
+    });
+
+    // Add aria-current="page" to active nav links
+    $('.nav-link.active, .dropdown-item.active').attr('aria-current', 'page');
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
