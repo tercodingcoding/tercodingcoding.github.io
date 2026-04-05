@@ -1,6 +1,27 @@
 (function ($) {
     "use strict";
 
+    // Search keyboard shortcut ('/')
+    $(document).on('keydown', function (e) {
+        if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+            e.preventDefault();
+            const $searchInput = $('input[type="search"]:visible').first();
+            if ($searchInput.length > 0) {
+                $searchInput.focus();
+            }
+        }
+    });
+
+    // Add keyboard shortcut hint to search inputs
+    $('input[type="search"]').each(function () {
+        const $this = $(this);
+        const placeholder = $this.attr('placeholder');
+        if (placeholder && !placeholder.includes(' [/]')) {
+            $this.attr('placeholder', placeholder + ' [/]');
+        }
+        $this.attr('aria-keyshortcuts', '/');
+    });
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
