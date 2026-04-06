@@ -10,6 +10,34 @@
         }, 1);
     };
     spinner();
+
+    // Global keyboard shortcut to focus search ('/')
+    $(document).on('keydown', function (e) {
+        if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+            var $searchInput = $('input[type="search"]:visible:first');
+            if ($searchInput.length > 0) {
+                e.preventDefault();
+                $searchInput.focus();
+            }
+        }
+    });
+
+    // Dynamic search input enhancements
+    $(document).ready(function () {
+        $('input[type="search"]').each(function () {
+            var $el = $(this);
+            var placeholder = $el.attr('placeholder') || '';
+            var hint = ' [/]';
+
+            if (!$el.attr('aria-keyshortcuts')) {
+                $el.attr('aria-keyshortcuts', '/');
+            }
+
+            if (placeholder && placeholder.indexOf(hint) === -1) {
+                $el.attr('placeholder', placeholder + hint);
+            }
+        });
+    });
     
     
     // Back to top button
