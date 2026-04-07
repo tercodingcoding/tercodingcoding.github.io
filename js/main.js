@@ -10,8 +10,30 @@
         }, 1);
     };
     spinner();
-    
-    
+
+    // Search keyboard shortcut ('/')
+    $(document).on('keydown', function (e) {
+        if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+            e.preventDefault();
+            var $searchInput = $('input[type="search"]:visible').first();
+            if ($searchInput.length > 0) {
+                $searchInput.focus();
+            }
+        }
+    });
+
+    // Add shortcut hint to search placeholders
+    $(document).ready(function () {
+        $('input[type="search"]').each(function () {
+            var $this = $(this);
+            var placeholder = $this.attr('placeholder');
+            if (placeholder && !placeholder.includes(' [/]')) {
+                $this.attr('placeholder', placeholder + ' [/]');
+            }
+            $this.attr('aria-keyshortcuts', '/');
+        });
+    });
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
@@ -208,6 +230,5 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    
 })(jQuery);
 
