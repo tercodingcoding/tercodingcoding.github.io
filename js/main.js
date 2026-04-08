@@ -10,8 +10,55 @@
         }, 1);
     };
     spinner();
-    
-    
+
+
+    // Global UX & Accessibility Enhancements
+    var isID = $('html').attr('lang') === 'id';
+    var togglerText = isID ? "Tampilkan/Sembunyikan Sidebar" : "Toggle Sidebar";
+    var backToTopText = isID ? "Kembali ke Atas" : "Back to Top";
+    var searchHint = " [/]";
+
+    // Sidebar Toggler Accessibility
+    $('.sidebar-toggler').each(function () {
+        if (!$(this).attr('aria-label')) $(this).attr('aria-label', togglerText);
+        if (!$(this).attr('title')) $(this).attr('title', togglerText);
+        if (!$(this).attr('data-bs-toggle')) {
+            $(this).attr('data-bs-toggle', 'tooltip');
+            $(this).attr('data-bs-placement', 'bottom');
+        }
+    });
+
+    // Back to Top Accessibility
+    $('.back-to-top').each(function () {
+        if (!$(this).attr('aria-label')) $(this).attr('aria-label', backToTopText);
+        if (!$(this).attr('title')) $(this).attr('title', backToTopText);
+        if (!$(this).attr('data-bs-toggle')) {
+            $(this).attr('data-bs-toggle', 'tooltip');
+            $(this).attr('data-bs-placement', 'left');
+        }
+    });
+
+    // Search Keyboard Shortcut
+    $('input[type="search"]').each(function () {
+        var $el = $(this);
+        var currentPlaceholder = $el.attr('placeholder') || (isID ? 'Cari...' : 'Search...');
+        if (!currentPlaceholder.includes(searchHint)) {
+            $el.attr('placeholder', currentPlaceholder + searchHint);
+        }
+        $el.attr('aria-keyshortcuts', '/');
+    });
+
+    $(document).on('keydown', function (e) {
+        if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+            var $search = $('input[type="search"]:visible').first();
+            if ($search.length) {
+                e.preventDefault();
+                $search.focus();
+            }
+        }
+    });
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
