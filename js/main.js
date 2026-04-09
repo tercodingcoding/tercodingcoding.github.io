@@ -10,8 +10,32 @@
         }, 1);
     };
     spinner();
-    
-    
+
+
+    // Global UX: Search Keyboard Shortcut (/)
+    $(document).ready(function () {
+        $('input[type="search"]').each(function () {
+            var $this = $(this);
+            var shortcutHint = ' [/]';
+            var placeholder = $this.attr('placeholder');
+            if (placeholder && !placeholder.includes(shortcutHint)) {
+                $this.attr('placeholder', placeholder + shortcutHint);
+            }
+            $this.attr('aria-keyshortcuts', '/');
+        });
+
+        $(document).on('keydown', function (e) {
+            if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+                var $searchInput = $('input[type="search"]:visible').first();
+                if ($searchInput.length > 0) {
+                    e.preventDefault();
+                    $searchInput.focus();
+                }
+            }
+        });
+    });
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
