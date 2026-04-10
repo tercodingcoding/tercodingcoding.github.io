@@ -10,8 +10,38 @@
         }, 1);
     };
     spinner();
-    
-    
+
+
+    // Global UX & Accessibility
+    $(document).ready(function () {
+        const isIndonesian = $('html').attr('lang') === 'id';
+
+        // 1. Search Shortcut Hint & Aria Attributes
+        $('input[type="search"]').each(function () {
+            const $this = $(this);
+            const ph = $this.attr('placeholder');
+            if (ph && !ph.includes(' [/]')) $this.attr('placeholder', ph + ' [/]');
+            $this.attr('aria-keyshortcuts', '/');
+        });
+
+        // 2. Keyboard Shortcut (/) to focus search
+        $(document).on('keydown', function (e) {
+            if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+                const $s = $('input[type="search"]:visible').first();
+                if ($s.length) { e.preventDefault(); $s.focus(); }
+            }
+        });
+
+        // 3. Dynamic Tooltips & ARIA Labels
+        $('.sidebar-toggler, .back-to-top').each(function () {
+            const isT = $(this).hasClass('sidebar-toggler');
+            const label = isIndonesian ? (isT ? 'Tampilkan/Sembunyikan Sidebar' : 'Kembali ke Atas') : (isT ? 'Toggle Sidebar' : 'Back to Top');
+            if (!$(this).attr('aria-label')) $(this).attr('aria-label', label);
+            if (!$(this).attr('title')) { $(this).attr('title', label); new bootstrap.Tooltip(this); }
+        });
+    });
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
