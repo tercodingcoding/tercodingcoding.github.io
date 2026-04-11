@@ -10,6 +10,26 @@
         }, 1);
     };
     spinner();
+
+    // Search focus keyboard shortcut ('/') and dynamic placeholder hinting
+    $(document).on('keydown', function (e) {
+        if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+            const $search = $('input[type="search"]:visible').first();
+            if ($search.length) {
+                e.preventDefault();
+                $search.focus();
+            }
+        }
+    });
+
+    $('input[type="search"]').each(function () {
+        const $this = $(this);
+        const hint = ' [/]';
+        if ($this.attr('placeholder') && !$this.attr('placeholder').includes(hint)) {
+            $this.attr('placeholder', $this.attr('placeholder') + hint);
+        }
+        $this.attr('aria-keyshortcuts', '/');
+    });
     
     
     // Back to top button
