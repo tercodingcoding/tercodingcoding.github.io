@@ -10,8 +10,32 @@
         }, 1);
     };
     spinner();
-    
-    
+
+
+    // Global UX: Keyboard shortcuts, Localization & Accessibility
+    const isID = $('html').attr('lang') === 'id';
+    $(document).on('keydown', e => {
+        if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+            e.preventDefault(); $('input[type="search"]:visible').first().focus();
+        }
+    });
+    $('input[type="search"]').each(function () {
+        if (!this.placeholder.includes(' [/]')) this.placeholder += ' [/]';
+        $(this).attr('aria-keyshortcuts', '/');
+    });
+    $('.navbar-nav .nav-link span').each(function () {
+        const $t = $(this), txt = $t.text().trim();
+        if (/^Message(s)?$/i.test(txt)) $t.text(isID ? 'Pesan' : 'Messages');
+        if (/^Notificati(o?n|on)?s?$/i.test(txt)) $t.text(isID ? 'Notifikasi' : 'Notifications');
+    });
+    $('.sidebar-toggler, .back-to-top').each(function () {
+        const isBtt = $(this).hasClass('back-to-top');
+        const lbl = isBtt ? (isID ? 'Kembali ke Atas' : 'Back to Top') : (isID ? 'Tampilkan/Sembunyikan Sidebar' : 'Toggle Sidebar');
+        if (!$(this).attr('aria-label')) $(this).attr('aria-label', lbl);
+        if (!this.title) $(this).attr({ title: lbl, 'data-bs-toggle': 'tooltip', 'data-bs-placement': isBtt ? 'left' : 'bottom' });
+    });
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
