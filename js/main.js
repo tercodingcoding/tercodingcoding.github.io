@@ -10,8 +10,26 @@
         }, 1);
     };
     spinner();
-    
-    
+
+
+    // Search shortcut: focus input with '/' key
+    $(document).ready(function () {
+        var $search = $('input[type="search"]');
+        if ($search.length > 0) {
+            $search.each(function () {
+                var p = $(this).attr('placeholder');
+                if (p && !p.includes(' [/]')) $(this).attr('placeholder', p + ' [/]');
+            });
+            $(document).on('keydown', function (e) {
+                if (e.key === '/' && !$(e.target).is('input, textarea, select, [contenteditable]')) {
+                    e.preventDefault();
+                    $search.filter(':visible').first().focus();
+                }
+            });
+        }
+    });
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
