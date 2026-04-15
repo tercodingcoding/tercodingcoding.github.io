@@ -1,300 +1,2202 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Intra Swadaya Hidayat - Blog Personal</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Intra Swadaya Hidayat, blog, ilmu komputer, machine learning" name="keywords">
-    <meta content="Blog personal Intra Swadaya Hidayat - Dosen Ilmu Komputer, Machine Learning, dan Refleksi Diri" name="description">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack of Thoughts &mdash; Enter the Grid</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+        body {
+            overflow: hidden;
+            background: #000;
+            font-family: 'Inter', sans-serif;
+            cursor: crosshair;
+        }
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        #game-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        .hud {
+            position: fixed;
+            z-index: 100;
+            pointer-events: none;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        .hud-top {
+            top: 16px;
+            left: 16px;
+            right: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+        .hud-logo {
+            color: #00ff66;
+            font-size: 16px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-    <!-- Songket Dashboard Custom Stylesheet -->
-    <link href="css/songket-dashboard.css" rel="stylesheet">
+        .hud-logo .icon {
+            width: 28px;
+            height: 28px;
+            background: #00ff66;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .hud-coords {
+            position: fixed;
+            top: 64px;
+            left: 16px;
+            z-index: 100;
+            color: #3a6a3a;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 5px rgba(0, 255, 102, 0.3);
+            pointer-events: none;
+        }
+
+        .hud-coords .val {
+            color: #00ff66;
+        }
+
+        .hud-bottom {
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hud-controls {
+            display: flex;
+            gap: 4px;
+            flex-direction: column;
+            align-items: center;
+            color: #3a6a3a;
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid #1a2e1a;
+        }
+
+        .hud-keys {
+            display: flex;
+            gap: 4px;
+        }
+
+        .hud-key {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #2a4a2a;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff66;
+            font-size: 11px;
+            background: rgba(0, 40, 0, 0.4);
+        }
+
+        .hud-key.active {
+            background: rgba(0, 255, 102, 0.15);
+            border-color: #00ff66;
+            box-shadow: 0 0 8px rgba(0, 255, 102, 0.3);
+        }
+
+        .hud-key.wide {
+            width: 64px;
+            font-size: 9px;
+        }
+
+        .hud-hint {
+            color: #2a4a2a;
+            margin-top: 4px;
+            font-size: 10px;
+        }
+
+        .hud-minimap {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            width: 160px;
+            height: 160px;
+            background: rgba(0, 10, 0, 0.7);
+            border: 1px solid #1a2e1a;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        #minimap-canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        .hud-world-label {
+            position: fixed;
+            top: 52px;
+            left: 16px;
+            z-index: 100;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #3a6a3a;
+            pointer-events: none;
+        }
+
+        .hud-world-label .wname {
+            color: #00ff66;
+        }
+
+        .panel-overlay {
+            position: fixed;
+            z-index: 200;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(8, 16, 8, 0.95);
+            border: 1px solid #1a3a1a;
+            border-radius: 14px;
+            padding: 0;
+            max-width: 700px;
+            width: 90vw;
+            max-height: 80vh;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s, transform 0.4s;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 60px rgba(0, 255, 102, 0.1), inset 0 0 30px rgba(0, 255, 102, 0.02);
+            overflow-y: auto;
+        }
+
+        .panel-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid #1a2e1a;
+            position: sticky;
+            top: 0;
+            background: rgba(8, 16, 8, 0.98);
+            z-index: 1;
+            border-radius: 14px 14px 0 0;
+        }
+
+        .panel-header h2 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            color: #00ff66;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-close {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #4a2020;
+            color: #ff4444;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .panel-close:hover {
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .panel-body {
+            padding: 20px;
+        }
+
+        .panel-card {
+            background: #111a11;
+            border: 1px solid #1a2e1a;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .panel-card-img {
+            width: 100%;
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .panel-card-img .tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 3px 8px;
+            background: rgba(0, 255, 102, 0.15);
+            border: 1px solid rgba(0, 255, 102, 0.3);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #00ff66;
+        }
+
+        .panel-card-body {
+            padding: 14px;
+        }
+
+        .panel-card-author {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #4a6a4a;
+            margin-bottom: 8px;
+        }
+
+        .panel-card-author .aname {
+            color: #00ff66;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .panel-card-body h3 {
+            font-size: 14px;
+            color: #e0f0e0;
+            margin-bottom: 6px;
+        }
+
+        .panel-card-body p {
+            font-size: 12px;
+            color: #5a7a5a;
+            line-height: 1.5;
+        }
+
+        .panel-card-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-top: 1px solid #1a2e1a;
+            font-size: 12px;
+            color: #4a6a4a;
+        }
+
+        .panel-card-footer .arrow {
+            color: #00ff66;
+        }
+
+        .status-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: #0d140d;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-dot.g {
+            background: #00ff66;
+        }
+
+        .status-dot.b {
+            background: #00aaff;
+        }
+
+        .status-dot.p {
+            background: #aa66ff;
+        }
+
+        .status-dot.y {
+            background: #ffaa00;
+        }
+
+        .status-dot.r {
+            background: #ff4466;
+        }
+
+        .status-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #e0f0e0;
+            font-weight: 600;
+        }
+
+        .status-count {
+            font-size: 11px;
+            color: #4a6a4a;
+        }
+
+        .status-badge {
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .status-badge.g {
+            background: rgba(0, 255, 102, 0.1);
+            color: #00ff66;
+        }
+
+        .status-badge.b {
+            background: rgba(0, 170, 255, 0.1);
+            color: #00aaff;
+        }
+
+        .status-badge.p {
+            background: rgba(170, 102, 255, 0.1);
+            color: #aa66ff;
+        }
+
+        .status-badge.y {
+            background: rgba(255, 170, 0, 0.1);
+            color: #ffaa00;
+        }
+
+        .status-badge.r {
+            background: rgba(255, 68, 102, 0.1);
+            color: #ff4466;
+        }
+
+        .contrib-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #1a2e1a;
+        }
+
+        .contrib-row:last-child {
+            border-bottom: none;
+        }
+
+        .contrib-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contrib-rank {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #3a5a3a;
+            width: 20px;
+        }
+
+        .contrib-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a1a, #2a5a2a);
+        }
+
+        .contrib-name {
+            font-size: 13px;
+            color: #c8d6c8;
+        }
+
+        .contrib-score {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #00ff66;
+        }
+
+        .interact-prompt {
+            position: fixed;
+            z-index: 150;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 20, 0, 0.85);
+            border: 1px solid #00ff66;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #00ff66;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+        }
+
+        .interact-prompt.visible {
+            opacity: 1;
+        }
+
+        .interact-prompt .key-hint {
+            display: inline-block;
+            padding: 1px 6px;
+            border: 1px solid #00ff66;
+            border-radius: 3px;
+            margin: 0 4px;
+            background: rgba(0, 255, 102, 0.1);
+        }
+
+        .boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .boot-text {
+            color: #00ff66;
+            font-size: 13px;
+            text-align: left;
+            width: 520px;
+            max-width: 90vw;
+        }
+
+        .boot-line {
+            opacity: 0;
+            margin-bottom: 5px;
+        }
+
+        .boot-line .ok {
+            color: #00ff66;
+        }
+
+        .boot-line .warn {
+            color: #ffaa00;
+        }
+
+        .boot-line .info {
+            color: #3a6a3a;
+        }
+
+        .boot-bar-wrap {
+            width: 520px;
+            max-width: 90vw;
+            height: 3px;
+            background: #1a2e1a;
+            margin-top: 16px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .boot-bar {
+            width: 0%;
+            height: 100%;
+            background: #00ff66;
+            box-shadow: 0 0 10px #00ff66;
+        }
+
+        /* Warp transition */
+        .warp-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .warp-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .warp-overlay canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Code block in panel */
+        .code-block {
+            background: #0a120a;
+            border: 1px solid #1a2e1a;
+            border-radius: 8px;
+            padding: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #6b8a6b;
+            margin-bottom: 12px;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .code-block .kw {
+            color: #ff6688;
+        }
+
+        .code-block .fn {
+            color: #66ccff;
+        }
+
+        .code-block .str {
+            color: #00ff66;
+        }
+
+        .code-block .cm {
+            color: #3a5a3a;
+        }
+
+        .code-block .var {
+            color: #ffaa66;
+        }
+
+        .code-block .num {
+            color: #aa88ff;
+        }
+
+        .panel-overlay::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .panel-overlay::-webkit-scrollbar-track {
+            background: #0a140a;
+        }
+
+        .panel-overlay::-webkit-scrollbar-thumb {
+            background: #1a3a1a;
+            border-radius: 4px;
+        }
+
+        /* ═══ MOBILE TOUCH CONTROLS ═══ */
+        .mobile-controls {
+            display: none;
+            position: fixed;
+            z-index: 150;
+            pointer-events: none;
+        }
+
+        .joystick-zone {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 130px;
+            height: 130px;
+            z-index: 150;
+            pointer-events: auto;
+        }
+
+        .joystick-base {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(0, 20, 0, 0.5);
+            border: 2px solid rgba(0, 255, 102, 0.3);
+            position: relative;
+        }
+
+        .joystick-knob {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0, 255, 102, 0.3);
+            border: 2px solid #00ff66;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+            transition: none;
+        }
+
+        .mobile-btn-group {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-end;
+            pointer-events: auto;
+        }
+
+        .mobile-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .mobile-btn.jump {
+            background: rgba(0, 170, 255, 0.15);
+            border-color: rgba(0, 170, 255, 0.5);
+            color: #00aaff;
+        }
+
+        .mobile-btn.jump.pressed {
+            background: rgba(0, 170, 255, 0.35);
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.4);
+        }
+
+        .mobile-btn.interact {
+            background: rgba(0, 255, 102, 0.15);
+            border-color: rgba(0, 255, 102, 0.5);
+            color: #00ff66;
+            width: 70px;
+            height: 70px;
+            font-size: 12px;
+        }
+
+        .mobile-btn.interact.pressed {
+            background: rgba(0, 255, 102, 0.35);
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+        }
+
+        @media(max-width:768px), (pointer:coarse) {
+            .mobile-controls {
+                display: block;
+            }
+
+            .joystick-zone,
+            .mobile-btn-group {
+                display: flex;
+            }
+
+            .hud-bottom {
+                display: none;
+            }
+
+            .hud-minimap {
+                width: 130px;
+                height: 130px;
+                top: 10px;
+                right: 10px;
+            }
+
+            .interact-prompt {
+                bottom: 160px;
+                font-size: 11px;
+                padding: 6px 14px;
+            }
+
+            .hud-top {
+                left: 10px;
+                right: 10px;
+                top: 10px;
+            }
+
+            .hud-logo {
+                font-size: 13px;
+            }
+
+            .hud-logo .icon {
+                width: 22px;
+                height: 22px;
+                font-size: 11px;
+            }
+
+            .hud-coords {
+                font-size: 10px;
+            }
+
+            .hud-world-label {
+                top: 42px;
+                left: 10px;
+                font-size: 10px;
+            }
+
+            .panel-overlay {
+                max-height: 70vh;
+                width: 94vw;
+            }
+
+            .panel-header h2 {
+                font-size: 13px;
+            }
+
+            .panel-card-body h3 {
+                font-size: 13px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <a class="visually-hidden-focusable btn btn-primary position-fixed top-0 start-0 m-3" href="#main-content">Lompat ke konten utama</a>
-    <div class="container-xxl position-relative bg-white d-flex p-0">
-        <!-- Spinner Start -->
-        <div id="spinner"
-            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
+
+    <div class="boot-screen" id="bootScreen">
+        <div class="boot-text" id="bootText">
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Initializing 3D kernel...</span>
             </div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Loading Stack of Thoughts
+                    v4.2.0</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Building voxel grid
+                    world...</span></div>
+            <div class="boot-line"><span class="warn">[WARN]</span> <span class="info">Firewall bypass — trusted
+                    nodes allowed</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Spawning hacker
+                    avatar...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Loading portal
+                    network...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">System ready. WASD + SPACE to
+                    explore_</span></div>
         </div>
-        <!-- Spinner End -->
-
-
-        <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fas fa-user-graduate me-2"></i>Intra Swadaya</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.jpg" alt="Foto Profil Intra Swadaya Hidayat" style="width: 40px; height: 40px;">
-                        <div
-                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
-                        </div>
-                    </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">Intra Swadaya Hidayat</h6>
-                        <span>Dosen Ilmu Komputer</span>
-                    </div>
-                </div>
-                <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i
-                            class="fa fa-home me-2"></i>Beranda</a>
-                    <a href="about.html" class="nav-item nav-link"><i class="fas fa-user me-2"></i>Tentang Saya</a>
-                </div>
-            </nav>
+        <div class="boot-bar-wrap">
+            <div class="boot-bar" id="bootBar"></div>
         </div>
-        <!-- Sidebar End -->
-
-
-        <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4" aria-label="Intra Swadaya">
-                    <h2 class="text-primary mb-0"><i class="fas fa-user-graduate"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0" aria-label="Tampilkan/Sembunyikan Sidebar" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tampilkan/Sembunyikan Sidebar">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Cari tulisan..." aria-label="Cari tulisan">
-                </form>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-label="Pesan">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Pesan</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="Foto Profil Intra Swadaya Hidayat"
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Pesan baru diterima</h6>
-                                        <small>15 menit yang lalu</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">Lihat semua pesan</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-label="Notifikasi">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notifikasi</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Update riset terbaru</h6>
-                                <small>15 menit yang lalu</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Komentar baru pada blog</h6>
-                                <small>30 menit yang lalu</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Jadwal mengajar diperbarui</h6>
-                                <small>1 jam yang lalu</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">Lihat semua notifikasi</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="Foto Profil Intra Swadaya Hidayat"
-                                style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Intra Swadaya</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="about.html" class="dropdown-item">Profil Saya</a>
-                            <a href="#" class="dropdown-item">Pengaturan</a>
-                            <a href="#" class="dropdown-item">Keluar</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar End -->
-
-            <!-- Page Header Start -->
-            <div class="container-fluid pt-4 px-4" id="main-content" tabindex="-1" style="outline: none;">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="bg-light rounded h-100 p-4 page-header">
-                            <div class="d-flex align-items-center justify-content-between mb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="status-indicator me-3">
-                                        <span class="status-dot bg-success"></span>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-0">Selamat Datang di Blog Saya</h6>
-                                        <small class="text-muted">Mencatat ide, merefleksikan perjalanan</small>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <div class="me-3 text-end">
-                                        <span id="live-date" class="text-muted d-block small"></span>
-                                        <span id="live-clock" class="fw-bold text-primary digital-clock"></span>
-                                    </div>
-                                    <div class="clock-icon">
-                                        <i class="fas fa-clock text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Page Header End -->
-
-            <!-- Welcome Section Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-12">
-                        <div class="bg-light rounded p-4">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 text-center mb-3 mb-md-0">
-                                    <img class="rounded-circle img-fluid border border-3 border-primary p-1" src="img/user.jpg" alt="Intra Swadaya Hidayat" style="width: 200px;">
-                                </div>
-                                <div class="col-md-9">
-                                    <h1 class="display-4 fw-bold text-primary">Intra Swadaya Hidayat</h1>
-                                    <p class="lead">Dosen Ilmu Komputer | Machine Learning Enthusiast | Lifelong Learner</p>
-                                    <p class="mb-4">
-                                        Saya seorang dosen di bidang Ilmu Komputer yang setiap hari hidup di antara algoritma, mahasiswa, dan ide-ide yang belum selesai.
-                                        Dulu saya melihat dunia teknologi sebagai kumpulan kode dan logika. Sekarang, saya melihatnya sebagai ruang belajar yang tak pernah benar-benar selesai.
-                                    </p>
-                                    <a href="about.html" class="btn btn-primary py-2 px-4">Baca Selengkapnya Tentang Saya</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Welcome Section End -->
-
-            <!-- Intro Section Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded p-4 h-100">
-                            <h5 class="mb-4"><i class="fas fa-microchip me-2 text-primary"></i>Fokus Riset</h5>
-                            <p>Saya tertarik pada machine learning, khususnya bagaimana model bisa memahami data tabular dan struktur yang kompleks. Belakangan, perhatian saya banyak tertuju pada generative models dan pendekatan yang lebih “constraint-aware”.</p>
-                            <p>Bagi saya, membangun model bukan sekadar mengejar akurasi, tetapi menjaga integritas prosesnya.</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded p-4 h-100">
-                            <h5 class="mb-4"><i class="fas fa-book-reader me-2 text-primary"></i>Filosofi Mengajar</h5>
-                            <p>Mengajar membuat saya terus belajar. Membimbing mahasiswa membuat saya sering bercermin pada diri sendiri. Dan riset membuat saya sadar bahwa ilmu bukan tentang siapa yang paling cepat, tetapi siapa yang paling sabar menggali.</p>
-                            <p>Setiap konsep yang dipahami mahasiswa mungkin menjadi bekal hidup mereka di masa depan.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Intro Section End -->
-
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light rounded-top p-4">
-                    <!-- <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-                        </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                            </br>
-                            Distributed By <a class="border-bottom" href="https://themewagon.com"
-                                target="_blank">ThemeWagon</a>
-                        </div>
-                    </div> -->
-                </div>
-            </div>
-            <!-- Footer End -->
-        </div>
-        <!-- Content End -->
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" aria-label="Kembali ke Atas" data-bs-toggle="tooltip" data-bs-placement="left" title="Kembali ke Atas"><i class="bi bi-arrow-up"></i></a>
     </div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Warp Transition -->
+    <div class="warp-overlay" id="warpOverlay"><canvas id="warp-canvas"></canvas></div>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <!-- HUD -->
+    <div class="hud hud-top">
+        <div class="hud-logo"><span class="icon">S</span> Stack of Thoughts_</div>
+    </div>
+    <div class="hud-world-label">world: <span class="wname" id="worldLabel">hub_main</span></div>
+    <div class="hud-coords">
+        <div>pos: <span class="val" id="coordX">0.0</span>, <span class="val" id="coordZ">0.0</span></div>
+        <div>station: <span class="val" id="nearStation">---</span></div>
+    </div>
+    <div class="hud hud-bottom">
+        <div class="hud-controls">
+            <div class="hud-keys">
+                <div style="width:28px"></div>
+                <div class="hud-key" id="keyW">W</div>
+                <div style="width:28px"></div>
+            </div>
+            <div class="hud-keys">
+                <div class="hud-key" id="keyA">A</div>
+                <div class="hud-key" id="keyS">S</div>
+                <div class="hud-key" id="keyD">D</div>
+            </div>
+            <div class="hud-keys" style="margin-top:2px;">
+                <div class="hud-key wide" id="keySP">SPACE</div>
+            </div>
+            <div class="hud-hint">WASD = move | SPACE = jump | E = interact | ESC = close</div>
+        </div>
+    </div>
+    <div class="hud-minimap"><canvas id="minimap-canvas" width="160" height="160"></canvas></div>
+    <div class="interact-prompt" id="interactPrompt">Press <span class="key-hint">E</span> to access terminal</div>
 
-    <!-- Scripts -->
+    <!-- Mobile Touch Controls -->
+    <div class="mobile-controls" id="mobileControls">
+        <div class="joystick-zone" id="joystickZone">
+            <div class="joystick-base" id="joystickBase">
+                <div class="joystick-knob" id="joystickKnob"></div>
+            </div>
+        </div>
+        <div class="mobile-btn-group">
+            <div class="mobile-btn interact" id="btnInteract">E</div>
+            <div class="mobile-btn jump" id="btnJump">JUMP</div>
+        </div>
+    </div>
+
+    <!-- ══════════ PANELS: HUB WORLD ══════════ -->
+
+    <!-- Welcome -->
+    <div class="panel-overlay" id="panel-welcome">
+        <div class="panel-header">
+            <h2>&gt; welcome.exe</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body" style="text-align:center;padding:30px 20px;">
+            <div
+                style="font-family:'JetBrains Mono',monospace;font-size:32px;color:#00ff66;font-weight:700;margin-bottom:12px;text-shadow:0 0 20px rgba(0,255,102,0.4);">
+                &gt;_ Welcome to the Stack</div>
+            <p style="color:#6b8a6b;font-size:14px;max-width:450px;margin:0 auto 16px;line-height:1.6;">Share your code,
+                pixel art, and dev logs with the community. A decentralized hub for creative developers.</p>
+            <div
+                style="display:inline-block;padding:4px 12px;background:rgba(0,255,102,0.1);border:1px solid #00ff66;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#00ff66;margin-bottom:16px;">
+                v2.0.4 Live Update</div>
+            <div style="text-align:left;margin-top:16px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#4a6a4a;margin-bottom:8px;">//
+                    station_map.json</div>
+                <div class="code-block">
+                    {<br>
+                    &nbsp;&nbsp;<span class="str">"hub_stations"</span>: [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"welcome.exe"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"activity_feed.sh"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"leaderboard.db"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"arsenal.cfg"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"[PORTAL] programming_world"</span><br>
+                    &nbsp;&nbsp;],<br>
+                    &nbsp;&nbsp;<span class="str">"tip"</span>: <span class="str">"Walk to a station &amp; press
+                        E"</span><br>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Feed -->
+    <div class="panel-overlay" id="panel-activity">
+        <div class="panel-header">
+            <h2>&gt; activity_feed.sh</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="panel-card">
+                <div class="panel-card-img"
+                    style="background:linear-gradient(135deg,#0a2a1a,#1a4a2a);background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=80');background-size:cover;">
+                    <span class="tag">#hardware</span>
+                </div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@retro_dev</span> &bull; 3h ago</div>
+                    <h3>Porting Doom to a Smart Toaster</h3>
+                    <p>It runs at 15fps but it's totally playable. Hacked the microcontroller with custom firmware.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 342
+                        upvotes</span><span>&#128172; 89</span></div>
+            </div>
+            <div class="panel-card">
+                <div class="panel-card-img"
+                    style="background:linear-gradient(135deg,#0a1a2a,#1a2a4a);background-image:url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80');background-size:cover;">
+                    <span class="tag">#opensource</span>
+                </div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@ferris_fan</span> &bull; 5h ago</div>
+                    <h3>Why I finally switched to Rust for Systems Programming</h3>
+                    <p>Memory safety without garbage collection is a game changer. Borrow checker is your friend.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 1.2k
+                        upvotes</span><span>&#128172; 245</span></div>
+            </div>
+            <div class="panel-card">
+                <div class="panel-card-img"
+                    style="background:linear-gradient(135deg,#1a0a2a,#2a1a4a);background-image:url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&q=80');background-size:cover;">
+                    <span class="tag">#pixelart</span>
+                </div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@pixel_wizard</span> &bull; 8h ago</div>
+                    <h3>Indie Game Devlog #1: Character Sprites</h3>
+                    <p>Working on idle animations with 8-frame cycles. What do you think about the color palette?</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 567
+                        upvotes</span><span>&#128172; 123</span></div>
+            </div>
+            <div class="panel-card">
+                <div class="panel-card-img"
+                    style="background:linear-gradient(135deg,#1a1a0a,#2a2a1a);background-image:url('https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=400&q=80');background-size:cover;">
+                    <span class="tag">#setup</span>
+                </div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@mech_key</span> &bull; 12h ago</div>
+                    <h3>My Minimalist Dev Setup 2024</h3>
+                    <p>Finally cleaned up the cables. Custom keycaps arrived. Full specs in the comments!</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 2.1k
+                        upvotes</span><span>&#128172; 357</span></div>
+            </div>
+            <div class="panel-card">
+                <div class="panel-card-img"
+                    style="background:linear-gradient(135deg,#2a0a1a,#4a1a2a);background-image:url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80');background-size:cover;">
+                    <span class="tag">#security</span>
+                </div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@h4ck3r_j0e</span> &bull; 1d ago</div>
+                    <h3>CTF Writeup: Binary Exploitation 101</h3>
+                    <p>Walk-through of last weekend's CTF challenge. Stack overflow to shell in 47 bytes.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 891
+                        upvotes</span><span>&#128172; 167</span></div>
+            </div>
+            <div class="panel-card">
+                <div class="panel-card-img"
+                    style="background:linear-gradient(135deg,#0a2a2a,#1a4a4a);background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80');background-size:cover;">
+                    <span class="tag">#ai</span>
+                </div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@neural_net</span> &bull; 1d ago</div>
+                    <h3>Training a GPT from Scratch on My M4 Mac</h3>
+                    <p>124M params, custom tokenizer, trained on 10GB of code. Surprisingly coherent output.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 3.4k
+                        upvotes</span><span>&#128172; 512</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="panel-overlay" id="panel-leaderboard">
+        <div class="panel-header">
+            <h2>&gt; leaderboard.db</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a3a;margin-bottom:12px;">// top
+                contributors &mdash; all time</div>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank" style="color:#ffaa00;">&#9733;</span>
+                    <div class="contrib-avatar" style="background:linear-gradient(135deg,#ffaa00,#cc8800);"></div>
+                    <span class="contrib-name">@code_ninja</span>
+                </div><span class="contrib-score">12.4k xp</span>
+            </div>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank" style="color:#aaaacc;">&#9733;</span>
+                    <div class="contrib-avatar" style="background:linear-gradient(135deg,#aaaacc,#888899);"></div>
+                    <span class="contrib-name">@design_guru</span>
+                </div><span class="contrib-score">9.8k xp</span>
+            </div>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank" style="color:#cc7744;">&#9733;</span>
+                    <div class="contrib-avatar" style="background:linear-gradient(135deg,#cc7744,#aa5522);"></div>
+                    <span class="contrib-name">@sys_admin</span>
+                </div><span class="contrib-score">8.1k xp</span>
+            </div>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">4.</span>
+                    <div class="contrib-avatar"></div><span class="contrib-name">@pixel_wizard</span>
+                </div><span class="contrib-score">7.3k xp</span>
+            </div>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">5.</span>
+                    <div class="contrib-avatar"></div><span class="contrib-name">@rust_evangelist</span>
+                </div><span class="contrib-score">6.9k xp</span>
+            </div>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">6.</span>
+                    <div class="contrib-avatar"></div><span class="contrib-name">@kernel_panic</span>
+                </div><span class="contrib-score">5.5k xp</span>
+            </div>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">7.</span>
+                    <div class="contrib-avatar"></div><span class="contrib-name">@dark_coder</span>
+                </div><span class="contrib-score">4.8k xp</span>
+            </div>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">8.</span>
+                    <div class="contrib-avatar"></div><span class="contrib-name">@binary_witch</span>
+                </div><span class="contrib-score">4.2k xp</span>
+            </div>
+            <div
+                style="margin-top:12px;padding-top:12px;border-top:1px solid #1a2e1a;text-align:center;font-size:11px;color:#3a5a3a;font-family:'JetBrains Mono',monospace;">
+                &copy; 2024 Stack of Thoughts_ &mdash; Build v4.2.0-beta</div>
+        </div>
+    </div>
+
+    <!-- Arsenal -->
+    <div class="panel-overlay" id="panel-arsenal">
+        <div class="panel-header">
+            <h2>&gt; arsenal.cfg</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a3a;margin-bottom:12px;">//
+                trending tools &amp; technologies</div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot g"></span>
+                    <div>
+                        <div class="status-tag">Rust</div>
+                        <div class="status-count">4.2k devs active</div>
+                    </div>
+                </div><span class="status-badge g">&#9650; 24%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot b"></span>
+                    <div>
+                        <div class="status-tag">TypeScript</div>
+                        <div class="status-count">8.9k devs active</div>
+                    </div>
+                </div><span class="status-badge b">&#9650; 12%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot p"></span>
+                    <div>
+                        <div class="status-tag">Go</div>
+                        <div class="status-count">3.1k devs active</div>
+                    </div>
+                </div><span class="status-badge p">&#9650; 18%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot y"></span>
+                    <div>
+                        <div class="status-tag">Python</div>
+                        <div class="status-count">12.4k devs active</div>
+                    </div>
+                </div><span class="status-badge y">&#9650; 8%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot r"></span>
+                    <div>
+                        <div class="status-tag">Zig</div>
+                        <div class="status-count">890 devs active</div>
+                    </div>
+                </div><span class="status-badge r">&#9650; 42%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot g"></span>
+                    <div>
+                        <div class="status-tag">Neovim</div>
+                        <div class="status-count">6.7k users</div>
+                    </div>
+                </div><span class="status-badge g">&#9650; 15%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot b"></span>
+                    <div>
+                        <div class="status-tag">Docker</div>
+                        <div class="status-count">9.2k users</div>
+                    </div>
+                </div><span class="status-badge b">&#9650; 6%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot p"></span>
+                    <div>
+                        <div class="status-tag">Linux (btw)</div>
+                        <div class="status-count">15.8k users</div>
+                    </div>
+                </div><span class="status-badge p">&#9650; 3%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ PANELS: PROGRAMMING WORLD ══════════ -->
+
+    <div class="panel-overlay" id="panel-prog-welcome">
+        <div class="panel-header">
+            <h2>&gt; prog://init</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body" style="text-align:center;padding:24px 20px;">
+            <div
+                style="font-family:'JetBrains Mono',monospace;font-size:28px;color:#00aaff;font-weight:700;margin-bottom:12px;text-shadow:0 0 20px rgba(0,170,255,0.4);">
+                &lt;/&gt; Programming World</div>
+            <p style="color:#5a7a9a;font-size:14px;max-width:450px;margin:0 auto 16px;line-height:1.6;">Code snippets,
+                algorithms, language deep-dives, and project showcases. Explore each station to level up.</p>
+            <div
+                style="display:inline-block;padding:4px 12px;background:rgba(0,170,255,0.1);border:1px solid #00aaff;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#00aaff;">
+                compiled with -O3</div>
+        </div>
+    </div>
+
+    <div class="panel-overlay" id="panel-algorithms">
+        <div class="panel-header">
+            <h2>&gt; algorithms.rs</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:12px;">//
+                data structures &amp; algorithms collection</div>
+            <div class="code-block">
+                <span class="cm">// Binary Search - O(log n)</span><br>
+                <span class="kw">fn</span> <span class="fn">binary_search</span>(arr: &amp;[<span
+                    class="var">i32</span>], target: <span class="var">i32</span>) -&gt; <span
+                    class="var">Option</span>&lt;<span class="var">usize</span>&gt; {<br>
+                &nbsp;&nbsp;<span class="kw">let</span> (<span class="kw">mut</span> lo, <span class="kw">mut</span> hi)
+                = (<span class="num">0</span>, arr.len());<br>
+                &nbsp;&nbsp;<span class="kw">while</span> lo &lt; hi {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">let</span> mid = lo + (hi - lo) / <span
+                    class="num">2</span>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">match</span> arr[mid].cmp(&amp;target) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ordering::Less =&gt; lo = mid + <span class="num">1</span>,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ordering::Greater =&gt; hi = mid,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ordering::Equal =&gt; <span class="kw">return</span> <span
+                    class="var">Some</span>(mid),<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;<span class="var">None</span><br>
+                }
+            </div>
+            <div class="code-block">
+                <span class="cm">// Quick Sort - O(n log n) avg</span><br>
+                <span class="kw">fn</span> <span class="fn">quicksort</span>&lt;T: Ord&gt;(v: &amp;<span
+                    class="kw">mut</span> [T]) {<br>
+                &nbsp;&nbsp;<span class="kw">if</span> v.len() &lt;= <span class="num">1</span> { <span
+                    class="kw">return</span>; }<br>
+                &nbsp;&nbsp;<span class="kw">let</span> pivot = partition(v);<br>
+                &nbsp;&nbsp;quicksort(&amp;<span class="kw">mut</span> v[..pivot]);<br>
+                &nbsp;&nbsp;quicksort(&amp;<span class="kw">mut</span> v[pivot+<span class="num">1</span>..]);<br>
+                }
+            </div>
+            <div class="code-block">
+                <span class="cm">// Graph BFS - O(V + E)</span><br>
+                <span class="kw">fn</span> <span class="fn">bfs</span>(graph: &amp;HashMap&lt;<span
+                    class="var">usize</span>, Vec&lt;<span class="var">usize</span>&gt;&gt;, start: <span
+                    class="var">usize</span>) {<br>
+                &nbsp;&nbsp;<span class="kw">let mut</span> visited = HashSet::new();<br>
+                &nbsp;&nbsp;<span class="kw">let mut</span> queue = VecDeque::from([start]);<br>
+                &nbsp;&nbsp;<span class="kw">while let</span> Some(node) = queue.pop_front() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> !visited.insert(node) { <span
+                    class="kw">continue</span>; }<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">for</span> &amp;next <span class="kw">in</span>
+                &amp;graph[&amp;node] {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queue.push_back(next);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;}<br>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-overlay" id="panel-projects">
+        <div class="panel-header">
+            <h2>&gt; projects.toml</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a1a3a,#1a3a6a);"><span
+                        class="tag">#web</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@fullstack_fury</span> &bull; 2h ago</div>
+                    <h3>Real-time Collaborative Code Editor</h3>
+                    <p>Built with WebSockets + CRDT. Supports 50+ concurrent users with zero conflicts. Open source!</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 1.8k
+                        stars</span><span>&#128172; 234</span></div>
+            </div>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#2a1a0a,#4a3a1a);"><span
+                        class="tag">#gamedev</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@voxel_smith</span> &bull; 6h ago</div>
+                    <h3>Voxel Engine in Pure C + OpenGL</h3>
+                    <p>Infinite world gen, chunk meshing with greedy algo, runs 120fps on integrated GPU.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 4.5k
+                        stars</span><span>&#128172; 678</span></div>
+            </div>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#1a0a3a,#3a1a6a);"><span
+                        class="tag">#cli</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@terminal_god</span> &bull; 1d ago</div>
+                    <h3>htop but make it Cyberpunk</h3>
+                    <p>Terminal system monitor with neon UI, GPU stats, network graph, and matrix rain screensaver.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 7.2k
+                        stars</span><span>&#128172; 445</span></div>
+            </div>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a2a1a,#1a4a2a);"><span
+                        class="tag">#ml</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@tensor_hacker</span> &bull; 2d ago</div>
+                    <h3>Neural Network from Scratch in Zig</h3>
+                    <p>No dependencies. MNIST at 98.2% accuracy. Compiles in 0.3s. SIMD-optimized matmul.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 2.9k
+                        stars</span><span>&#128172; 189</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-overlay" id="panel-challenges">
+        <div class="panel-header">
+            <h2>&gt; challenges.exe</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:16px;">//
+                active coding challenges</div>
+            <div class="status-row" style="border-left:3px solid #00ff66;">
+                <div class="status-left">
+                    <div>
+                        <div class="status-tag">&#127942; Advent of Code 2024</div>
+                        <div class="status-count">Day 18 — Active now</div>
+                    </div>
+                </div><span class="status-badge g">2.3k solving</span>
+            </div>
+            <div class="status-row" style="border-left:3px solid #00aaff;">
+                <div class="status-left">
+                    <div>
+                        <div class="status-tag">&#9876;&#65039; Algorithm Arena #47</div>
+                        <div class="status-count">Graph Theory — 3 days left</div>
+                    </div>
+                </div><span class="status-badge b">891 entries</span>
+            </div>
+            <div class="status-row" style="border-left:3px solid #aa66ff;">
+                <div class="status-left">
+                    <div>
+                        <div class="status-tag">&#128187; Build a Shell</div>
+                        <div class="status-count">From scratch in any language</div>
+                    </div>
+                </div><span class="status-badge p">456 submissions</span>
+            </div>
+            <div class="status-row" style="border-left:3px solid #ffaa00;">
+                <div class="status-left">
+                    <div>
+                        <div class="status-tag">&#128274; CTF: Binary Exploitation</div>
+                        <div class="status-count">pwn challenges — 5 flags</div>
+                    </div>
+                </div><span class="status-badge y">234 hackers</span>
+            </div>
+            <div class="status-row" style="border-left:3px solid #ff4466;">
+                <div class="status-left">
+                    <div>
+                        <div class="status-tag">&#127912; Pixel Art Jam</div>
+                        <div class="status-count">Theme: Cyberpunk City</div>
+                    </div>
+                </div><span class="status-badge r">167 artists</span>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="game-canvas"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // Real-time clock
-        function updateClock() {
-            var now = new Date();
-            var timeString = now.toLocaleTimeString('id-ID', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
+        (function () {
+            /* ═══ BOOT ═══ */
+            const bootScreen = document.getElementById('bootScreen');
+            const bootLines = bootScreen.querySelectorAll('.boot-line');
+            const bootBar = document.getElementById('bootBar');
+            let bootDone = false;
+
+            function runBoot(cb) {
+                let i = 0;
+
+                function next() {
+                    if (i >= bootLines.length) {
+                        setTimeout(() => {
+                            bootScreen.style.transition = 'opacity 0.5s';
+                            bootScreen.style.opacity = '0';
+                            setTimeout(() => {
+                                bootScreen.style.display = 'none';
+                                bootDone = true;
+                                cb();
+                            }, 500);
+                        }, 400);
+                        return;
+                    }
+                    bootLines[i].style.opacity = '1';
+                    bootBar.style.width = ((i + 1) / bootLines.length * 100) + '%';
+                    bootBar.style.transition = 'width 0.2s';
+                    i++;
+                    setTimeout(next, 150 + Math.random() * 100);
+                }
+                next();
+            }
+
+            /* ═══ RENDERER ═══ */
+            const canvas = document.getElementById('game-canvas');
+            const renderer = new THREE.WebGLRenderer({
+                canvas,
+                antialias: true
             });
-            var dateString = now.toLocaleDateString('id-ID', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x020502);
+            scene.fog = new THREE.FogExp2(0x020502, 0.016);
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+            camera.position.set(0, 18, 18);
+
+            /* ═══ LIGHTS ═══ */
+            const ambientLight = new THREE.AmbientLight(0x112211, 0.6);
+            scene.add(ambientLight);
+            const dirLight = new THREE.DirectionalLight(0x00ff66, 0.3);
+            dirLight.position.set(20, 40, 20);
+            dirLight.castShadow = true;
+            dirLight.shadow.camera.near = 1;
+            dirLight.shadow.camera.far = 80;
+            dirLight.shadow.camera.left = -40;
+            dirLight.shadow.camera.right = 40;
+            dirLight.shadow.camera.top = 40;
+            dirLight.shadow.camera.bottom = -40;
+            dirLight.shadow.mapSize.width = 1024;
+            dirLight.shadow.mapSize.height = 1024;
+            scene.add(dirLight);
+
+            /* ═══ GROUND ═══ */
+            let gridHelper = new THREE.GridHelper(100, 80, 0x0a3a0a, 0x061a06);
+            scene.add(gridHelper);
+            const ground = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), new THREE.MeshStandardMaterial({
+                color: 0x030803,
+                roughness: 0.9
+            }));
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = -0.01;
+            ground.receiveShadow = true;
+            scene.add(ground);
+
+            /* ═══ CHARACTER ═══ */
+            const charGroup = new THREE.Group();
+            const bodyMat = new THREE.MeshStandardMaterial({
+                color: 0x00ffaa,
+                emissive: 0x00ff66,
+                emissiveIntensity: 0.4,
+                roughness: 0.4,
+                metalness: 0.5
+            });
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.5), bodyMat);
+            body.position.y = 1.4;
+            body.castShadow = true;
+            charGroup.add(body);
+            const headMat = new THREE.MeshStandardMaterial({
+                color: 0x33ffcc,
+                emissive: 0x00ff88,
+                emissiveIntensity: 0.5,
+                roughness: 0.3,
+                metalness: 0.5
+            });
+            const head = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.55), headMat);
+            head.position.y = 2.3;
+            head.castShadow = true;
+            charGroup.add(head);
+            const visorMat = new THREE.MeshStandardMaterial({
+                color: 0xffffff,
+                emissive: 0x00ff66,
+                emissiveIntensity: 3,
+                roughness: 0.1
+            });
+            const visor = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.15, 0.05), visorMat);
+            visor.position.set(0, 2.35, 0.3);
+            charGroup.add(visor);
+
+            function makeLimb(w, h, d, x, y) {
+                const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshStandardMaterial({
+                    color: 0x22cc88,
+                    emissive: 0x00aa44,
+                    emissiveIntensity: 0.3,
+                    roughness: 0.5,
+                    metalness: 0.4
+                }));
+                m.position.set(x, y, 0);
+                m.castShadow = true;
+                return m;
+            }
+            const leftLeg = makeLimb(0.25, 0.7, 0.3, -0.2, 0.45);
+            const rightLeg = makeLimb(0.25, 0.7, 0.3, 0.2, 0.45);
+            const leftArm = makeLimb(0.2, 0.8, 0.25, -0.6, 1.3);
+            const rightArm = makeLimb(0.2, 0.8, 0.25, 0.6, 1.3);
+            charGroup.add(leftLeg, rightLeg, leftArm, rightArm);
+            const charLight = new THREE.PointLight(0x00ff66, 1.5, 12);
+            charLight.position.y = 2;
+            charGroup.add(charLight);
+            scene.add(charGroup);
+
+            /* ═══ JUMP PHYSICS ═══ */
+            let jumpVelocity = 0;
+            let isGrounded = true;
+            const gravity = 25;
+            const jumpForce = 10;
+
+            /* ═══ WORLD SYSTEM ═══ */
+            let currentWorld = 'hub';
+            const worldConfigs = {
+                hub: {
+                    bg: 0x020502,
+                    fog: 0x020502,
+                    fogDensity: 0.016,
+                    gridColor1: 0x0a3a0a,
+                    gridColor2: 0x061a06,
+                    groundColor: 0x030803,
+                    ambient: 0x112211,
+                    dirColor: 0x00ff66,
+                    label: 'hub_main',
+                    stations: [{
+                        id: 'welcome',
+                        label: 'welcome.exe',
+                        pos: [0, 0, -10],
+                        color: 0x00ff66,
+                        panelId: 'panel-welcome'
+                    },
+                    {
+                        id: 'activity',
+                        label: 'activity_feed.sh',
+                        pos: [-14, 0, -6],
+                        color: 0x00aaff,
+                        panelId: 'panel-activity'
+                    },
+                    {
+                        id: 'leaderboard',
+                        label: 'leaderboard.db',
+                        pos: [14, 0, -6],
+                        color: 0xffaa00,
+                        panelId: 'panel-leaderboard'
+                    },
+                    {
+                        id: 'arsenal',
+                        label: 'arsenal.cfg',
+                        pos: [-10, 0, 10],
+                        color: 0xaa66ff,
+                        panelId: 'panel-arsenal'
+                    },
+                    {
+                        id: 'portal_prog',
+                        label: '[PORTAL] programming',
+                        pos: [10, 0, 10],
+                        color: 0xff4466,
+                        panelId: null,
+                        isPortal: true,
+                        targetWorld: 'programming'
+                    },
+                    ]
+                },
+                programming: {
+                    bg: 0x020208,
+                    fog: 0x020208,
+                    fogDensity: 0.018,
+                    gridColor1: 0x0a0a3a,
+                    gridColor2: 0x06061a,
+                    groundColor: 0x030308,
+                    ambient: 0x111122,
+                    dirColor: 0x4488ff,
+                    label: 'prog_world',
+                    stations: [{
+                        id: 'prog-welcome',
+                        label: 'prog://init',
+                        pos: [0, 0, -10],
+                        color: 0x00aaff,
+                        panelId: 'panel-prog-welcome'
+                    },
+                    {
+                        id: 'algorithms',
+                        label: 'algorithms.rs',
+                        pos: [-12, 0, -4],
+                        color: 0x66ccff,
+                        panelId: 'panel-algorithms'
+                    },
+                    {
+                        id: 'projects',
+                        label: 'projects.toml',
+                        pos: [12, 0, -4],
+                        color: 0xaa88ff,
+                        panelId: 'panel-projects'
+                    },
+                    {
+                        id: 'challenges',
+                        label: 'challenges.exe',
+                        pos: [0, 0, 8],
+                        color: 0xff8844,
+                        panelId: 'panel-challenges'
+                    },
+                    {
+                        id: 'portal_hub',
+                        label: '[PORTAL] back_to_hub',
+                        pos: [0, 0, 16],
+                        color: 0x00ff66,
+                        panelId: null,
+                        isPortal: true,
+                        targetWorld: 'hub'
+                    },
+                    ]
+                }
+            };
+
+            // Dynamic scene objects (cleared on world switch)
+            let dynamicObjects = [];
+            let stationMeshes = [];
+            let stations = [];
+
+            function clearDynamicObjects() {
+                dynamicObjects.forEach(obj => scene.remove(obj));
+                dynamicObjects = [];
+                stationMeshes = [];
+                stations = [];
+            }
+
+            function buildWorld(worldId) {
+                clearDynamicObjects();
+                const cfg = worldConfigs[worldId];
+                currentWorld = worldId;
+
+                // Update scene colors
+                scene.background.setHex(cfg.bg);
+                scene.fog = new THREE.FogExp2(cfg.fog, cfg.fogDensity);
+                ambientLight.color.setHex(cfg.ambient);
+                dirLight.color.setHex(cfg.dirColor);
+                // Recreate grid with new colors
+                scene.remove(gridHelper);
+                gridHelper = new THREE.GridHelper(100, 80, cfg.gridColor1, cfg.gridColor2);
+                scene.add(gridHelper);
+                ground.material.color.setHex(cfg.groundColor);
+
+                // HUD
+                document.getElementById('worldLabel').textContent = cfg.label;
+
+                // Build stations
+                stations = cfg.stations;
+                stations.forEach(st => {
+                    const g = new THREE.Group();
+                    g.position.set(st.pos[0], st.pos[1], st.pos[2]);
+
+                    if (st.isPortal) {
+                        // Portal: spinning torus
+                        const torusGeo = new THREE.TorusGeometry(2.0, 0.3, 16, 32);
+                        const torusMat = new THREE.MeshStandardMaterial({
+                            color: st.color,
+                            emissive: st.color,
+                            emissiveIntensity: 1.5,
+                            transparent: true,
+                            opacity: 0.7,
+                            side: THREE.DoubleSide
+                        });
+                        const torus = new THREE.Mesh(torusGeo, torusMat);
+                        torus.position.y = 2.5;
+                        g.add(torus);
+
+                        // Inner glow disc
+                        const discGeo = new THREE.CircleGeometry(1.7, 32);
+                        const discMat = new THREE.MeshStandardMaterial({
+                            color: st.color,
+                            emissive: st.color,
+                            emissiveIntensity: 2,
+                            transparent: true,
+                            opacity: 0.3,
+                            side: THREE.DoubleSide
+                        });
+                        const disc = new THREE.Mesh(discGeo, discMat);
+                        disc.position.y = 2.5;
+                        g.add(disc);
+
+                        // Particles around portal
+                        const pGeo2 = new THREE.BufferGeometry();
+                        const pPos2 = new Float32Array(60 * 3);
+                        for (let i = 0; i < 60; i++) {
+                            const a = Math.random() * Math.PI * 2;
+                            const r = 1.5 + Math.random() * 1;
+                            pPos2[i * 3] = Math.cos(a) * r;
+                            pPos2[i * 3 + 1] = 2.5 + Math.sin(a) * r;
+                            pPos2[i * 3 + 2] = Math.sin(a) * 0.3;
+                        }
+                        pGeo2.setAttribute('position', new THREE.BufferAttribute(pPos2, 3));
+                        const pMat2 = new THREE.PointsMaterial({
+                            color: st.color,
+                            size: 0.1,
+                            transparent: true,
+                            opacity: 0.8
+                        });
+                        g.add(new THREE.Points(pGeo2, pMat2));
+
+                        g.add(new THREE.PointLight(st.color, 1.5, 15).translateY(2.5));
+                        scene.add(g);
+                        dynamicObjects.push(g);
+                        stationMeshes.push({
+                            ...st,
+                            group: g,
+                            torus,
+                            disc,
+                            portalParticles: pGeo2
+                        });
+                    } else {
+                        // Normal station
+                        const plat = new THREE.Mesh(new THREE.CylinderGeometry(2.0, 2.2, 0.3, 6), new THREE
+                            .MeshStandardMaterial({
+                                color: 0x0a1a0a,
+                                roughness: 0.4,
+                                metalness: 0.5
+                            }));
+                        plat.position.y = 0.15;
+                        plat.receiveShadow = true;
+                        g.add(plat);
+                        const ringMat = new THREE.MeshStandardMaterial({
+                            color: st.color,
+                            emissive: st.color,
+                            emissiveIntensity: 1,
+                            roughness: 0.3
+                        });
+                        const ring = new THREE.Mesh(new THREE.TorusGeometry(2.0, 0.05, 8, 6), ringMat);
+                        ring.rotation.x = -Math.PI / 2;
+                        ring.position.y = 0.32;
+                        g.add(ring);
+                        const pillar = new THREE.Mesh(new THREE.BoxGeometry(0.15, 3, 0.15), new THREE
+                            .MeshStandardMaterial({
+                                color: st.color,
+                                emissive: st.color,
+                                emissiveIntensity: 0.5,
+                                transparent: true,
+                                opacity: 0.4
+                            }));
+                        pillar.position.y = 1.8;
+                        g.add(pillar);
+                        const cube = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.6), new THREE
+                            .MeshStandardMaterial({
+                                color: st.color,
+                                emissive: st.color,
+                                emissiveIntensity: 1.5,
+                                wireframe: true
+                            }));
+                        cube.position.y = 3.8;
+                        g.add(cube);
+                        const inner = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3), new THREE
+                            .MeshStandardMaterial({
+                                color: st.color,
+                                emissive: st.color,
+                                emissiveIntensity: 2
+                            }));
+                        inner.position.y = 3.8;
+                        g.add(inner);
+
+                        // Label sprite
+                        const cv = document.createElement('canvas');
+                        cv.width = 256;
+                        cv.height = 64;
+                        const cx = cv.getContext('2d');
+                        cx.fillStyle = 'transparent';
+                        cx.fillRect(0, 0, 256, 64);
+                        cx.font = 'bold 18px JetBrains Mono, monospace';
+                        cx.fillStyle = '#' + st.color.toString(16).padStart(6, '0');
+                        cx.textAlign = 'center';
+                        cx.fillText(st.label, 128, 38);
+                        const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+                            map: new THREE.CanvasTexture(cv),
+                            transparent: true
+                        }));
+                        sprite.position.y = 5;
+                        sprite.scale.set(4, 1, 1);
+                        g.add(sprite);
+
+                        g.add(new THREE.PointLight(st.color, 0.6, 10).translateY(3.5));
+                        scene.add(g);
+                        dynamicObjects.push(g);
+                        stationMeshes.push({
+                            ...st,
+                            group: g,
+                            cube,
+                            innerCube: inner,
+                            ring
+                        });
+                    }
+                });
+
+                // Environment: data pillars
+                const pillarColor = worldId === 'programming' ? 0x4488ff : 0x00ff66;
+                for (let i = 0; i < 25; i++) {
+                    const h = 2 + Math.random() * 8;
+                    const m = new THREE.Mesh(new THREE.BoxGeometry(0.08, h, 0.08), new THREE.MeshStandardMaterial({
+                        color: pillarColor,
+                        emissive: pillarColor,
+                        emissiveIntensity: 0.3 + Math.random() * 0.5,
+                        transparent: true,
+                        opacity: 0.15 + Math.random() * 0.2
+                    }));
+                    const a = Math.random() * Math.PI * 2,
+                        d = 15 + Math.random() * 30;
+                    m.position.set(Math.cos(a) * d, h / 2, Math.sin(a) * d);
+                    scene.add(m);
+                    dynamicObjects.push(m);
+                }
+            }
+
+            /* ═══ PARTICLES (global) ═══ */
+            const pCount = 500;
+            const pGeo = new THREE.BufferGeometry();
+            const pPos = new Float32Array(pCount * 3);
+            for (let i = 0; i < pCount; i++) {
+                pPos[i * 3] = (Math.random() - 0.5) * 80;
+                pPos[i * 3 + 1] = Math.random() * 20;
+                pPos[i * 3 + 2] = (Math.random() - 0.5) * 80;
+            }
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+            const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({
+                color: 0x00ff66,
+                size: 0.08,
+                transparent: true,
+                opacity: 0.6
+            }));
+            scene.add(particles);
+
+            /* ═══ INPUT ═══ */
+            const keys = {
+                w: false,
+                a: false,
+                s: false,
+                d: false,
+                e: false,
+                ' ': false
+            };
+            const keyEls = {
+                w: document.getElementById('keyW'),
+                a: document.getElementById('keyA'),
+                s: document.getElementById('keyS'),
+                d: document.getElementById('keyD'),
+                ' ': document.getElementById('keySP')
+            };
+            document.addEventListener('keydown', e => {
+                const k = e.key.toLowerCase();
+                if (k === ' ') e.preventDefault();
+                if (k in keys) keys[k] = true;
+                if (k in keyEls && keyEls[k]) keyEls[k].classList.add('active');
+                if (k === 'e') tryInteract();
+                if (k === 'escape') closePanel();
+                if (e.key === 'ArrowUp') keys.w = true;
+                if (e.key === 'ArrowDown') keys.s = true;
+                if (e.key === 'ArrowLeft') keys.a = true;
+                if (e.key === 'ArrowRight') keys.d = true;
+            });
+            document.addEventListener('keyup', e => {
+                const k = e.key.toLowerCase();
+                if (k in keys) keys[k] = false;
+                if (k in keyEls && keyEls[k]) keyEls[k].classList.remove('active');
+                if (e.key === 'ArrowUp') keys.w = false;
+                if (e.key === 'ArrowDown') keys.s = false;
+                if (e.key === 'ArrowLeft') keys.a = false;
+                if (e.key === 'ArrowRight') keys.d = false;
             });
 
-            // Update if clock element exists
-            document.querySelectorAll('#live-clock').forEach(element => {
-                element.textContent = timeString;
-            });
-            document.querySelectorAll('#live-date').forEach(element => {
-                element.textContent = dateString;
-            });
-        }
+            /* ═══ MOBILE TOUCH ═══ */
+            const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            let touchMoveX = 0,
+                touchMoveZ = 0;
+            const joystickZone = document.getElementById('joystickZone');
+            const joystickBase = document.getElementById('joystickBase');
+            const joystickKnob = document.getElementById('joystickKnob');
+            const btnJump = document.getElementById('btnJump');
+            const btnInteract = document.getElementById('btnInteract');
+            let joystickActive = false,
+                joystickId = null;
 
-        // Update clock every second
-        setInterval(updateClock, 1000);
-        updateClock(); // Initial call
+            if (joystickZone) {
+                joystickZone.addEventListener('touchstart', e => {
+                    e.preventDefault();
+                    const touch = e.changedTouches[0];
+                    joystickActive = true;
+                    joystickId = touch.identifier;
+                }, {
+                    passive: false
+                });
+                joystickZone.addEventListener('touchmove', e => {
+                    e.preventDefault();
+                    for (let i = 0; i < e.changedTouches.length; i++) {
+                        const touch = e.changedTouches[i];
+                        if (touch.identifier !== joystickId) continue;
+                        const rect = joystickBase.getBoundingClientRect();
+                        const cx = rect.left + rect.width / 2,
+                            cy = rect.top + rect.height / 2;
+                        let dx = touch.clientX - cx,
+                            dy = touch.clientY - cy;
+                        const maxR = rect.width / 2 - 25;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist > maxR) {
+                            dx = dx / dist * maxR;
+                            dy = dy / dist * maxR;
+                        }
+                        joystickKnob.style.transform = 'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' +
+                            dy + 'px))';
+                        touchMoveX = dx / maxR;
+                        touchMoveZ = dy / maxR;
+                    }
+                }, {
+                    passive: false
+                });
+                const resetJoystick = e => {
+                    for (let i = 0; i < e.changedTouches.length; i++) {
+                        if (e.changedTouches[i].identifier === joystickId) {
+                            joystickActive = false;
+                            joystickId = null;
+                            joystickKnob.style.transform = 'translate(-50%,-50%)';
+                            touchMoveX = 0;
+                            touchMoveZ = 0;
+                        }
+                    }
+                };
+                joystickZone.addEventListener('touchend', resetJoystick);
+                joystickZone.addEventListener('touchcancel', resetJoystick);
+            }
+            if (btnJump) {
+                btnJump.addEventListener('touchstart', e => {
+                    e.preventDefault();
+                    keys[' '] = true;
+                    btnJump.classList.add('pressed');
+                }, {
+                    passive: false
+                });
+                btnJump.addEventListener('touchend', e => {
+                    keys[' '] = false;
+                    btnJump.classList.remove('pressed');
+                });
+                btnJump.addEventListener('touchcancel', e => {
+                    keys[' '] = false;
+                    btnJump.classList.remove('pressed');
+                });
+            }
+            if (btnInteract) {
+                btnInteract.addEventListener('touchstart', e => {
+                    e.preventDefault();
+                    btnInteract.classList.add('pressed');
+                    tryInteract();
+                }, {
+                    passive: false
+                });
+                btnInteract.addEventListener('touchend', e => {
+                    btnInteract.classList.remove('pressed');
+                });
+                btnInteract.addEventListener('touchcancel', e => {
+                    btnInteract.classList.remove('pressed');
+                });
+            }
 
+            /* ═══ INTERACTION & PORTALS ═══ */
+            let nearestStation = null,
+                activePanel = null,
+                isWarping = false;
+
+            function tryInteract() {
+                if (!bootDone || isWarping) return;
+                if (activePanel) {
+                    closePanel();
+                    return;
+                }
+                if (!nearestStation) return;
+                if (nearestStation.isPortal) {
+                    warpToWorld(nearestStation.targetWorld);
+                } else if (nearestStation.panelId) {
+                    openPanel(nearestStation.panelId);
+                }
+            }
+
+            function openPanel(id) {
+                const p = document.getElementById(id);
+                if (!p) return;
+                p.classList.add('visible');
+                activePanel = p;
+            }
+
+            function closePanel() {
+                if (activePanel) {
+                    activePanel.classList.remove('visible');
+                    activePanel = null;
+                }
+            }
+            window.closePanel = closePanel;
+
+            /* ═══ WARP TRANSITION ═══ */
+            const warpOverlay = document.getElementById('warpOverlay');
+            const warpCanvas = document.getElementById('warp-canvas');
+            const warpCtx = warpCanvas.getContext('2d');
+
+            function warpToWorld(targetWorld) {
+                if (isWarping) return;
+                isWarping = true;
+                warpCanvas.width = window.innerWidth;
+                warpCanvas.height = window.innerHeight;
+                warpOverlay.classList.add('active');
+
+                let frame = 0;
+                const maxFrames = 40;
+
+                function drawWarp() {
+                    warpCtx.fillStyle = 'rgba(0,0,0,0.15)';
+                    warpCtx.fillRect(0, 0, warpCanvas.width, warpCanvas.height);
+                    const cx = warpCanvas.width / 2,
+                        cy = warpCanvas.height / 2;
+                    const progress = frame / maxFrames;
+
+                    // Radial lines
+                    for (let i = 0; i < 30; i++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const len = progress * Math.max(warpCanvas.width, warpCanvas.height);
+                        warpCtx.strokeStyle = targetWorld === 'programming' ? 'rgba(68,136,255,' + (0.3 + Math
+                            .random() * 0.5) + ')' : 'rgba(0,255,102,' + (0.3 + Math.random() * 0.5) + ')';
+                        warpCtx.lineWidth = 1 + Math.random() * 2;
+                        warpCtx.beginPath();
+                        warpCtx.moveTo(cx, cy);
+                        warpCtx.lineTo(cx + Math.cos(angle) * len, cy + Math.sin(angle) * len);
+                        warpCtx.stroke();
+                    }
+
+                    frame++;
+                    if (frame < maxFrames) {
+                        requestAnimationFrame(drawWarp);
+                    } else {
+                        // Flash
+                        warpCtx.fillStyle = targetWorld === 'programming' ? 'rgba(68,136,255,0.8)' :
+                            'rgba(0,255,102,0.8)';
+                        warpCtx.fillRect(0, 0, warpCanvas.width, warpCanvas.height);
+                        setTimeout(() => {
+                            buildWorld(targetWorld);
+                            charGroup.position.set(0, 0, 0);
+                            charGroup.rotation.y = 0;
+                            // Update particle color
+                            particles.material.color.setHex(targetWorld === 'programming' ? 0x4488ff :
+                                0x00ff66);
+                            setTimeout(() => {
+                                warpOverlay.classList.remove('active');
+                                warpCtx.clearRect(0, 0, warpCanvas.width, warpCanvas.height);
+                                isWarping = false;
+                            }, 400);
+                        }, 200);
+                    }
+                }
+                drawWarp();
+            }
+
+            /* ═══ MINIMAP ═══ */
+            const mmCanvas = document.getElementById('minimap-canvas');
+            const mmCtx = mmCanvas.getContext('2d');
+            const mmS = 160,
+                mmScale = mmS / 60;
+
+            function drawMinimap() {
+                mmCtx.clearRect(0, 0, mmS, mmS);
+                mmCtx.fillStyle = 'rgba(0,10,0,0.5)';
+                mmCtx.fillRect(0, 0, mmS, mmS);
+                mmCtx.strokeStyle = '#0a2a0a';
+                mmCtx.lineWidth = 0.5;
+                for (let i = 0; i <= mmS; i += mmS / 8) {
+                    mmCtx.beginPath();
+                    mmCtx.moveTo(i, 0);
+                    mmCtx.lineTo(i, mmS);
+                    mmCtx.stroke();
+                    mmCtx.beginPath();
+                    mmCtx.moveTo(0, i);
+                    mmCtx.lineTo(mmS, i);
+                    mmCtx.stroke();
+                }
+                stations.forEach(st => {
+                    const sx = mmS / 2 + st.pos[0] * mmScale,
+                        sy = mmS / 2 + st.pos[2] * mmScale;
+                    const c = '#' + st.color.toString(16).padStart(6, '0');
+                    mmCtx.fillStyle = c;
+                    mmCtx.shadowColor = c;
+                    mmCtx.shadowBlur = 6;
+                    if (st.isPortal) {
+                        mmCtx.beginPath();
+                        mmCtx.arc(sx, sy, 4, 0, Math.PI * 2);
+                        mmCtx.stroke();
+                        mmCtx.shadowBlur = 0;
+                    } else {
+                        mmCtx.beginPath();
+                        mmCtx.arc(sx, sy, 3, 0, Math.PI * 2);
+                        mmCtx.fill();
+                        mmCtx.shadowBlur = 0;
+                    }
+                });
+                const px = mmS / 2 + charGroup.position.x * mmScale,
+                    py = mmS / 2 + charGroup.position.z * mmScale;
+                mmCtx.fillStyle = '#00ff66';
+                mmCtx.shadowColor = '#00ff66';
+                mmCtx.shadowBlur = 8;
+                mmCtx.beginPath();
+                mmCtx.arc(px, py, 4, 0, Math.PI * 2);
+                mmCtx.fill();
+                mmCtx.shadowBlur = 0;
+                const a = charGroup.rotation.y;
+                mmCtx.strokeStyle = '#00ff66';
+                mmCtx.lineWidth = 1.5;
+                mmCtx.beginPath();
+                mmCtx.moveTo(px, py);
+                mmCtx.lineTo(px - Math.sin(a) * 8, py - Math.cos(a) * 8);
+                mmCtx.stroke();
+            }
+
+            /* ═══ GAME LOOP ═══ */
+            const clock = new THREE.Clock();
+            const moveSpeed = 8;
+            let walkTime = 0,
+                isMoving = false;
+            const camOffset = new THREE.Vector3(0, 14, 14);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const dt = Math.min(clock.getDelta(), 0.05);
+                const t = clock.getElapsedTime();
+                if (!bootDone) {
+                    renderer.render(scene, camera);
+                    return;
+                }
+
+                // Movement
+                isMoving = false;
+                if (!activePanel && !isWarping) {
+                    const moveDir = new THREE.Vector3(0, 0, 0);
+                    if (keys.w) moveDir.z -= 1;
+                    if (keys.s) moveDir.z += 1;
+                    if (keys.a) moveDir.x -= 1;
+                    if (keys.d) moveDir.x += 1;
+                    // Mobile joystick input
+                    if (Math.abs(touchMoveX) > 0.1 || Math.abs(touchMoveZ) > 0.1) {
+                        moveDir.x += touchMoveX;
+                        moveDir.z += touchMoveZ;
+                    }
+                    if (moveDir.length() > 0) {
+                        moveDir.normalize();
+                        charGroup.position.addScaledVector(moveDir, moveSpeed * dt);
+                        isMoving = true;
+                        const targetAngle = Math.atan2(moveDir.x, moveDir.z);
+                        let ad = targetAngle - charGroup.rotation.y;
+                        while (ad > Math.PI) ad -= Math.PI * 2;
+                        while (ad < -Math.PI) ad += Math.PI * 2;
+                        charGroup.rotation.y += ad * 8 * dt;
+                    }
+                    charGroup.position.x = Math.max(-40, Math.min(40, charGroup.position.x));
+                    charGroup.position.z = Math.max(-40, Math.min(40, charGroup.position.z));
+
+                    // Jump
+                    if (keys[' '] && isGrounded) {
+                        jumpVelocity = jumpForce;
+                        isGrounded = false;
+                    }
+                }
+
+                // Apply gravity
+                if (!isGrounded) {
+                    jumpVelocity -= gravity * dt;
+                    charGroup.position.y += jumpVelocity * dt;
+                    if (charGroup.position.y <= 0) {
+                        charGroup.position.y = 0;
+                        isGrounded = true;
+                        jumpVelocity = 0;
+                    }
+                }
+
+                // Walk anim
+                if (isMoving) {
+                    walkTime += dt * 10;
+                    leftLeg.rotation.x = Math.sin(walkTime) * 0.5;
+                    rightLeg.rotation.x = Math.sin(walkTime + Math.PI) * 0.5;
+                    leftArm.rotation.x = Math.sin(walkTime + Math.PI) * 0.4;
+                    rightArm.rotation.x = Math.sin(walkTime) * 0.4;
+                    body.position.y = 1.4 + Math.abs(Math.sin(walkTime * 2)) * 0.05;
+                } else {
+                    leftLeg.rotation.x *= 0.9;
+                    rightLeg.rotation.x *= 0.9;
+                    leftArm.rotation.x *= 0.9;
+                    rightArm.rotation.x *= 0.9;
+                    body.position.y = 1.4 + Math.sin(t * 2) * 0.03;
+                    head.position.y = 2.3 + Math.sin(t * 2) * 0.03;
+                }
+                visorMat.emissiveIntensity = 1.5 + Math.sin(t * 15) * 0.5;
+
+                // Camera follow (fixed angle)
+                const tCam = charGroup.position.clone().add(camOffset);
+                camera.position.lerp(tCam, 3 * dt);
+                camera.lookAt(charGroup.position);
+
+                // Station animations + proximity
+                nearestStation = null;
+                let nearDist = Infinity;
+                stationMeshes.forEach(st => {
+                    if (st.isPortal) {
+                        // Portal spin
+                        if (st.torus) {
+                            st.torus.rotation.y += dt * 1.5;
+                            st.torus.rotation.z += dt * 0.5;
+                        }
+                        if (st.disc) {
+                            st.disc.rotation.y += dt * 0.8;
+                        }
+                        // Portal particles orbit
+                        if (st.portalParticles) {
+                            const pp = st.portalParticles.attributes.position.array;
+                            for (let i = 0; i < pp.length / 3; i++) {
+                                const angle = t * 2 + i * 0.3;
+                                const r = 1.5 + Math.sin(t + i) * 0.5;
+                                pp[i * 3] = Math.cos(angle) * r;
+                                pp[i * 3 + 1] = 2.5 + Math.sin(angle * 0.7) * r * 0.5;
+                                pp[i * 3 + 2] = Math.sin(angle) * 0.5;
+                            }
+                            st.portalParticles.attributes.position.needsUpdate = true;
+                        }
+                    } else {
+                        if (st.cube) {
+                            st.cube.rotation.y += dt * 0.8;
+                            st.cube.rotation.x += dt * 0.3;
+                            st.cube.position.y = 3.8 + Math.sin(t * 1.5 + st.pos[0]) * 0.3;
+                        }
+                        if (st.innerCube) {
+                            st.innerCube.rotation.y -= dt * 1.2;
+                            st.innerCube.rotation.x -= dt * 0.5;
+                            st.innerCube.position.y = st.cube.position.y;
+                        }
+                        if (st.ring) st.ring.scale.setScalar(1 + Math.sin(t * 2 + st.pos[2]) * 0.05);
+                    }
+                    const dx = charGroup.position.x - st.pos[0],
+                        dz = charGroup.position.z - st.pos[2];
+                    const dist = Math.sqrt(dx * dx + dz * dz);
+                    if (dist < nearDist && dist < 4) {
+                        nearDist = dist;
+                        nearestStation = st;
+                    }
+                });
+
+                // Interact prompt
+                const prompt = document.getElementById('interactPrompt');
+                if (nearestStation && !activePanel && !isWarping) {
+                    prompt.classList.add('visible');
+                    if (nearestStation.isPortal) {
+                        prompt.innerHTML = 'Press <span class="key-hint">E</span> to enter <span style="color:#' +
+                            nearestStation.color.toString(16).padStart(6, '0') + '">' + nearestStation.label +
+                            '</span>';
+                    } else {
+                        prompt.innerHTML =
+                            'Press <span class="key-hint">E</span> to access <span style="color:#00ff66">' +
+                            nearestStation.label + '</span>';
+                    }
+                    document.getElementById('nearStation').textContent = nearestStation.label;
+                } else {
+                    prompt.classList.remove('visible');
+                    if (!nearestStation) document.getElementById('nearStation').textContent = '---';
+                }
+
+                // Particles
+                const pos = particles.geometry.attributes.position.array;
+                for (let i = 0; i < pCount; i++) {
+                    pos[i * 3 + 1] -= dt * 0.3;
+                    if (pos[i * 3 + 1] < 0) pos[i * 3 + 1] = 20;
+                }
+                particles.geometry.attributes.position.needsUpdate = true;
+
+                // HUD
+                document.getElementById('coordX').textContent = charGroup.position.x.toFixed(1);
+                document.getElementById('coordZ').textContent = charGroup.position.z.toFixed(1);
+
+                drawMinimap();
+                renderer.render(scene, camera);
+            }
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            // Init hub world and start
+            buildWorld('hub');
+            runBoot(() => {
+                animate();
+            });
+            animate();
+        })();
     </script>
 </body>
 
