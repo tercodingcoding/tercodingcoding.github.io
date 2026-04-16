@@ -869,6 +869,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"welcome.exe"</span>,<br>
                     &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"activity_feed.sh"</span>,<br>
                     &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"leaderboard.db"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"tutorials.md"</span>,<br>
                     &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"arsenal.cfg"</span>,<br>
                     &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"[PORTAL] programming_world"</span><br>
                     &nbsp;&nbsp;],<br>
@@ -963,6 +964,33 @@
                 </div>
                 <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 3.4k
                         upvotes</span><span>&#128172; 512</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorials -->
+    <div class="panel-overlay" id="panel-tutorials">
+        <div class="panel-header">
+            <h2>&gt; tutorials.md</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a2a1a,#1a4a2a);"><span class="tag">#threejs</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@three_wizard</span> &bull; 2d ago</div>
+                    <h3>Getting Started with Three.js Shaders</h3>
+                    <p>Learn how to create custom GLSL shaders for glowing effects and grid worlds.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 842 upvotes</span><span>&#128172; 56</span></div>
+            </div>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a1a2a,#1a2a4a);"><span class="tag">#rust</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@rust_pro</span> &bull; 4d ago</div>
+                    <h3>Asynchronous Programming in Rust</h3>
+                    <p>Deep dive into tokio, futures, and async/await syntax for high-performance networking.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 1.1k upvotes</span><span>&#128172; 128</span></div>
             </div>
         </div>
     </div>
@@ -1452,6 +1480,13 @@
                         pos: [14, 0, -6],
                         color: 0xffaa00,
                         panelId: 'panel-leaderboard'
+                    },
+                    {
+                        id: 'tutorials',
+                        label: 'tutorials.md',
+                        pos: [14, 0, 4],
+                        color: 0x66ccff,
+                        panelId: 'panel-tutorials'
                     },
                     {
                         id: 'arsenal',
