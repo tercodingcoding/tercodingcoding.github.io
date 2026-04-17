@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stack of Thoughts &mdash; Enter the Grid</title>
+    <title>Intra Swadaya Hidayat &mdash; Enter the Grid</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -803,7 +803,7 @@
 
     <!-- HUD -->
     <div class="hud hud-top">
-        <div class="hud-logo"><span class="icon">S</span> Stack of Thoughts_</div>
+        <div class="hud-logo"><span class="icon">I</span> Intra Swadaya Hidayat_</div>
     </div>
     <div class="hud-world-label">world: <span class="wname" id="worldLabel">hub_main</span></div>
     <div class="hud-coords">
@@ -854,7 +854,7 @@
         <div class="panel-body" style="text-align:center;padding:30px 20px;">
             <div
                 style="font-family:'JetBrains Mono',monospace;font-size:32px;color:#00ff66;font-weight:700;margin-bottom:12px;text-shadow:0 0 20px rgba(0,255,102,0.4);">
-                &gt;_ Welcome to the Stack</div>
+                &gt;_ Hello, I'm Intra</div>
             <p style="color:#6b8a6b;font-size:14px;max-width:450px;margin:0 auto 16px;line-height:1.6;">Share your code,
                 pixel art, and dev logs with the community. A decentralized hub for creative developers.</p>
             <div
@@ -1128,6 +1128,53 @@
     </div>
 
     <!-- ══════════ PANELS: PROGRAMMING WORLD ══════════ -->
+    <div class="panel-overlay" id="panel-bubblesort">
+        <div class="panel-header">
+            <h2>&gt; bubblesort.py</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:12px;">// Bubble Sort: A simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.</div>
+
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a6a4a;margin-bottom:4px;"># Python Implementation</div>
+            <div class="code-block">
+                <span class="kw">def</span> <span class="fn">bubble_sort</span>(arr):<br>
+                &nbsp;&nbsp;n = <span class="fn">len</span>(arr)<br>
+                &nbsp;&nbsp;<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(<span class="num">0</span>, n-i-<span class="num">1</span>):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> arr[j] &gt; arr[j+<span class="num">1</span>]:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arr[j], arr[j+<span class="num">1</span>] = arr[j+<span class="num">1</span>], arr[j]<br>
+                &nbsp;&nbsp;<span class="kw">return</span> arr
+            </div>
+
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a6a4a;margin-bottom:4px;">// JavaScript Implementation</div>
+            <div class="code-block">
+                <span class="kw">function</span> <span class="fn">bubbleSort</span>(arr) {<br>
+                &nbsp;&nbsp;<span class="kw">let</span> n = arr.length;<br>
+                &nbsp;&nbsp;<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; n; i++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">for</span> (<span class="kw">let</span> j = <span class="num">0</span>; j &lt; n - i - <span class="num">1</span>; j++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (arr[j] &gt; arr[j + <span class="num">1</span>]) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[arr[j], arr[j + <span class="num">1</span>]] = [arr[j + <span class="num">1</span>], arr[j]];<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;<span class="kw">return</span> arr;<br>
+                }
+            </div>
+
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a6a4a;margin-bottom:4px;">// C++ Implementation</div>
+            <div class="code-block">
+                <span class="kw">void</span> <span class="fn">bubbleSort</span>(<span class="kw">int</span> arr[], <span class="kw">int</span> n) {<br>
+                &nbsp;&nbsp;<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n - <span class="num">1</span>; i++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; n - i - <span class="num">1</span>; j++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (arr[j] &gt; arr[j + <span class="num">1</span>]) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">swap</span>(arr[j], arr[j + <span class="num">1</span>]);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;}<br>
+                }
+            </div>
+        </div>
+    </div>
 
     <div class="panel-overlay" id="panel-prog-welcome">
         <div class="panel-header">
@@ -1545,6 +1592,12 @@
                         panelId: 'panel-challenges'
                     },
                     {
+                        id: "bubblesort",
+                        label: "bubblesort.py",
+                        pos: [-12, 0, 8],
+                        color: 0x66ccff,
+                        panelId: "panel-bubblesort"
+                    },
                         id: 'portal_hub',
                         label: '[PORTAL] back_to_hub',
                         pos: [0, 0, 16],
