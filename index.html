@@ -246,6 +246,172 @@
             padding: 20px;
         }
 
+        /* ═══ CONTACT CAROUSEL ═══ */
+        #panel-contact .panel-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-scene {
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .carousel-ring {
+            width: 240px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .carousel-card {
+            position: absolute;
+            width: 240px;
+            height: 300px;
+            background: rgba(10, 10, 22, 0.92);
+            border: 1px solid rgba(170, 102, 255, 0.15);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            backface-visibility: hidden;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(170, 102, 255, 0.05);
+            padding: 24px 20px;
+            text-align: center;
+            left: 0;
+            top: 0;
+        }
+
+        .carousel-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+        }
+
+        .carousel-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: #aa66ff;
+        }
+
+        .carousel-handle {
+            font-size: 13px;
+            color: #6a6a8a;
+            font-family: 'JetBrains Mono', monospace;
+            word-break: break-all;
+        }
+
+        .carousel-link {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 9px 24px;
+            background: rgba(170, 102, 255, 0.1);
+            border: 1px solid rgba(170, 102, 255, 0.3);
+            border-radius: 8px;
+            color: #aa66ff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .carousel-link:hover {
+            background: rgba(170, 102, 255, 0.25);
+            box-shadow: 0 0 20px rgba(170, 102, 255, 0.25);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(170, 102, 255, 0.08);
+            border: 1px solid rgba(170, 102, 255, 0.25);
+            color: #aa66ff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, box-shadow 0.3s;
+            pointer-events: auto;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(170, 102, 255, 0.2);
+            box-shadow: 0 0 12px rgba(170, 102, 255, 0.2);
+        }
+
+        .carousel-prev {
+            left: 8px;
+        }
+
+        .carousel-next {
+            right: 8px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(170, 102, 255, 0.2);
+            border: 1px solid rgba(170, 102, 255, 0.3);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: #aa66ff;
+            transform: scale(1.3);
+            box-shadow: 0 0 8px rgba(170, 102, 255, 0.5);
+        }
+
+        @media (max-width:768px),
+        (pointer:coarse) {
+            .carousel-ring {
+                width: 200px;
+                height: 260px;
+            }
+
+            .carousel-card {
+                width: 200px;
+                height: 260px;
+                padding: 18px 14px;
+            }
+
+            .carousel-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 26px;
+            }
+
+            .carousel-label {
+                font-size: 16px;
+            }
+
+            .carousel-handle {
+                font-size: 11px;
+            }
+        }
+
         .interact-prompt {
             position: fixed;
             z-index: 150;
@@ -419,21 +585,21 @@
             z-index: 150;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            align-items: flex-end;
+            gap: 16px;
+            align-items: center;
             pointer-events: auto;
         }
 
         .mobile-btn {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            border: 2px solid;
+            border: 3px solid;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
+            font-size: 14px;
             font-weight: 700;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
@@ -444,6 +610,9 @@
             background: rgba(0, 170, 255, 0.15);
             border-color: rgba(0, 170, 255, 0.5);
             color: #00aaff;
+            width: 90px;
+            height: 90px;
+            font-size: 15px;
         }
 
         .mobile-btn.jump.pressed {
@@ -455,9 +624,9 @@
             background: rgba(0, 255, 102, 0.15);
             border-color: rgba(0, 255, 102, 0.5);
             color: #00ff66;
-            width: 70px;
-            height: 70px;
-            font-size: 12px;
+            width: 80px;
+            height: 80px;
+            font-size: 16px;
         }
 
         .mobile-btn.interact.pressed {
@@ -594,8 +763,8 @@
             </div>
         </div>
         <div class="mobile-btn-group">
-            <div class="mobile-btn interact" id="btnInteract">E</div>
             <div class="mobile-btn jump" id="btnJump">JUMP</div>
+            <div class="mobile-btn interact" id="btnInteract">E</div>
         </div>
     </div>
 
@@ -611,7 +780,8 @@
                 style="font-family:'JetBrains Mono',monospace;font-size:32px;color:#00ff66;font-weight:700;margin-bottom:12px;text-shadow:0 0 20px rgba(0,255,102,0.4);">
                 &gt;_ Hello, I'm Intra</div>
             <p style="color:#6b8a6b;font-size:14px;max-width:450px;margin:0 auto 16px;line-height:1.6;">Software
-                Developer. Walk around this 3D world and explore the stations to learn more about me and my work.</p>
+                Developer & Lecturer. Walk around this 3D world and explore the stations to learn more about me and my
+                work.</p>
             <div
                 style="display:inline-block;padding:4px 12px;background:rgba(0,255,102,0.1);border:1px solid #00ff66;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#00ff66;margin-bottom:16px;">
                 Portfolio v1.0</div>
@@ -697,70 +867,67 @@
     </div>
 
     <!-- Contact -->
-    <div class="panel-overlay" id="panel-contact">
-        <div class="panel-header">
-            <h2>&gt; contact.exe</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+    <div class="panel-overlay" id="panel-contact" style="overflow:hidden;background:rgba(6,6,16,0.97);max-width:800px;">
+        <div class="panel-header" style="border-bottom:1px solid #1a1a2e;background:rgba(6,6,16,0.98);">
+            <h2 style="color:#aa66ff;">&gt; contact.exe</h2><button class="panel-close"
+                onclick="closePanel()">&times;</button>
         </div>
-        <div class="panel-body" style="padding:24px 20px;">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5a3a6a;margin-bottom:16px;">// get
-                in touch</div>
-            <div style="display:flex;flex-direction:column;gap:12px;">
-                <a href="https://github.com/tercodingcoding" target="_blank" rel="noopener noreferrer"
-                    style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#111411;border:1px solid #2a1a3a;border-radius:10px;text-decoration:none;transition:border-color 0.3s;">
-                    <div
-                        style="width:40px;height:40px;border-radius:8px;background:rgba(170,102,255,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;">
-                        &#128025;</div>
-                    <div>
-                        <div
-                            style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#aa66ff;font-weight:600;">
-                            GitHub</div>
-                        <div style="font-size:12px;color:#5a5a6a;margin-top:2px;">@tercodingcoding</div>
+        <div class="panel-body" style="padding:0;position:relative;height:420px;overflow:hidden;">
+            <div class="carousel-scene">
+                <div class="carousel-ring" id="contactCarousel">
+                    <!-- GitHub -->
+                    <div class="carousel-card">
+                        <div class="carousel-icon"
+                            style="background:rgba(170,102,255,0.12);box-shadow:0 0 30px rgba(170,102,255,0.15);">
+                            &#128025;</div>
+                        <div class="carousel-label">GitHub</div>
+                        <div class="carousel-handle">@tercodingcoding</div>
+                        <a href="https://github.com/tercodingcoding" target="_blank" rel="noopener noreferrer"
+                            class="carousel-link">Open &rarr;</a>
                     </div>
-                </a>
-                <a href="mailto:intraswadaya@gmail.com"
-                    style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#111411;border:1px solid #2a1a3a;border-radius:10px;text-decoration:none;transition:border-color 0.3s;">
-                    <div
-                        style="width:40px;height:40px;border-radius:8px;background:rgba(170,102,255,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;">
-                        &#9993;</div>
-                    <div>
-                        <div
-                            style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#aa66ff;font-weight:600;">
-                            Email</div>
-                        <div style="font-size:12px;color:#5a5a6a;margin-top:2px;">intraswadaya@gmail.com</div>
+                    <!-- Email -->
+                    <div class="carousel-card">
+                        <div class="carousel-icon"
+                            style="background:rgba(0,170,255,0.12);box-shadow:0 0 30px rgba(0,170,255,0.15);">&#9993;
+                        </div>
+                        <div class="carousel-label">Email</div>
+                        <div class="carousel-handle">intraswadaya@gmail.com</div>
+                        <a href="mailto:intraswadaya@gmail.com" class="carousel-link">Send &rarr;</a>
                     </div>
-                </a>
-                <a href="https://www.linkedin.com/in/intra-hidayat-43443025a/" target="_blank" rel="noopener noreferrer"
-                    style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#111411;border:1px solid #2a1a3a;border-radius:10px;text-decoration:none;transition:border-color 0.3s;">
-                    <div
-                        style="width:40px;height:40px;border-radius:8px;background:rgba(170,102,255,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;">
-                        &#128188;</div>
-                    <div>
-                        <div
-                            style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#aa66ff;font-weight:600;">
-                            LinkedIn</div>
-                        <div style="font-size:12px;color:#5a5a6a;margin-top:2px;">Intra Hidayat</div>
+                    <!-- LinkedIn -->
+                    <div class="carousel-card">
+                        <div class="carousel-icon"
+                            style="background:rgba(0,119,181,0.15);box-shadow:0 0 30px rgba(0,119,181,0.15);">&#128188;
+                        </div>
+                        <div class="carousel-label">LinkedIn</div>
+                        <div class="carousel-handle">Intra Hidayat</div>
+                        <a href="https://www.linkedin.com/in/intra-hidayat-43443025a/" target="_blank"
+                            rel="noopener noreferrer" class="carousel-link">Connect &rarr;</a>
                     </div>
-                </a>
-                <a href="https://www.instagram.com/intraswd/" target="_blank" rel="noopener noreferrer"
-                    style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#111411;border:1px solid #2a1a3a;border-radius:10px;text-decoration:none;transition:border-color 0.3s;">
-                    <div
-                        style="width:40px;height:40px;border-radius:8px;background:rgba(170,102,255,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;">
-                        &#128247;</div>
-                    <div>
-                        <div
-                            style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#aa66ff;font-weight:600;">
-                            Instagram</div>
-                        <div style="font-size:12px;color:#5a5a6a;margin-top:2px;">@intraswd</div>
+                    <!-- Instagram -->
+                    <div class="carousel-card">
+                        <div class="carousel-icon"
+                            style="background:rgba(225,48,108,0.12);box-shadow:0 0 30px rgba(225,48,108,0.15);">
+                            &#128247;</div>
+                        <div class="carousel-label">Instagram</div>
+                        <div class="carousel-handle">@intraswd</div>
+                        <a href="https://www.instagram.com/intraswd/" target="_blank" rel="noopener noreferrer"
+                            class="carousel-link">Follow &rarr;</a>
                     </div>
-                </a>
+                </div>
             </div>
-            <div
-                style="margin-top:20px;padding:14px;background:#0d0d14;border:1px solid #1a1a2e;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#5a5a6a;line-height:1.8;">
-                <span style="color:#aa66ff;">$</span> echo <span style="color:#aa66ff;">"Thanks for
-                    visiting!"</span><br>
-                <span style="color:#aa66ff;">$</span> echo <span style="color:#aa66ff;">"Feel free to reach out for
-                    collaborations or just to say hi."</span>
+            <!-- Nav arrows -->
+            <button class="carousel-nav carousel-prev" onclick="rotateCarousel(-1)">&#9664;</button>
+            <button class="carousel-nav carousel-next" onclick="rotateCarousel(1)">&#9654;</button>
+            <!-- Dots -->
+            <div id="carouselDots"
+                style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10;">
             </div>
+        </div>
+        <div
+            style="padding:10px 20px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3a5a;border-top:1px solid #1a1a2e;">
+            <span style="color:#aa66ff;">$</span> drag or use arrows to spin &mdash; <span
+                style="color:#aa66ff;">click</span> to connect_
         </div>
     </div>
 
@@ -1139,6 +1306,186 @@
                     m.position.set(Math.cos(a) * d, h / 2, Math.sin(a) * d);
                     scene.add(m);
                     dynamicObjects.push(m);
+                }
+
+                // ═══ BINARY TREE (pun intended) ═══
+                if (worldId === 'hub') {
+                    const treeGroup = new THREE.Group();
+                    treeGroup.position.set(0, 0, 0);
+
+                    const branchMat = new THREE.MeshStandardMaterial({
+                        color: 0x00ff66,
+                        emissive: 0x00ff66,
+                        emissiveIntensity: 0.3,
+                        roughness: 0.6,
+                        metalness: 0.3
+                    });
+                    const nodeMat = new THREE.MeshStandardMaterial({
+                        color: 0x00ffaa,
+                        emissive: 0x00ff88,
+                        emissiveIntensity: 1.2,
+                        roughness: 0.2,
+                        metalness: 0.5
+                    });
+
+                    // Create a text sprite for 0/1
+                    function makeBinarySprite(char, size, color) {
+                        const cv = document.createElement('canvas');
+                        cv.width = 64; cv.height = 64;
+                        const cx = cv.getContext('2d');
+                        cx.font = 'bold 48px JetBrains Mono, monospace';
+                        cx.fillStyle = color || '#00ff66';
+                        cx.textAlign = 'center';
+                        cx.textBaseline = 'middle';
+                        cx.fillText(char, 32, 32);
+                        const sp = new THREE.Sprite(new THREE.SpriteMaterial({
+                            map: new THREE.CanvasTexture(cv),
+                            transparent: true,
+                            opacity: 0.6 + Math.random() * 0.4
+                        }));
+                        sp.scale.set(size, size, 1);
+                        return sp;
+                    }
+
+                    // Recursive binary tree builder
+                    const allNodes = [];
+                    function buildBranch(startX, startY, startZ, angle, length, depth, maxDepth) {
+                        if (depth > maxDepth || length < 0.3) return;
+
+                        const endX = startX + Math.sin(angle) * length;
+                        const endY = startY + length;
+                        const endZ = startZ + Math.cos(angle) * length * 0.3;
+
+                        // Branch cylinder
+                        const midX = (startX + endX) / 2;
+                        const midY = (startY + endY) / 2;
+                        const midZ = (startZ + endZ) / 2;
+                        const bLen = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2 + (endZ - startZ) ** 2);
+                        const thickness = 0.08 * (1 - depth / (maxDepth + 1)) + 0.02;
+                        const branch = new THREE.Mesh(
+                            new THREE.CylinderGeometry(thickness * 0.6, thickness, bLen, 4),
+                            branchMat
+                        );
+                        branch.position.set(midX, midY, midZ);
+                        branch.lookAt(endX, endY, endZ);
+                        branch.rotateX(Math.PI / 2);
+                        treeGroup.add(branch);
+
+                        // Node sphere at end
+                        const nodeSize = 0.15 + (maxDepth - depth) * 0.04;
+                        const node = new THREE.Mesh(
+                            new THREE.SphereGeometry(nodeSize, 8, 6),
+                            nodeMat.clone()
+                        );
+                        node.position.set(endX, endY, endZ);
+                        node.material.emissiveIntensity = 0.6 + Math.random() * 1;
+                        treeGroup.add(node);
+                        allNodes.push(node);
+
+                        // Binary digit floating near the node
+                        const digit = Math.random() > 0.5 ? '1' : '0';
+                        const colors = ['#00ff66', '#00ffaa', '#44ffcc', '#00cc88'];
+                        const sp = makeBinarySprite(digit, 0.3 + Math.random() * 0.25, colors[Math.floor(Math.random() * colors.length)]);
+                        sp.position.set(
+                            endX + (Math.random() - 0.5) * 0.5,
+                            endY + 0.2 + Math.random() * 0.3,
+                            endZ + (Math.random() - 0.5) * 0.5
+                        );
+                        sp.userData.baseY = sp.position.y;
+                        sp.userData.phase = Math.random() * Math.PI * 2;
+                        treeGroup.add(sp);
+                        allNodes.push(sp);
+
+                        // Recurse: left and right children (binary tree!)
+                        const spread = 0.4 + depth * 0.08;
+                        const childLen = length * (0.68 + Math.random() * 0.1);
+                        const tilt = (Math.random() - 0.5) * 0.3;
+                        buildBranch(endX, endY, endZ, angle - spread + tilt, childLen, depth + 1, maxDepth);
+                        buildBranch(endX, endY, endZ, angle + spread + tilt, childLen, depth + 1, maxDepth);
+                    }
+
+                    // Trunk
+                    const trunkH = 2.5;
+                    const trunk = new THREE.Mesh(
+                        new THREE.CylinderGeometry(0.12, 0.2, trunkH, 6),
+                        new THREE.MeshStandardMaterial({
+                            color: 0x00aa44,
+                            emissive: 0x00ff44,
+                            emissiveIntensity: 0.2,
+                            roughness: 0.7,
+                            metalness: 0.2
+                        })
+                    );
+                    trunk.position.y = trunkH / 2;
+                    treeGroup.add(trunk);
+
+                    // Root node glow
+                    const rootGlow = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.25, 12, 8),
+                        new THREE.MeshStandardMaterial({
+                            color: 0x00ffaa,
+                            emissive: 0x00ff66,
+                            emissiveIntensity: 2,
+                            transparent: true,
+                            opacity: 0.8
+                        })
+                    );
+                    rootGlow.position.y = trunkH;
+                    treeGroup.add(rootGlow);
+                    allNodes.push(rootGlow);
+
+                    // Build 5 levels of binary branching
+                    buildBranch(0, trunkH, 0, 0, 1.8, 0, 4);
+
+                    // Falling binary digits (leaves)
+                    const fallingDigits = [];
+                    for (let i = 0; i < 30; i++) {
+                        const char = Math.random() > 0.5 ? '1' : '0';
+                        const sp = makeBinarySprite(char, 0.2 + Math.random() * 0.15, 'rgba(0,255,102,0.4)');
+                        const radius = 1 + Math.random() * 4;
+                        const ang = Math.random() * Math.PI * 2;
+                        sp.position.set(
+                            Math.cos(ang) * radius,
+                            2 + Math.random() * 8,
+                            Math.sin(ang) * radius
+                        );
+                        sp.userData.fallSpeed = 0.3 + Math.random() * 0.5;
+                        sp.userData.drift = (Math.random() - 0.5) * 0.5;
+                        sp.userData.spin = (Math.random() - 0.5) * 2;
+                        sp.userData.maxY = 10;
+                        treeGroup.add(sp);
+                        fallingDigits.push(sp);
+                    }
+
+                    // Point light at the top
+                    const treeLight = new THREE.PointLight(0x00ff66, 1.5, 15);
+                    treeLight.position.set(0, 6, 0);
+                    treeGroup.add(treeLight);
+
+                    // Label
+                    const labelCv = document.createElement('canvas');
+                    labelCv.width = 512; labelCv.height = 64;
+                    const labelCx = labelCv.getContext('2d');
+                    labelCx.font = 'bold 24px JetBrains Mono, monospace';
+                    labelCx.fillStyle = '#00ff66';
+                    labelCx.textAlign = 'center';
+                    labelCx.fillText('// binary_tree.exe', 256, 40);
+                    const labelSp = new THREE.Sprite(new THREE.SpriteMaterial({
+                        map: new THREE.CanvasTexture(labelCv),
+                        transparent: true
+                    }));
+                    labelSp.position.set(0, 11, 0);
+                    labelSp.scale.set(6, 0.75, 1);
+                    treeGroup.add(labelSp);
+
+                    scene.add(treeGroup);
+                    dynamicObjects.push(treeGroup);
+
+                    // Store references for animation
+                    treeGroup.userData.allNodes = allNodes;
+                    treeGroup.userData.fallingDigits = fallingDigits;
+                    treeGroup.userData.treeLight = treeLight;
+                    treeGroup.userData.isBinaryTree = true;
                 }
             }
 
@@ -1601,6 +1948,36 @@
                 }
                 particles.geometry.attributes.position.needsUpdate = true;
 
+                // Binary tree animation
+                dynamicObjects.forEach(obj => {
+                    if (obj.userData && obj.userData.isBinaryTree) {
+                        // Floating nodes
+                        obj.userData.allNodes.forEach(n => {
+                            if (n.userData && n.userData.baseY !== undefined) {
+                                n.position.y = n.userData.baseY + Math.sin(t * 1.5 + n.userData.phase) * 0.15;
+                            }
+                            if (n.isMesh && n.geometry && n.geometry.type === 'SphereGeometry') {
+                                n.material.emissiveIntensity = 0.6 + Math.sin(t * 3 + n.position.x * 2) * 0.4;
+                            }
+                        });
+                        // Falling binary digits
+                        obj.userData.fallingDigits.forEach(sp => {
+                            sp.position.y -= sp.userData.fallSpeed * dt;
+                            sp.position.x += sp.userData.drift * dt;
+                            sp.material.rotation += sp.userData.spin * dt;
+                            if (sp.position.y < 0) {
+                                sp.position.y = sp.userData.maxY;
+                                const r = 1 + Math.random() * 4;
+                                const a = Math.random() * Math.PI * 2;
+                                sp.position.x = Math.cos(a) * r;
+                                sp.position.z = Math.sin(a) * r;
+                            }
+                        });
+                        // Pulsing tree light
+                        obj.userData.treeLight.intensity = 1.2 + Math.sin(t * 2) * 0.5;
+                    }
+                });
+
                 // HUD
                 document.getElementById('coordX').textContent = charGroup.position.x.toFixed(1);
                 document.getElementById('coordZ').textContent = charGroup.position.z.toFixed(1);
@@ -1621,6 +1998,107 @@
                 animate();
             });
             animate();
+        })();
+
+        /* ═══ CONTACT CAROUSEL ═══ */
+        (function () {
+            var ring = document.getElementById('contactCarousel');
+            var cards = ring.querySelectorAll('.carousel-card');
+            var dotsContainer = document.getElementById('carouselDots');
+            var total = cards.length;
+            var angle = 0;
+            var step = 360 / total;
+            // Radius: distance from center to each card face
+            var radius = Math.round(240 / (2 * Math.tan(Math.PI / total)));
+
+            // Position each card around the cylinder
+            cards.forEach(function (card, i) {
+                var a = step * i;
+                card.style.transform = 'rotateY(' + a + 'deg) translateZ(' + radius + 'px)';
+            });
+
+            // Create dots
+            for (var i = 0; i < total; i++) {
+                var dot = document.createElement('div');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                (function (idx) {
+                    dot.addEventListener('click', function () { goTo(idx); });
+                })(i);
+                dotsContainer.appendChild(dot);
+            }
+
+            function currentIndex() {
+                var normalized = ((-angle % 360) + 360) % 360;
+                return Math.round(normalized / step) % total;
+            }
+
+            function updateRing() {
+                ring.style.transform = 'rotateY(' + angle + 'deg)';
+                var idx = currentIndex();
+                var dots = dotsContainer.querySelectorAll('.carousel-dot');
+                dots.forEach(function (d, i) {
+                    if (i === idx) d.classList.add('active');
+                    else d.classList.remove('active');
+                });
+            }
+
+            function goTo(idx) {
+                angle = -(idx * step);
+                updateRing();
+            }
+
+            window.rotateCarousel = function (dir) {
+                angle -= dir * step;
+                updateRing();
+            };
+
+            // Touch/swipe + mouse drag
+            var startX = 0, dragging = false, startAngle = 0;
+            var scene = document.querySelector('#panel-contact .carousel-scene');
+            if (scene) {
+                scene.addEventListener('touchstart', function (e) {
+                    startX = e.touches[0].clientX;
+                    startAngle = angle;
+                    dragging = true;
+                }, { passive: true });
+                scene.addEventListener('touchmove', function (e) {
+                    if (!dragging) return;
+                    var dx = e.touches[0].clientX - startX;
+                    angle = startAngle + dx * 0.4;
+                    ring.style.transition = 'none';
+                    ring.style.transform = 'rotateY(' + angle + 'deg)';
+                }, { passive: true });
+                scene.addEventListener('touchend', function () {
+                    if (!dragging) return;
+                    dragging = false;
+                    ring.style.transition = '';
+                    // Snap to nearest card
+                    var idx = currentIndex();
+                    goTo(idx);
+                });
+                scene.addEventListener('mousedown', function (e) {
+                    startX = e.clientX;
+                    startAngle = angle;
+                    dragging = true;
+                    e.preventDefault();
+                });
+                window.addEventListener('mousemove', function (e) {
+                    if (!dragging) return;
+                    var dx = e.clientX - startX;
+                    angle = startAngle + dx * 0.4;
+                    ring.style.transition = 'none';
+                    ring.style.transform = 'rotateY(' + angle + 'deg)';
+                });
+                window.addEventListener('mouseup', function () {
+                    if (!dragging) return;
+                    dragging = false;
+                    ring.style.transition = '';
+                    var idx = currentIndex();
+                    goTo(idx);
+                });
+            }
+
+            updateRing();
         })();
     </script>
 </body>
