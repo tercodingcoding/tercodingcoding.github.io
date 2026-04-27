@@ -246,171 +246,166 @@
             padding: 20px;
         }
 
-        /* ═══ CONTACT CAROUSEL ═══ */
-        #panel-contact .panel-body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .carousel-scene {
-            width: 100%;
-            height: 100%;
-            perspective: 1000px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* ═══ PANEL COMPONENTS ═══ */
+        .panel-card {
+            background: rgba(10, 20, 10, 0.5);
+            border: 1px solid #1a3a1a;
+            border-radius: 12px;
             overflow: hidden;
+            margin-bottom: 16px;
+            transition: transform 0.3s, border-color 0.3s;
         }
-
-        .carousel-ring {
-            width: 240px;
-            height: 300px;
+        .panel-card:hover {
+            transform: translateY(-2px);
+            border-color: #00ff66;
+        }
+        .panel-card-img {
+            height: 120px;
+            width: 100%;
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        .carousel-card {
-            position: absolute;
-            width: 240px;
-            height: 300px;
-            background: rgba(10, 10, 22, 0.92);
-            border: 1px solid rgba(170, 102, 255, 0.15);
-            border-radius: 18px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            backface-visibility: hidden;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(170, 102, 255, 0.05);
-            padding: 24px 20px;
-            text-align: center;
-            left: 0;
-            top: 0;
+            align-items: flex-end;
+            padding: 12px;
         }
-
-        .carousel-icon {
-            width: 72px;
-            height: 72px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 34px;
+        .panel-card-img .tag {
+            background: rgba(0, 0, 0, 0.6);
+            color: #00ff66;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            border: 1px solid #00ff66;
         }
-
-        .carousel-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 20px;
-            font-weight: 700;
-            color: #aa66ff;
+        .panel-card-body {
+            padding: 16px;
         }
-
-        .carousel-handle {
-            font-size: 13px;
-            color: #6a6a8a;
-            font-family: 'JetBrains Mono', monospace;
-            word-break: break-all;
+        .panel-card-author {
+            font-size: 11px;
+            color: #3a6a3a;
+            margin-bottom: 8px;
         }
-
-        .carousel-link {
-            display: inline-block;
-            margin-top: 6px;
-            padding: 9px 24px;
-            background: rgba(170, 102, 255, 0.1);
-            border: 1px solid rgba(170, 102, 255, 0.3);
-            border-radius: 8px;
-            color: #aa66ff;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background 0.3s, box-shadow 0.3s;
+        .panel-card-author .aname {
+            color: #00ff66;
         }
-
-        .carousel-link:hover {
-            background: rgba(170, 102, 255, 0.25);
-            box-shadow: 0 0 20px rgba(170, 102, 255, 0.25);
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(170, 102, 255, 0.08);
-            border: 1px solid rgba(170, 102, 255, 0.25);
-            color: #aa66ff;
+        .panel-card-body h3 {
             font-size: 16px;
-            cursor: pointer;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .panel-card-body p {
+            font-size: 13px;
+            color: #6b8a6b;
+            line-height: 1.5;
+        }
+        .panel-card-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #1a2e1a;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #3a6a3a;
+        }
+        .panel-card-footer .arrow {
+            color: #00ff66;
+        }
+
+        .status-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: background 0.3s, box-shadow 0.3s;
-            pointer-events: auto;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(10, 20, 10, 0.3);
+            border: 1px solid #1a2e1a;
+            border-radius: 10px;
+            margin-bottom: 10px;
         }
-
-        .carousel-nav:hover {
-            background: rgba(170, 102, 255, 0.2);
-            box-shadow: 0 0 12px rgba(170, 102, 255, 0.2);
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-
-        .carousel-prev {
-            left: 8px;
-        }
-
-        .carousel-next {
-            right: 8px;
-        }
-
-        .carousel-dot {
+        .status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: rgba(170, 102, 255, 0.2);
-            border: 1px solid rgba(170, 102, 255, 0.3);
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 0 10px currentColor;
+        }
+        .status-dot.g { color: #00ff66; background: #00ff66; }
+        .status-dot.b { color: #00aaff; background: #00aaff; }
+        .status-dot.p { color: #aa66ff; background: #aa66ff; }
+        .status-dot.y { color: #ffaa00; background: #ffaa00; }
+        .status-dot.r { color: #ff4466; background: #ff4466; }
+        .status-tag {
+            font-size: 12px;
+            color: #fff;
+            font-weight: 600;
+        }
+        .status-count {
+            font-size: 10px;
+            color: #3a6a3a;
+        }
+        .status-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid currentColor;
+        }
+        .status-badge.g { color: #00ff66; background: rgba(0,255,102,0.1); }
+        .status-badge.b { color: #00aaff; background: rgba(0,170,255,0.1); }
+        .status-badge.p { color: #aa66ff; background: rgba(170,102,255,0.1); }
+        .status-badge.y { color: #ffaa00; background: rgba(255,170,0,0.1); }
+        .status-badge.r { color: #ff4466; background: rgba(255,68,102,0.1); }
+
+        .contrib-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 1px solid #1a2e1a;
+        }
+        .contrib-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .contrib-rank {
+            font-size: 12px;
+            color: #3a6a3a;
+            width: 20px;
+        }
+        .contrib-avatar {
+            width: 32px;
+            height: 32px;
+            background: #1a2e1a;
+            border-radius: 50%;
+            border: 1px solid #00ff66;
+        }
+        .contrib-name {
+            font-size: 13px;
+            color: #fff;
+        }
+        .contrib-score {
+            font-size: 13px;
+            color: #00ff66;
+            font-weight: 700;
         }
 
-        .carousel-dot.active {
-            background: #aa66ff;
-            transform: scale(1.3);
-            box-shadow: 0 0 8px rgba(170, 102, 255, 0.5);
+        .code-block {
+            background: #050a05;
+            border: 1px solid #1a2e1a;
+            border-radius: 10px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #a8b8a8;
+            overflow-x: auto;
         }
-
-        @media (max-width:768px),
-        (pointer:coarse) {
-            .carousel-ring {
-                width: 200px;
-                height: 260px;
-            }
-
-            .carousel-card {
-                width: 200px;
-                height: 260px;
-                padding: 18px 14px;
-            }
-
-            .carousel-icon {
-                width: 56px;
-                height: 56px;
-                font-size: 26px;
-            }
-
-            .carousel-label {
-                font-size: 16px;
-            }
-
-            .carousel-handle {
-                font-size: 11px;
-            }
-        }
+        .kw { color: #ff79c6; }
+        .fn { color: #8be9fd; }
+        .str { color: #50fa7b; }
+        .cm { color: #6272a4; }
+        .var { color: #ffb86c; }
+        .num { color: #bd93f9; }
 
         .interact-prompt {
             position: fixed;
@@ -701,21 +696,17 @@
 
 <body>
 
+    <a href="#game-canvas" class="visually-hidden-focusable" style="position:fixed;top:20px;left:20px;background:#00ff66;color:#000;padding:10px 20px;z-index:10001;border-radius:5px;font-family:'JetBrains Mono',monospace;text-decoration:none;font-weight:bold;">Skip to main content</a>
+
     <div class="boot-screen" id="bootScreen">
         <div class="boot-text" id="bootText">
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Initializing 3D engine...</span>
-            </div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Loading portfolio v1.0</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Building voxel grid
-                    world...</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Mounting project
-                    archives...</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Spawning
-                    avatar...</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Deploying 4
-                    stations...</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">System ready. WASD + SPACE to
-                    explore_</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Initializing 3D engine...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Loading portfolio v2.0-Grid</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Building voxel grid worlds...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Mounting project archives...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Spawning avatar...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Deploying multi-world stations...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">System ready. WASD + SPACE to explore_</span></div>
         </div>
         <div class="boot-bar-wrap">
             <div class="boot-bar" id="bootBar"></div>
@@ -727,14 +718,14 @@
 
     <!-- HUD -->
     <div class="hud hud-top">
-        <div class="hud-logo"><span class="icon">I</span> Intra Swadaya Hidayat_</div>
+        <div class="hud-logo" aria-label="Logo Intra Swadaya Hidayat"><span class="icon" aria-hidden="true">I</span> Intra Swadaya Hidayat_</div>
     </div>
     <div class="hud-world-label">world: <span class="wname" id="worldLabel">hub_main</span></div>
     <div class="hud-coords">
         <div>pos: <span class="val" id="coordX">0.0</span>, <span class="val" id="coordZ">0.0</span></div>
         <div>station: <span class="val" id="nearStation">---</span></div>
     </div>
-    <div class="hud hud-bottom">
+    <div class="hud hud-bottom" aria-label="Controls Hint">
         <div class="hud-controls">
             <div class="hud-keys">
                 <div style="width:28px"></div>
@@ -752,7 +743,7 @@
             <div class="hud-hint">WASD = move | SPACE = jump | E = interact | ESC = close</div>
         </div>
     </div>
-    <div class="hud-minimap"><canvas id="minimap-canvas" width="160" height="160"></canvas></div>
+    <div class="hud-minimap" aria-label="Minimap"><canvas id="minimap-canvas" width="160" height="160"></canvas></div>
     <div class="interact-prompt" id="interactPrompt">Press <span class="key-hint">E</span> to access terminal</div>
 
     <!-- Mobile Touch Controls -->
@@ -773,7 +764,7 @@
     <!-- Welcome -->
     <div class="panel-overlay" id="panel-welcome">
         <div class="panel-header">
-            <h2>&gt; welcome.exe</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+            <h2>&gt; welcome.exe</h2><button class="panel-close" onclick="closePanel()" aria-label="Close Panel">&times;</button>
         </div>
         <div class="panel-body" style="text-align:center;padding:30px 20px;">
             <div
@@ -784,150 +775,179 @@
                 work.</p>
             <div
                 style="display:inline-block;padding:4px 12px;background:rgba(0,255,102,0.1);border:1px solid #00ff66;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#00ff66;margin-bottom:16px;">
-                Portfolio v1.0</div>
+                v2.0-Grid</div>
         </div>
     </div>
 
-    <!-- About -->
-    <div class="panel-overlay" id="panel-about">
+    <!-- Activity Feed -->
+    <div class="panel-overlay" id="panel-activity">
         <div class="panel-header">
-            <h2>&gt; about.md</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+            <h2>&gt; activity.log</h2><button class="panel-close" onclick="closePanel()" aria-label="Close Panel">&times;</button>
         </div>
         <div class="panel-body">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:16px;">// who
-                am i</div>
-            <h3 style="font-size:20px;color:#00aaff;margin-bottom:12px;font-family:'JetBrains Mono',monospace;">Intra
-                Swadaya Hidayat</h3>
-            <p style="color:#6b8a8b;font-size:14px;line-height:1.7;margin-bottom:20px;">A passionate software developer
-                who loves building things for the web. I enjoy turning ideas into real, working products &mdash; from
-                front-end interfaces to back-end systems.</p>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:12px;">//
-                tech_stack</div>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">JavaScript</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">TypeScript</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">React</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">Node.js</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">Python</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">HTML/CSS</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">Git</span>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a2a1a,#1a4a2a);"><span class="tag">#research</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@intraswd</span> &bull; 2h ago</div>
+                    <h3>Machine Learning Framework v2.0</h3>
+                    <p>Started implementing the new neural network architecture for the upcoming research project.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 42 upvotes</span><span>&#128172; 8</span></div>
             </div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:12px;">//
-                interests</div>
-            <p style="color:#6b8a8b;font-size:13px;line-height:1.7;">Web development, open source, creative coding, game
-                dev, and exploring new technologies.</p>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#1a1a2a,#2a2a4a);"><span class="tag">#teaching</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@intraswd</span> &bull; 1d ago</div>
+                    <h3>Algorithm Analysis Lecture</h3>
+                    <p>Updated the course materials for the "Complexity Analysis" module. Check the student portal.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 128 upvotes</span><span>&#128172; 24</span></div>
+            </div>
         </div>
     </div>
 
-    <!-- Projects -->
+    <!-- Leaderboard -->
+    <div class="panel-overlay" id="panel-leaderboard">
+        <div class="panel-header">
+            <h2>&gt; leaderboard.db</h2><button class="panel-close" onclick="closePanel()" aria-label="Close Panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="contrib-row">
+                <div class="contrib-left">
+                    <span class="contrib-rank">1.</span>
+                    <div class="contrib-avatar"></div>
+                    <span class="contrib-name">@intraswd</span>
+                </div>
+                <span class="contrib-score">9999 pts</span>
+            </div>
+            <div class="contrib-row">
+                <div class="contrib-left">
+                    <span class="contrib-rank">2.</span>
+                    <div class="contrib-avatar"></div>
+                    <span class="contrib-name">@algorithm_bot</span>
+                </div>
+                <span class="contrib-score">8500 pts</span>
+            </div>
+            <div class="contrib-row">
+                <div class="contrib-left">
+                    <span class="contrib-rank">3.</span>
+                    <div class="contrib-avatar"></div>
+                    <span class="contrib-name">@null_pointer</span>
+                </div>
+                <span class="contrib-score">7200 pts</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arsenal (Stats) -->
+    <div class="panel-overlay" id="panel-arsenal">
+        <div class="panel-header">
+            <h2>&gt; arsenal.cfg</h2><button class="panel-close" onclick="closePanel()" aria-label="Close Panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot g"></span>
+                    <div><div class="status-tag">TypeScript</div><div class="status-count">124 projects</div></div>
+                </div>
+                <span class="status-badge g">&#9650; 92%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot b"></span>
+                    <div><div class="status-tag">Python/ML</div><div class="status-count">86 projects</div></div>
+                </div>
+                <span class="status-badge b">&#9650; 88%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot p"></span>
+                    <div><div class="status-tag">Three.js</div><div class="status-count">12 projects</div></div>
+                </div>
+                <span class="status-badge p">&#9650; 75%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ PANELS: PROGRAMMING WORLD ══════════ -->
+
+    <!-- Programming Welcome -->
+    <div class="panel-overlay" id="panel-prog-welcome">
+        <div class="panel-header">
+            <h2>&gt; hello_world.py</h2><button class="panel-close" onclick="closePanel()" aria-label="Close Panel">&times;</button>
+        </div>
+        <div class="panel-body" style="text-align:center;padding:30px 20px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;color:#00aaff;font-weight:700;margin-bottom:12px;text-shadow:0 0 20px rgba(0,170,255,0.4);">
+                &gt;_ Code Core</div>
+            <p style="color:#6b8a8b;font-size:14px;max-width:450px;margin:0 auto 16px;line-height:1.6;">This world contains my specialized programming knowledge, from algorithms to advanced projects.</p>
+        </div>
+    </div>
+
+    <!-- Algorithms -->
+    <div class="panel-overlay" id="panel-algorithms">
+        <div class="panel-header">
+            <h2>&gt; algorithms.src</h2><button class="panel-close" onclick="closePanel()" aria-label="Close Panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="code-block">
+                <span class="cm">// Binary Search Implementation</span><br>
+                <span class="kw">fn</span> <span class="fn">binary_search</span>(<span class="var">arr</span>, <span class="var">target</span>) {<br>
+                &nbsp;&nbsp;<span class="kw">let</span> <span class="var">low</span> = <span class="num">0</span>;<br>
+                &nbsp;&nbsp;<span class="kw">let</span> <span class="var">high</span> = <span class="var">arr</span>.length - <span class="num">1</span>;<br>
+                &nbsp;&nbsp;<span class="kw">while</span> (<span class="var">low</span> &lt;= <span class="var">high</span>) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">let</span> <span class="var">mid</span> = Math.floor((<span class="var">low</span> + <span class="var">high</span>) / <span class="num">2</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (<span class="var">arr</span>[<span class="var">mid</span>] === <span class="var">target</span>) <span class="kw">return</span> <span class="var">mid</span>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (<span class="var">arr</span>[<span class="var">mid</span>] &lt; <span class="var">target</span>) <span class="var">low</span> = <span class="var">mid</span> + <span class="num">1</span>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">else</span> <span class="var">high</span> = <span class="var">mid</span> - <span class="num">1</span>;<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;<span class="kw">return</span> -<span class="num">1</span>;<br>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects (Programming World) -->
     <div class="panel-overlay" id="panel-projects">
         <div class="panel-header">
-            <h2>&gt; projects.sh</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+            <h2>&gt; projects.sh</h2><button class="panel-close" onclick="closePanel()" aria-label="Close Panel">&times;</button>
         </div>
         <div class="panel-body">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5a5a3a;margin-bottom:16px;">// ls
-                ~/projects</div>
-            <div
-                style="background:#111a11;border:1px solid #2e2e1a;border-radius:10px;padding:16px;margin-bottom:12px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                    <h3 style="font-size:15px;color:#ffaa00;font-family:'JetBrains Mono',monospace;">&#128193; 3D
-                        Portfolio</h3>
-                    <span
-                        style="padding:3px 8px;background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#ffaa00;">Three.js</span>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a1a2a,#1a3a4a);"><span class="tag">#threejs</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@intraswd</span> &bull; Current</div>
+                    <h3>3D Portfolio v2.0</h3>
+                    <p>A walkable 3D world built with Three.js as an interactive portfolio experience.</p>
                 </div>
-                <p style="color:#6b7a5a;font-size:13px;line-height:1.6;margin-bottom:8px;">This website! A walkable 3D
-                    world built with Three.js as an interactive portfolio experience.</p>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a3a;">&#9733; JavaScript
-                    &bull; HTML/CSS</span>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> JavaScript</span><span>&bull; HTML/CSS</span></div>
             </div>
-            <div
-                style="background:#111a11;border:1px solid #2e2e1a;border-radius:10px;padding:16px;margin-bottom:12px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                    <h3 style="font-size:15px;color:#ffaa00;font-family:'JetBrains Mono',monospace;">&#128193; Project 2
-                    </h3>
-                    <span
-                        style="padding:3px 8px;background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#ffaa00;">Coming
-                        soon</span>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#2a0a0a,#4a1a1a);"><span class="tag">#python</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@intraswd</span> &bull; 2024</div>
+                    <h3>NeuroLab Dashboard</h3>
+                    <p>Real-time visualization for neural network training metrics and dataset distribution.</p>
                 </div>
-                <p style="color:#6b7a5a;font-size:13px;line-height:1.6;margin-bottom:8px;">More projects coming soon.
-                    Stay tuned!</p>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a3a;">&#9733; TBD</span>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> Python</span><span>&bull; PyTorch</span></div>
             </div>
-            <div
-                style="text-align:center;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a3a;">
-                // more projects loading...</div>
         </div>
     </div>
 
-    <!-- Contact -->
-    <div class="panel-overlay" id="panel-contact" style="overflow:hidden;background:rgba(6,6,16,0.97);max-width:800px;">
-        <div class="panel-header" style="border-bottom:1px solid #1a1a2e;background:rgba(6,6,16,0.98);">
-            <h2 style="color:#aa66ff;">&gt; contact.exe</h2><button class="panel-close"
-                onclick="closePanel()">&times;</button>
+    <!-- Challenges -->
+    <div class="panel-overlay" id="panel-challenges">
+        <div class="panel-header">
+            <h2>&gt; challenges.txt</h2><button class="panel-close" onclick="closePanel()" aria-label="Close Panel">&times;</button>
         </div>
-        <div class="panel-body" style="padding:0;position:relative;height:420px;overflow:hidden;">
-            <div class="carousel-scene">
-                <div class="carousel-ring" id="contactCarousel">
-                    <!-- GitHub -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(170,102,255,0.12);box-shadow:0 0 30px rgba(170,102,255,0.15);">
-                            &#128025;</div>
-                        <div class="carousel-label">GitHub</div>
-                        <div class="carousel-handle">@tercodingcoding</div>
-                        <a href="https://github.com/tercodingcoding" target="_blank" rel="noopener noreferrer"
-                            class="carousel-link">Open &rarr;</a>
-                    </div>
-                    <!-- Email -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(0,170,255,0.12);box-shadow:0 0 30px rgba(0,170,255,0.15);">&#9993;
-                        </div>
-                        <div class="carousel-label">Email</div>
-                        <div class="carousel-handle">intraswadaya@gmail.com</div>
-                        <a href="mailto:intraswadaya@gmail.com" class="carousel-link">Send &rarr;</a>
-                    </div>
-                    <!-- LinkedIn -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(0,119,181,0.15);box-shadow:0 0 30px rgba(0,119,181,0.15);">&#128188;
-                        </div>
-                        <div class="carousel-label">LinkedIn</div>
-                        <div class="carousel-handle">Intra Hidayat</div>
-                        <a href="https://www.linkedin.com/in/intra-hidayat-43443025a/" target="_blank"
-                            rel="noopener noreferrer" class="carousel-link">Connect &rarr;</a>
-                    </div>
-                    <!-- Instagram -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(225,48,108,0.12);box-shadow:0 0 30px rgba(225,48,108,0.15);">
-                            &#128247;</div>
-                        <div class="carousel-label">Instagram</div>
-                        <div class="carousel-handle">@intraswd</div>
-                        <a href="https://www.instagram.com/intraswd/" target="_blank" rel="noopener noreferrer"
-                            class="carousel-link">Follow &rarr;</a>
-                    </div>
+        <div class="panel-body">
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot y"></span>
+                    <div><div class="status-tag">Dynamic Programming</div><div class="status-count">Hard</div></div>
                 </div>
+                <span class="status-badge y">IN PROGRESS</span>
             </div>
-            <!-- Nav arrows -->
-            <button class="carousel-nav carousel-prev" onclick="rotateCarousel(-1)">&#9664;</button>
-            <button class="carousel-nav carousel-next" onclick="rotateCarousel(1)">&#9654;</button>
-            <!-- Dots -->
-            <div id="carouselDots"
-                style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10;">
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot g"></span>
+                    <div><div class="status-tag">Graph Theory</div><div class="status-count">Medium</div></div>
+                </div>
+                <span class="status-badge g">COMPLETED</span>
             </div>
-        </div>
-        <div
-            style="padding:10px 20px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3a5a;border-top:1px solid #1a1a2e;">
-            <span style="color:#aa66ff;">$</span> drag or use arrows to spin &mdash; <span
-                style="color:#aa66ff;">click</span> to connect_
         </div>
     </div>
 
@@ -1086,31 +1106,31 @@
                     ambient: 0x112211,
                     dirColor: 0x00ff66,
                     label: 'hub_main',
-                    stations: [{
-                        id: 'welcome',
-                        label: 'welcome.exe',
-                        pos: [0, 0, -10],
-                        color: 0x00ff66,
-                        panelId: 'panel-welcome'
-                    }, {
-                        id: 'about',
-                        label: 'about.md',
-                        pos: [-10, 0, 0],
-                        color: 0x00aaff,
-                        panelId: 'panel-about'
-                    }, {
-                        id: 'projects',
-                        label: 'projects.sh',
-                        pos: [10, 0, 0],
-                        color: 0xffaa00,
-                        panelId: 'panel-projects'
-                    }, {
-                        id: 'contact',
-                        label: 'contact.exe',
-                        pos: [0, 0, 10],
-                        color: 0xaa66ff,
-                        panelId: 'panel-contact'
-                    }]
+                    stations: [
+                        { id: 'welcome', label: 'welcome.exe', pos: [0, 0, -10], color: 0x00ff66, panelId: 'panel-welcome' },
+                        { id: 'activity', label: 'activity.log', pos: [-10, 0, -4], color: 0x00ff66, panelId: 'panel-activity' },
+                        { id: 'leaderboard', label: 'leaderboard.db', pos: [10, 0, -4], color: 0x00aaff, panelId: 'panel-leaderboard' },
+                        { id: 'arsenal', label: 'arsenal.cfg', pos: [0, 0, 8], color: 0x66ccff, panelId: 'panel-arsenal' },
+                        { id: 'portal_prog', label: '[PORTAL] programming', pos: [0, 0, 16], color: 0xff4466, panelId: null, isPortal: true, targetWorld: 'programming' }
+                    ]
+                },
+                programming: {
+                    bg: 0x050510,
+                    fog: 0x050510,
+                    fogDensity: 0.018,
+                    gridColor1: 0x0a2a4a,
+                    gridColor2: 0x061a2a,
+                    groundColor: 0x030810,
+                    ambient: 0x111122,
+                    dirColor: 0x4488ff,
+                    label: 'prog_world',
+                    stations: [
+                        { id: 'prog-welcome', label: 'hello_world.py', pos: [0, 0, -10], color: 0x00aaff, panelId: 'panel-prog-welcome' },
+                        { id: 'algorithms', label: 'algorithms.src', pos: [-10, 0, 0], color: 0x66ccff, panelId: 'panel-algorithms' },
+                        { id: 'projects', label: 'projects.sh', pos: [10, 0, 0], color: 0xffaa00, panelId: 'panel-projects' },
+                        { id: 'challenges', label: 'challenges.txt', pos: [0, 0, 8], color: 0xff8844, panelId: 'panel-challenges' },
+                        { id: 'portal_hub', label: '[PORTAL] back_to_hub', pos: [0, 0, 16], color: 0x00ff66, panelId: null, isPortal: true, targetWorld: 'hub' }
+                    ]
                 }
             };
 
@@ -1126,6 +1146,7 @@
                 stations = [];
             }
 
+            window.buildWorld = buildWorld;
             function buildWorld(worldId) {
                 clearDynamicObjects();
                 const cfg = worldConfigs[worldId];
@@ -1662,6 +1683,7 @@
                 p.classList.add('visible');
                 activePanel = p;
             }
+            window.openPanel = openPanel;
 
             function closePanel() {
                 if (activePanel) {
@@ -1676,6 +1698,7 @@
             const warpCanvas = document.getElementById('warp-canvas');
             const warpCtx = warpCanvas.getContext('2d');
 
+            window.warpToWorld = warpToWorld;
             function warpToWorld(targetWorld) {
                 if (isWarping) return;
                 isWarping = true;
@@ -2000,106 +2023,6 @@
             animate();
         })();
 
-        /* ═══ CONTACT CAROUSEL ═══ */
-        (function () {
-            var ring = document.getElementById('contactCarousel');
-            var cards = ring.querySelectorAll('.carousel-card');
-            var dotsContainer = document.getElementById('carouselDots');
-            var total = cards.length;
-            var angle = 0;
-            var step = 360 / total;
-            // Radius: distance from center to each card face
-            var radius = Math.round(240 / (2 * Math.tan(Math.PI / total)));
-
-            // Position each card around the cylinder
-            cards.forEach(function (card, i) {
-                var a = step * i;
-                card.style.transform = 'rotateY(' + a + 'deg) translateZ(' + radius + 'px)';
-            });
-
-            // Create dots
-            for (var i = 0; i < total; i++) {
-                var dot = document.createElement('div');
-                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-                (function (idx) {
-                    dot.addEventListener('click', function () { goTo(idx); });
-                })(i);
-                dotsContainer.appendChild(dot);
-            }
-
-            function currentIndex() {
-                var normalized = ((-angle % 360) + 360) % 360;
-                return Math.round(normalized / step) % total;
-            }
-
-            function updateRing() {
-                ring.style.transform = 'rotateY(' + angle + 'deg)';
-                var idx = currentIndex();
-                var dots = dotsContainer.querySelectorAll('.carousel-dot');
-                dots.forEach(function (d, i) {
-                    if (i === idx) d.classList.add('active');
-                    else d.classList.remove('active');
-                });
-            }
-
-            function goTo(idx) {
-                angle = -(idx * step);
-                updateRing();
-            }
-
-            window.rotateCarousel = function (dir) {
-                angle -= dir * step;
-                updateRing();
-            };
-
-            // Touch/swipe + mouse drag
-            var startX = 0, dragging = false, startAngle = 0;
-            var scene = document.querySelector('#panel-contact .carousel-scene');
-            if (scene) {
-                scene.addEventListener('touchstart', function (e) {
-                    startX = e.touches[0].clientX;
-                    startAngle = angle;
-                    dragging = true;
-                }, { passive: true });
-                scene.addEventListener('touchmove', function (e) {
-                    if (!dragging) return;
-                    var dx = e.touches[0].clientX - startX;
-                    angle = startAngle + dx * 0.4;
-                    ring.style.transition = 'none';
-                    ring.style.transform = 'rotateY(' + angle + 'deg)';
-                }, { passive: true });
-                scene.addEventListener('touchend', function () {
-                    if (!dragging) return;
-                    dragging = false;
-                    ring.style.transition = '';
-                    // Snap to nearest card
-                    var idx = currentIndex();
-                    goTo(idx);
-                });
-                scene.addEventListener('mousedown', function (e) {
-                    startX = e.clientX;
-                    startAngle = angle;
-                    dragging = true;
-                    e.preventDefault();
-                });
-                window.addEventListener('mousemove', function (e) {
-                    if (!dragging) return;
-                    var dx = e.clientX - startX;
-                    angle = startAngle + dx * 0.4;
-                    ring.style.transition = 'none';
-                    ring.style.transform = 'rotateY(' + angle + 'deg)';
-                });
-                window.addEventListener('mouseup', function () {
-                    if (!dragging) return;
-                    dragging = false;
-                    ring.style.transition = '';
-                    var idx = currentIndex();
-                    goTo(idx);
-                });
-            }
-
-            updateRing();
-        })();
     </script>
 </body>
 
