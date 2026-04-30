@@ -69,6 +69,34 @@
             font-weight: 700;
         }
 
+        .theme-toggle {
+            pointer-events: auto;
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 260;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #1e4727;
+            background: rgba(0, 20, 0, 0.75);
+            color: #8dffbf;
+            border-radius: 999px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 8px 14px;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+            transition: background 0.25s, color 0.25s, border-color 0.25s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(0, 60, 20, 0.75);
+            color: #d8ffe8;
+            border-color: #00ff66;
+        }
+
         .hud-coords {
             position: fixed;
             top: 64px;
@@ -141,7 +169,7 @@
 
         .hud-minimap {
             position: fixed;
-            top: 16px;
+            top: 60px;
             right: 16px;
             z-index: 100;
             width: 160px;
@@ -149,10 +177,12 @@
             background: rgba(0, 10, 0, 0.7);
             border: 1px solid #1a2e1a;
             border-radius: 8px;
+            overflow: hidden;
             pointer-events: none;
         }
 
         #minimap-canvas {
+            display: block;
             width: 100%;
             height: 100%;
             border-radius: 8px;
@@ -171,6 +201,62 @@
 
         .hud-world-label .wname {
             color: #00ff66;
+        }
+
+        body.light-mode .hud-logo {
+            color: #244f73;
+            text-shadow: 0 0 8px rgba(70, 140, 200, 0.35);
+        }
+
+        body.light-mode .hud-logo .icon {
+            background: #2a6ea6;
+            color: #f5fbff;
+        }
+
+        body.light-mode .theme-toggle {
+            border-color: #7aa4c7;
+            background: rgba(241, 248, 255, 0.95);
+            color: #224d75;
+        }
+
+        body.light-mode .theme-toggle:hover {
+            background: rgba(223, 238, 252, 0.98);
+            border-color: #4c86b6;
+            color: #163a59;
+        }
+
+        body.light-mode .hud-world-label,
+        body.light-mode .hud-coords,
+        body.light-mode .hud-hint {
+            color: #44627f;
+            text-shadow: none;
+        }
+
+        body.light-mode .hud-world-label .wname,
+        body.light-mode .hud-coords .val {
+            color: #21639a;
+        }
+
+        body.light-mode .hud-controls {
+            background: rgba(247, 252, 255, 0.9);
+            border-color: #b9d0e3;
+        }
+
+        body.light-mode .hud-key {
+            color: #205a89;
+            border-color: #99bbd7;
+            background: rgba(226, 239, 250, 0.9);
+        }
+
+        body.light-mode .hud-key.active {
+            background: rgba(108, 173, 227, 0.25);
+            border-color: #4f95cf;
+            box-shadow: 0 0 8px rgba(79, 149, 207, 0.35);
+        }
+
+        body.light-mode .hud-minimap {
+            background: rgba(229, 242, 252, 0.9);
+            border-color: #a9c7de;
         }
 
         .panel-overlay {
@@ -651,7 +737,7 @@
             .hud-minimap {
                 width: 130px;
                 height: 130px;
-                top: 10px;
+                top: 52px;
                 right: 10px;
             }
 
@@ -669,6 +755,13 @@
 
             .hud-logo {
                 font-size: 13px;
+            }
+
+            .theme-toggle {
+                font-size: 10px;
+                padding: 7px 11px;
+                top: 10px;
+                right: 10px;
             }
 
             .hud-logo .icon {
@@ -729,6 +822,7 @@
     <div class="hud hud-top">
         <div class="hud-logo"><span class="icon">I</span> Intra Swadaya Hidayat_</div>
     </div>
+    <button class="theme-toggle" id="themeToggle" type="button">MODE: GELAP</button>
     <div class="hud-world-label">world: <span class="wname" id="worldLabel">hub_main</span></div>
     <div class="hud-coords">
         <div>pos: <span class="val" id="coordX">0.0</span>, <span class="val" id="coordZ">0.0</span></div>
@@ -940,6 +1034,7 @@
             const bootScreen = document.getElementById('bootScreen');
             const bootLines = bootScreen.querySelectorAll('.boot-line');
             const bootBar = document.getElementById('bootBar');
+            const themeToggleBtn = document.getElementById('themeToggle');
             let bootDone = false;
 
             function runBoot(cb) {
@@ -1075,6 +1170,7 @@
 
             /* ═══ WORLD SYSTEM ═══ */
             let currentWorld = 'hub';
+            let currentTheme = 'dark';
             const worldConfigs = {
                 hub: {
                     bg: 0x020502,
@@ -1126,21 +1222,388 @@
                 stations = [];
             }
 
+            function getThemedWorldConfig(cfg) {
+                if (currentTheme === 'dark') return cfg;
+                return {
+                    ...cfg,
+                    bg: 0xeaf4fd,
+                    fog: 0xd4e6f6,
+                    fogDensity: 0.011,
+                    gridColor1: 0xb5cde0,
+                    gridColor2: 0xd0e0ee,
+                    groundColor: 0xddeaf5,
+                    ambient: 0xffffff,
+                    dirColor: 0x7ba9d5
+                };
+            }
+
+            function applyWorldVisuals(cfg) {
+                scene.background.setHex(cfg.bg);
+                scene.fog = new THREE.FogExp2(cfg.fog, cfg.fogDensity);
+                ambientLight.color.setHex(cfg.ambient);
+                dirLight.color.setHex(cfg.dirColor);
+
+                scene.remove(gridHelper);
+                gridHelper = new THREE.GridHelper(100, 80, cfg.gridColor1, cfg.gridColor2);
+                scene.add(gridHelper);
+                ground.material.color.setHex(cfg.groundColor);
+            }
+
+            function updateThemeButtonLabel() {
+                themeToggleBtn.textContent = currentTheme === 'dark' ? 'MODE: GELAP' : 'MODE: TERANG';
+            }
+
+            function applyTheme(theme) {
+                currentTheme = theme;
+                document.body.classList.toggle('light-mode', currentTheme === 'light');
+                updateThemeButtonLabel();
+
+                const cfg = worldConfigs[currentWorld];
+                if (cfg) {
+                    applyWorldVisuals(getThemedWorldConfig(cfg));
+                }
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+            });
+
+            function createPalcomtechBuilding() {
+                const building = new THREE.Group();
+                building.position.set(22, 0, -22);
+                building.rotation.y = -Math.PI * 0.2;
+                const depthScale = 5;
+
+                const metalPanelMat = new THREE.MeshStandardMaterial({
+                    color: 0x3b424c,
+                    roughness: 0.42,
+                    metalness: 0.72
+                });
+                const darkFrameMat = new THREE.MeshStandardMaterial({
+                    color: 0x111821,
+                    roughness: 0.56,
+                    metalness: 0.66
+                });
+                const glassMat = new THREE.MeshStandardMaterial({
+                    color: 0xa9c8e2,
+                    emissive: 0x0c2236,
+                    emissiveIntensity: 0.4,
+                    roughness: 0.08,
+                    metalness: 0.95,
+                    transparent: true,
+                    opacity: 0.9
+                });
+
+                const frameDepth = 1.6 * depthScale;
+                const frameFront = 0 + 1.6 / 2;
+                const frame = new THREE.Mesh(new THREE.BoxGeometry(16, 12, frameDepth), darkFrameMat);
+                frame.position.set(0, 6, frameFront - frameDepth / 2);
+                frame.castShadow = true;
+                frame.receiveShadow = true;
+                building.add(frame);
+
+                const leftWingDepth = 1.8 * depthScale;
+                const leftWingFront = 1.45 + 1.8 / 2;
+                const leftWing = new THREE.Mesh(new THREE.BoxGeometry(7.5, 10.2, leftWingDepth), metalPanelMat);
+                leftWing.position.set(-4.2, 5.1, leftWingFront - leftWingDepth / 2);
+                leftWing.castShadow = true;
+                leftWing.receiveShadow = true;
+                building.add(leftWing);
+
+                const glassTowerDepth = 1.05 * depthScale;
+                const glassTowerFront = 0.9 + 1.05 / 2;
+                const glassTower = new THREE.Mesh(new THREE.BoxGeometry(6.8, 9.6, glassTowerDepth), glassMat);
+                glassTower.position.set(3.9, 5.1, glassTowerFront - glassTowerDepth / 2);
+                glassTower.castShadow = true;
+                glassTower.receiveShadow = true;
+                building.add(glassTower);
+
+                const canopyDepth = 1.5 * depthScale;
+                const canopyFront = 0.3 + 1.5 / 2;
+                const canopy = new THREE.Mesh(new THREE.BoxGeometry(2.2, 6.4, canopyDepth), darkFrameMat);
+                canopy.position.set(7.5, 6.3, canopyFront - canopyDepth / 2);
+                canopy.rotation.y = 0.08;
+                canopy.castShadow = true;
+                building.add(canopy);
+
+                const panelRows = 8;
+                const panelCols = 5;
+                for (let row = 0; row < panelRows; row++) {
+                    for (let col = 0; col < panelCols; col++) {
+                        const panel = new THREE.Mesh(
+                            new THREE.BoxGeometry(1.18, 1.05, 0.04),
+                            new THREE.MeshStandardMaterial({
+                                color: 0x4a525b,
+                                roughness: 0.45,
+                                metalness: 0.6
+                            })
+                        );
+                        panel.position.set(-6.5 + col * 1.32, 1.3 + row * 1.12, 2.42);
+                        building.add(panel);
+                    }
+                }
+
+                for (let i = 0; i < 3; i++) {
+                    const lightStrip = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.16, 8.5, 0.06),
+                        new THREE.MeshStandardMaterial({
+                            color: 0xdbf3ff,
+                            emissive: 0xb4ebff,
+                            emissiveIntensity: 0.8,
+                            roughness: 0.1,
+                            metalness: 0.7
+                        })
+                    );
+                    lightStrip.position.set(-7.5 + i * 0.45, 5.3, 2.46);
+                    building.add(lightStrip);
+                }
+
+                const entranceFrame = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.28, 3.5, 2.25),
+                    new THREE.MeshStandardMaterial({
+                        color: 0x1f2a35,
+                        roughness: 0.35,
+                        metalness: 0.75
+                    })
+                );
+                entranceFrame.position.set(-0.44, 1.9, 1.42);
+                entranceFrame.castShadow = true;
+                building.add(entranceFrame);
+
+                const doorMat = new THREE.MeshStandardMaterial({
+                    color: 0xb6d2ea,
+                    emissive: 0x1a3146,
+                    emissiveIntensity: 0.35,
+                    roughness: 0.08,
+                    metalness: 0.95,
+                    transparent: true,
+                    opacity: 0.88
+                });
+
+                const entranceDoorLeft = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.04, 2.75, 1.02),
+                    doorMat
+                );
+                entranceDoorLeft.position.set(-0.29, 1.72, 0.88);
+                entranceDoorLeft.castShadow = true;
+                building.add(entranceDoorLeft);
+
+                const entranceDoorRight = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.04, 2.75, 1.02),
+                    doorMat.clone()
+                );
+                entranceDoorRight.position.set(-0.29, 1.72, 1.96);
+                entranceDoorRight.castShadow = true;
+                building.add(entranceDoorRight);
+
+                const centerMullion = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.05, 2.95, 0.04),
+                    new THREE.MeshStandardMaterial({
+                        color: 0x7c96ab,
+                        roughness: 0.25,
+                        metalness: 0.9
+                    })
+                );
+                centerMullion.position.set(-0.27, 1.74, 1.42);
+                building.add(centerMullion);
+
+                const doorBarMat = new THREE.MeshStandardMaterial({
+                    color: 0x9bb5c9,
+                    roughness: 0.2,
+                    metalness: 0.95
+                });
+                const doorBarLeft = new THREE.Mesh(new THREE.BoxGeometry(0.03, 2.5, 0.03), doorBarMat);
+                doorBarLeft.position.set(-0.26, 1.73, 1.08);
+                building.add(doorBarLeft);
+                const doorBarRight = new THREE.Mesh(new THREE.BoxGeometry(0.03, 2.5, 0.03), doorBarMat);
+                doorBarRight.position.set(-0.26, 1.73, 1.76);
+                building.add(doorBarRight);
+
+                const entranceCanopy = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.5, 0.16, 2.6),
+                    new THREE.MeshStandardMaterial({
+                        color: 0x21313f,
+                        roughness: 0.4,
+                        metalness: 0.7
+                    })
+                );
+                entranceCanopy.position.set(-0.18, 3.45, 1.42);
+                entranceCanopy.castShadow = true;
+                building.add(entranceCanopy);
+
+                const glassGridLines = new THREE.Group();
+                for (let i = 0; i < 7; i++) {
+                    const lineV = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.04, 9.45, 0.02),
+                        new THREE.MeshStandardMaterial({
+                            color: 0xd8edf8,
+                            emissive: 0x4b8fc2,
+                            emissiveIntensity: 0.25
+                        })
+                    );
+                    lineV.position.set(1 + i * 0.98, 5.1, 1.48);
+                    glassGridLines.add(lineV);
+                }
+                for (let i = 0; i < 8; i++) {
+                    const lineH = new THREE.Mesh(
+                        new THREE.BoxGeometry(6.7, 0.04, 0.02),
+                        new THREE.MeshStandardMaterial({
+                            color: 0xd8edf8,
+                            emissive: 0x4b8fc2,
+                            emissiveIntensity: 0.2
+                        })
+                    );
+                    lineH.position.set(3.9, 0.8 + i * 1.18, 1.48);
+                    glassGridLines.add(lineH);
+                }
+                building.add(glassGridLines);
+
+                const stairMat = new THREE.MeshStandardMaterial({
+                    color: 0xc29562,
+                    roughness: 0.6,
+                    metalness: 0.12
+                });
+
+                const frontDeck = new THREE.Mesh(new THREE.BoxGeometry(17.5, 0.26, 2.8), stairMat);
+                frontDeck.position.set(0, 0.13, 4.05);
+                frontDeck.receiveShadow = true;
+                building.add(frontDeck);
+
+                for (let i = 0; i < 3; i++) {
+                    const stair = new THREE.Mesh(new THREE.BoxGeometry(16.5 - i * 0.8, 0.2, 1.5), stairMat);
+                    stair.position.set(0, 0.1 + i * 0.2, 2.45 + i * 0.76);
+                    stair.receiveShadow = true;
+                    building.add(stair);
+                }
+
+                const planterMat = new THREE.MeshStandardMaterial({
+                    color: 0xb6bbbf,
+                    roughness: 0.65,
+                    metalness: 0.2
+                });
+                const walkwayMat = new THREE.MeshStandardMaterial({
+                    color: 0xf7f9fc,
+                    roughness: 0.6,
+                    metalness: 0.06
+                });
+                const shrubMat = new THREE.MeshStandardMaterial({
+                    color: 0x7ca854,
+                    emissive: 0x2d4f20,
+                    emissiveIntensity: 0.2,
+                    roughness: 0.85,
+                    metalness: 0.05
+                });
+
+                const centerWalkway = new THREE.Mesh(new THREE.BoxGeometry(2.3, 0.08, 2.6), walkwayMat);
+                centerWalkway.position.set(0, 0.32, 4.72);
+                centerWalkway.receiveShadow = true;
+                building.add(centerWalkway);
+
+                const centerWalkwayToDoor = new THREE.Mesh(new THREE.BoxGeometry(2.05, 0.1, 3.9), walkwayMat);
+                centerWalkwayToDoor.position.set(0, 0.53, 2.74);
+                centerWalkwayToDoor.receiveShadow = true;
+                building.add(centerWalkwayToDoor);
+
+                const centerWalkwayInset = new THREE.Mesh(new THREE.BoxGeometry(1.65, 0.06, 2.2), new THREE.MeshStandardMaterial({
+                    color: 0xffffff,
+                    roughness: 0.56,
+                    metalness: 0.04
+                }));
+                centerWalkwayInset.position.set(0, 0.37, 4.72);
+                centerWalkwayInset.receiveShadow = true;
+                building.add(centerWalkwayInset);
+
+                const centerWalkwayInsetToDoor = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.06, 3.5), new THREE.MeshStandardMaterial({
+                    color: 0xffffff,
+                    roughness: 0.54,
+                    metalness: 0.04
+                }));
+                centerWalkwayInsetToDoor.position.set(0, 0.6, 2.74);
+                centerWalkwayInsetToDoor.receiveShadow = true;
+                building.add(centerWalkwayInsetToDoor);
+
+                const planterData = [{
+                    x: -6.2,
+                    z: 4.75,
+                    w: 3.1
+                }, {
+                    x: -3.1,
+                    z: 4.72,
+                    w: 3.0
+                }, {
+                    x: 3.1,
+                    z: 4.72,
+                    w: 3.0
+                }, {
+                    x: 6.2,
+                    z: 4.75,
+                    w: 3.1
+                }];
+                planterData.forEach(p => {
+                    const planter = new THREE.Mesh(new THREE.BoxGeometry(p.w, 0.55, 1), planterMat);
+                    planter.position.set(p.x, 0.28, p.z);
+                    planter.castShadow = true;
+                    planter.receiveShadow = true;
+                    building.add(planter);
+
+                    for (let i = 0; i < 5; i++) {
+                        const shrub = new THREE.Mesh(new THREE.SphereGeometry(0.22 + Math.random() * 0.18, 10, 8), shrubMat);
+                        shrub.position.set(
+                            p.x - p.w / 2 + 0.35 + i * (p.w - 0.7) / 4,
+                            0.62 + Math.random() * 0.1,
+                            p.z + (Math.random() - 0.5) * 0.22
+                        );
+                        shrub.scale.y = 0.8 + Math.random() * 0.7;
+                        building.add(shrub);
+                    }
+                });
+
+                const signCanvas = document.createElement('canvas');
+                signCanvas.width = 512;
+                signCanvas.height = 160;
+                const signCtx = signCanvas.getContext('2d');
+                signCtx.fillStyle = '#ffe16b';
+                signCtx.font = 'bold 44px JetBrains Mono, monospace';
+                signCtx.fillText('Institut', 18, 58);
+                signCtx.fillStyle = '#2e63ff';
+                signCtx.font = 'bold 62px JetBrains Mono, monospace';
+                signCtx.fillText('PalComTech', 18, 118);
+                signCtx.fillStyle = '#c51f3c';
+                signCtx.fillRect(18, 126, 360, 16);
+                signCtx.fillStyle = '#fff3f6';
+                signCtx.font = 'bold 12px JetBrains Mono, monospace';
+                signCtx.fillText('Smart Campus For Creative People', 24, 138);
+
+                const signSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+                    map: new THREE.CanvasTexture(signCanvas),
+                    transparent: true
+                }));
+                signSprite.position.set(3.7, 8.65, 1.62);
+                signSprite.scale.set(5.6, 1.75, 1);
+                signSprite.material.rotation = -0.12;
+                building.add(signSprite);
+
+                const accentLight = new THREE.PointLight(0x8ac8ff, 1.1, 24);
+                accentLight.position.set(3.5, 8.5, 4.5);
+                building.add(accentLight);
+
+                building.userData = {
+                    isPalcomBuilding: true,
+                    glassTower,
+                    glassGridLines,
+                    accentLight
+                };
+
+                return building;
+            }
+
             function buildWorld(worldId) {
                 clearDynamicObjects();
                 const cfg = worldConfigs[worldId];
                 currentWorld = worldId;
 
                 // Update scene colors
-                scene.background.setHex(cfg.bg);
-                scene.fog = new THREE.FogExp2(cfg.fog, cfg.fogDensity);
-                ambientLight.color.setHex(cfg.ambient);
-                dirLight.color.setHex(cfg.dirColor);
-                // Recreate grid with new colors
-                scene.remove(gridHelper);
-                gridHelper = new THREE.GridHelper(100, 80, cfg.gridColor1, cfg.gridColor2);
-                scene.add(gridHelper);
-                ground.material.color.setHex(cfg.groundColor);
+                applyWorldVisuals(getThemedWorldConfig(cfg));
 
                 // HUD
                 document.getElementById('worldLabel').textContent = cfg.label;
@@ -1487,6 +1950,12 @@
                     treeGroup.userData.treeLight = treeLight;
                     treeGroup.userData.isBinaryTree = true;
                 }
+
+                if (worldId === 'hub') {
+                    const palcomBuilding = createPalcomtechBuilding();
+                    scene.add(palcomBuilding);
+                    dynamicObjects.push(palcomBuilding);
+                }
             }
 
             /* ═══ PARTICLES (global) ═══ */
@@ -1735,28 +2204,52 @@
             /* ═══ MINIMAP ═══ */
             const mmCanvas = document.getElementById('minimap-canvas');
             const mmCtx = mmCanvas.getContext('2d');
-            const mmS = 160,
-                mmScale = mmS / 60;
+            let mmS = 160;
+
+            function syncMinimapSize() {
+                const size = Math.max(1, Math.round(mmCanvas.clientWidth || 160));
+                if (mmCanvas.width !== size || mmCanvas.height !== size) {
+                    mmCanvas.width = size;
+                    mmCanvas.height = size;
+                }
+                mmS = size;
+            }
+
+            syncMinimapSize();
 
             function drawMinimap() {
-                mmCtx.clearRect(0, 0, mmS, mmS);
-                mmCtx.fillStyle = 'rgba(0,10,0,0.5)';
-                mmCtx.fillRect(0, 0, mmS, mmS);
-                mmCtx.strokeStyle = '#0a2a0a';
+                syncMinimapSize();
+                const size = mmCanvas.width;
+                if (!size) return;
+                const mmScale = mmS / 60;
+                const minimapTheme = currentTheme === 'light' ? {
+                    bg: 'rgba(229, 242, 252, 0.9)',
+                    grid: '#aac4d9',
+                    player: '#1d5c8f'
+                } : {
+                    bg: 'rgba(0,10,0,0.5)',
+                    grid: '#0a2a0a',
+                    player: '#00ff66'
+                };
+
+                mmCtx.clearRect(0, 0, size, size);
+                mmCtx.fillStyle = minimapTheme.bg;
+                mmCtx.fillRect(0, 0, size, size);
+                mmCtx.strokeStyle = minimapTheme.grid;
                 mmCtx.lineWidth = 0.5;
-                for (let i = 0; i <= mmS; i += mmS / 8) {
+                for (let i = 0; i <= size; i += size / 8) {
                     mmCtx.beginPath();
                     mmCtx.moveTo(i, 0);
-                    mmCtx.lineTo(i, mmS);
+                    mmCtx.lineTo(i, size);
                     mmCtx.stroke();
                     mmCtx.beginPath();
                     mmCtx.moveTo(0, i);
-                    mmCtx.lineTo(mmS, i);
+                    mmCtx.lineTo(size, i);
                     mmCtx.stroke();
                 }
                 stations.forEach(st => {
-                    const sx = mmS / 2 + st.pos[0] * mmScale,
-                        sy = mmS / 2 + st.pos[2] * mmScale;
+                    const sx = size / 2 + st.pos[0] * mmScale,
+                        sy = size / 2 + st.pos[2] * mmScale;
                     const c = '#' + st.color.toString(16).padStart(6, '0');
                     mmCtx.fillStyle = c;
                     mmCtx.shadowColor = c;
@@ -1773,17 +2266,17 @@
                         mmCtx.shadowBlur = 0;
                     }
                 });
-                const px = mmS / 2 + charGroup.position.x * mmScale,
-                    py = mmS / 2 + charGroup.position.z * mmScale;
-                mmCtx.fillStyle = '#00ff66';
-                mmCtx.shadowColor = '#00ff66';
+                const px = size / 2 + charGroup.position.x * mmScale,
+                    py = size / 2 + charGroup.position.z * mmScale;
+                mmCtx.fillStyle = minimapTheme.player;
+                mmCtx.shadowColor = minimapTheme.player;
                 mmCtx.shadowBlur = 8;
                 mmCtx.beginPath();
                 mmCtx.arc(px, py, 4, 0, Math.PI * 2);
                 mmCtx.fill();
                 mmCtx.shadowBlur = 0;
                 const a = charGroup.rotation.y;
-                mmCtx.strokeStyle = '#00ff66';
+                mmCtx.strokeStyle = minimapTheme.player;
                 mmCtx.lineWidth = 1.5;
                 mmCtx.beginPath();
                 mmCtx.moveTo(px, py);
@@ -1976,6 +2469,13 @@
                         // Pulsing tree light
                         obj.userData.treeLight.intensity = 1.2 + Math.sin(t * 2) * 0.5;
                     }
+
+                    if (obj.userData && obj.userData.isPalcomBuilding) {
+                        const shimmer = 0.34 + Math.sin(t * 1.4) * 0.16;
+                        obj.userData.glassTower.material.emissiveIntensity = shimmer;
+                        obj.userData.glassGridLines.rotation.y = Math.sin(t * 0.5) * 0.01;
+                        obj.userData.accentLight.intensity = 1 + Math.sin(t * 1.7) * 0.25;
+                    }
                 });
 
                 // HUD
@@ -1990,6 +2490,7 @@
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
+                syncMinimapSize();
             });
 
             // Init hub world and start
