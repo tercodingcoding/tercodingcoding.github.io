@@ -1078,6 +1078,14 @@
             const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
             camera.position.set(0, 18, 18);
 
+            // Click-to-move helpers
+            const raycaster = new THREE.Raycaster();
+            const pointerNdc = new THREE.Vector2();
+            const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+            const clickMoveTarget = new THREE.Vector3();
+            let hasClickMoveTarget = false;
+            const clickMoveStopDistance = 0.35;
+
             /* ═══ LIGHTS ═══ */
             const ambientLight = new THREE.AmbientLight(0x112211, 0.6);
             scene.add(ambientLight);
@@ -2015,6 +2023,27 @@
                 if (e.key === 'ArrowRight') keys.d = false;
             });
 
+            function setClickMoveTarget(clientX, clientY) {
+                if (!bootDone || activePanel || isWarping) return;
+                pointerNdc.x = (clientX / window.innerWidth) * 2 - 1;
+                pointerNdc.y = -(clientY / window.innerHeight) * 2 + 1;
+                raycaster.setFromCamera(pointerNdc, camera);
+
+                const hitPoint = new THREE.Vector3();
+                if (!raycaster.ray.intersectPlane(groundPlane, hitPoint)) return;
+
+                clickMoveTarget.copy(hitPoint);
+                clickMoveTarget.x = Math.max(-40, Math.min(40, clickMoveTarget.x));
+                clickMoveTarget.z = Math.max(-40, Math.min(40, clickMoveTarget.z));
+                clickMoveTarget.y = 0;
+                hasClickMoveTarget = true;
+            }
+
+            canvas.addEventListener('pointerdown', e => {
+                if (e.button !== 0) return;
+                setClickMoveTarget(e.clientX, e.clientY);
+            });
+
             /* ═══ MOBILE TOUCH ═══ */
             const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
             let touchMoveX = 0,
@@ -2131,6 +2160,7 @@
                 if (!p) return;
                 p.classList.add('visible');
                 activePanel = p;
+                hasClickMoveTarget = false;
             }
 
             function closePanel() {
@@ -2149,6 +2179,7 @@
             function warpToWorld(targetWorld) {
                 if (isWarping) return;
                 isWarping = true;
+                hasClickMoveTarget = false;
                 warpCanvas.width = window.innerWidth;
                 warpCanvas.height = window.innerHeight;
                 warpOverlay.classList.add('active');
@@ -2314,6 +2345,22 @@
                         moveDir.x += touchMoveX;
                         moveDir.z += touchMoveZ;
                     }
+
+                    if (moveDir.lengthSq() > 0.01) {
+                        // Manual movement input always overrides click-to-move target.
+                        hasClickMoveTarget = false;
+                    } else if (hasClickMoveTarget) {
+                        const toTargetX = clickMoveTarget.x - charGroup.position.x;
+                        const toTargetZ = clickMoveTarget.z - charGroup.position.z;
+                        const targetDist = Math.sqrt(toTargetX * toTargetX + toTargetZ * toTargetZ);
+                        if (targetDist > clickMoveStopDistance) {
+                            moveDir.x = toTargetX / targetDist;
+                            moveDir.z = toTargetZ / targetDist;
+                        } else {
+                            hasClickMoveTarget = false;
+                        }
+                    }
+
                     if (moveDir.length() > 0) {
                         moveDir.normalize();
                         charGroup.position.addScaledVector(moveDir, moveSpeed * dt);
