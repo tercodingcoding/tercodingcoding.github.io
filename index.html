@@ -623,6 +623,287 @@
             border-radius: 4px;
         }
 
+        /* ═══ PANEL V2 COMPONENTS ═══ */
+        .panel-card {
+            background: rgba(10, 26, 16, 0.6);
+            border: 1px solid rgba(0, 255, 102, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-card-img {
+            height: 120px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .panel-card-img .tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 2px 8px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            font-size: 10px;
+            color: #00ff66;
+            border: 1px solid rgba(0, 255, 102, 0.3);
+        }
+
+        .panel-card-body {
+            padding: 16px;
+        }
+
+        .panel-card-author {
+            font-size: 11px;
+            color: #4a6a4a;
+            margin-bottom: 8px;
+        }
+
+        .panel-card-author .aname {
+            color: #00ff66;
+            font-weight: 600;
+        }
+
+        .panel-card h3 {
+            font-size: 16px;
+            color: #00ff66;
+            margin-bottom: 8px;
+        }
+
+        .panel-card p {
+            font-size: 13px;
+            color: #8dffbf;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .panel-card-footer {
+            padding: 10px 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(0, 255, 102, 0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #4a6a4a;
+        }
+
+        .panel-card-footer .arrow {
+            color: #00ff66;
+        }
+
+        .status-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(10, 26, 16, 0.6);
+            border: 1px solid rgba(0, 255, 102, 0.1);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-dot.g { background: #00ff66; box-shadow: 0 0 10px #00ff66; }
+        .status-dot.b { background: #00aaff; box-shadow: 0 0 10px #00aaff; }
+        .status-dot.p { background: #aa66ff; box-shadow: 0 0 10px #aa66ff; }
+        .status-dot.y { background: #ffaa00; box-shadow: 0 0 10px #ffaa00; }
+        .status-dot.r { background: #ff4466; box-shadow: 0 0 10px #ff4466; }
+
+        .status-tag {
+            font-size: 11px;
+            color: #4a6a4a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-count {
+            font-size: 15px;
+            color: #00ff66;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .status-badge.g { background: rgba(0, 255, 102, 0.1); color: #00ff66; border: 1px solid rgba(0, 255, 102, 0.2); }
+        .status-badge.b { background: rgba(0, 170, 255, 0.1); color: #00aaff; border: 1px solid rgba(0, 170, 255, 0.2); }
+        .status-badge.p { background: rgba(170, 102, 255, 0.1); color: #aa66ff; border: 1px solid rgba(170, 102, 255, 0.2); }
+        .status-badge.y { background: rgba(255, 170, 0, 0.1); color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.2); }
+        .status-badge.r { background: rgba(255, 68, 102, 0.1); color: #ff4466; border: 1px solid rgba(255, 68, 102, 0.2); }
+
+        .contrib-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(0, 255, 102, 0.05);
+        }
+
+        .contrib-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contrib-rank {
+            font-size: 12px;
+            color: #4a6a4a;
+            width: 20px;
+        }
+
+        .contrib-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #0a2a1a, #1a4a2a);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 102, 0.2);
+        }
+
+        .contrib-name {
+            font-size: 13px;
+            color: #00ff66;
+            font-weight: 600;
+        }
+
+        .contrib-score {
+            font-size: 13px;
+            color: #4a6a4a;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .code-block {
+            background: rgba(0, 10, 0, 0.7);
+            border: 1px solid rgba(102, 204, 255, 0.15);
+            border-radius: 10px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #d1d1d1;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .code-block .kw { color: #ff79c6; }
+        .code-block .fn { color: #8be9fd; }
+        .code-block .str { color: #50fa7b; }
+        .code-block .cm { color: #6272a4; font-style: italic; }
+        .code-block .var { color: #ffb86c; }
+        .code-block .num { color: #bd93f9; }
+
+        /* Light Mode Overrides for V2 Panels */
+        body.light-mode .panel-overlay {
+            background: rgba(241, 248, 255, 0.95);
+            border-color: #b9d0e3;
+            box-shadow: 0 0 60px rgba(79, 149, 207, 0.15);
+        }
+
+        body.light-mode .panel-header {
+            background: rgba(241, 248, 255, 0.98);
+            border-bottom-color: #d0e0ee;
+        }
+
+        body.light-mode .panel-header h2 {
+            color: #21639a;
+        }
+
+        body.light-mode .panel-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: #d0e0ee;
+        }
+
+        body.light-mode .panel-card-author {
+            color: #5a7a9a;
+        }
+
+        body.light-mode .panel-card h3 {
+            color: #1d5c8f;
+        }
+
+        body.light-mode .panel-card p {
+            color: #44627f;
+        }
+
+        body.light-mode .panel-card-footer {
+            background: rgba(230, 240, 250, 0.5);
+            border-top-color: #d0e0ee;
+            color: #5a7a9a;
+        }
+
+        body.light-mode .status-row {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: #d0e0ee;
+        }
+
+        body.light-mode .status-count {
+            color: #1d5c8f;
+        }
+
+        body.light-mode .code-block {
+            background: #f8f9fa;
+            border-color: #d0e0ee;
+            color: #24292e;
+        }
+
+        body.light-mode .code-block .kw { color: #d73a49; }
+        body.light-mode .code-block .fn { color: #6f42c1; }
+        body.light-mode .code-block .str { color: #032f62; }
+        body.light-mode .code-block .cm { color: #6a737d; }
+        body.light-mode .code-block .var { color: #e36209; }
+        body.light-mode .code-block .num { color: #005cc5; }
+
+        .visually-hidden-focusable {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .visually-hidden-focusable:focus {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: auto;
+            height: auto;
+            padding: 10px 20px;
+            background: #00ff66;
+            color: #000;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            z-index: 10001;
+            clip: auto;
+            border-radius: 8px;
+            text-decoration: none;
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.5);
+        }
+
         /* ═══ MOBILE TOUCH CONTROLS ═══ */
         .mobile-controls {
             display: none;
@@ -805,7 +1086,7 @@
                     archives...</span></div>
             <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Spawning
                     avatar...</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Deploying 4
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Deploying 11
                     stations...</span></div>
             <div class="boot-line"><span class="ok">[OK]</span> <span class="info">System ready. WASD + SPACE to
                     explore_</span></div>
@@ -819,11 +1100,13 @@
     <div class="warp-overlay" id="warpOverlay"><canvas id="warp-canvas"></canvas></div>
 
     <!-- HUD -->
+    <a href="#game-canvas" class="visually-hidden-focusable">Skip to main content</a>
+
     <div class="hud hud-top">
         <div class="hud-logo"><span class="icon">I</span> Intra Swadaya Hidayat_</div>
     </div>
-    <button class="theme-toggle" id="themeToggle" type="button">MODE: GELAP</button>
-    <div class="hud-world-label">world: <span class="wname" id="worldLabel">hub_main</span></div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme mode">MODE: GELAP</button>
+    <div class="hud-world-label">dunia: <span class="wname" id="worldLabel">hub_main</span></div>
     <div class="hud-coords">
         <div>pos: <span class="val" id="coordX">0.0</span>, <span class="val" id="coordZ">0.0</span></div>
         <div>station: <span class="val" id="nearStation">---</span></div>
@@ -846,8 +1129,8 @@
             <div class="hud-hint">WASD = move | SPACE = jump | E = interact | ESC = close</div>
         </div>
     </div>
-    <div class="hud-minimap"><canvas id="minimap-canvas" width="160" height="160"></canvas></div>
-    <div class="interact-prompt" id="interactPrompt">Press <span class="key-hint">E</span> to access terminal</div>
+    <div class="hud-minimap"><canvas id="minimap-canvas" width="160" height="160" aria-label="World minimap"></canvas></div>
+    <div class="interact-prompt" id="interactPrompt">Tekan <span class="key-hint">E</span> untuk masuk/akses</div>
 
     <!-- Mobile Touch Controls -->
     <div class="mobile-controls" id="mobileControls">
@@ -867,165 +1150,184 @@
     <!-- Welcome -->
     <div class="panel-overlay" id="panel-welcome">
         <div class="panel-header">
-            <h2>&gt; welcome.exe</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+            <h2>&gt; welcome.exe</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
         </div>
         <div class="panel-body" style="text-align:center;padding:30px 20px;">
-            <div
-                style="font-family:'JetBrains Mono',monospace;font-size:32px;color:#00ff66;font-weight:700;margin-bottom:12px;text-shadow:0 0 20px rgba(0,255,102,0.4);">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;color:#00ff66;font-weight:700;margin-bottom:12px;text-shadow:0 0 20px rgba(0,255,102,0.4);">
                 &gt;_ Hello, I'm Intra</div>
             <p style="color:#6b8a6b;font-size:14px;max-width:450px;margin:0 auto 16px;line-height:1.6;">Software
                 Developer & Lecturer. Walk around this 3D world and explore the stations to learn more about me and my
                 work.</p>
-            <div
-                style="display:inline-block;padding:4px 12px;background:rgba(0,255,102,0.1);border:1px solid #00ff66;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#00ff66;margin-bottom:16px;">
-                Portfolio v1.0</div>
+            <div style="display:inline-block;padding:4px 12px;background:rgba(0,255,102,0.1);border:1px solid #00ff66;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#00ff66;margin-bottom:16px;">
+                Portfolio v2.0-Grid</div>
         </div>
     </div>
 
-    <!-- About -->
-    <div class="panel-overlay" id="panel-about">
+    <!-- Activity Log -->
+    <div class="panel-overlay" id="panel-activity">
         <div class="panel-header">
-            <h2>&gt; about.md</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+            <h2>&gt; activity.log</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
         </div>
         <div class="panel-body">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:16px;">// who
-                am i</div>
-            <h3 style="font-size:20px;color:#00aaff;margin-bottom:12px;font-family:'JetBrains Mono',monospace;">Intra
-                Swadaya Hidayat</h3>
-            <p style="color:#6b8a8b;font-size:14px;line-height:1.7;margin-bottom:20px;">A passionate software developer
-                who loves building things for the web. I enjoy turning ideas into real, working products &mdash; from
-                front-end interfaces to back-end systems.</p>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:12px;">//
-                tech_stack</div>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">JavaScript</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">TypeScript</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">React</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">Node.js</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">Python</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">HTML/CSS</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">Git</span>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a2a1a,#1a4a2a);"><span class="tag">#update</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@intra</span> &bull; 2h ago</div>
+                    <h3>Upgraded to v2.0-Grid</h3>
+                    <p>Successfully migrated the portfolio architecture to a multi-world system with enhanced performance and accessibility.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 12 upvotes</span><span>&#128172; 4</span></div>
             </div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:12px;">//
-                interests</div>
-            <p style="color:#6b8a8b;font-size:13px;line-height:1.7;">Web development, open source, creative coding, game
-                dev, and exploring new technologies.</p>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#1a0a2a,#2a1a4a);"><span class="tag">#feature</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@intra</span> &bull; 1d ago</div>
+                    <h3>Added Programming World</h3>
+                    <p>New interactive zone dedicated to code snippets, algorithms, and technical challenges.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 8 upvotes</span><span>&#128172; 2</span></div>
+            </div>
         </div>
     </div>
 
-    <!-- Projects -->
-    <div class="panel-overlay" id="panel-projects">
+    <!-- Leaderboard -->
+    <div class="panel-overlay" id="panel-leaderboard">
         <div class="panel-header">
-            <h2>&gt; projects.sh</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+            <h2>&gt; leaderboard.db</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
         </div>
         <div class="panel-body">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5a5a3a;margin-bottom:16px;">// ls
-                ~/projects</div>
-            <div
-                style="background:#111a11;border:1px solid #2e2e1a;border-radius:10px;padding:16px;margin-bottom:12px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                    <h3 style="font-size:15px;color:#ffaa00;font-family:'JetBrains Mono',monospace;">&#128193; 3D
-                        Portfolio</h3>
-                    <span
-                        style="padding:3px 8px;background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#ffaa00;">Three.js</span>
-                </div>
-                <p style="color:#6b7a5a;font-size:13px;line-height:1.6;margin-bottom:8px;">This website! A walkable 3D
-                    world built with Three.js as an interactive portfolio experience.</p>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a3a;">&#9733; JavaScript
-                    &bull; HTML/CSS</span>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">1.</span><div class="contrib-avatar"></div><span class="contrib-name">@top_coder</span></div>
+                <span class="contrib-score">2450</span>
             </div>
-            <div
-                style="background:#111a11;border:1px solid #2e2e1a;border-radius:10px;padding:16px;margin-bottom:12px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                    <h3 style="font-size:15px;color:#ffaa00;font-family:'JetBrains Mono',monospace;">&#128193; Project 2
-                    </h3>
-                    <span
-                        style="padding:3px 8px;background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#ffaa00;">Coming
-                        soon</span>
-                </div>
-                <p style="color:#6b7a5a;font-size:13px;line-height:1.6;margin-bottom:8px;">More projects coming soon.
-                    Stay tuned!</p>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a3a;">&#9733; TBD</span>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">2.</span><div class="contrib-avatar"></div><span class="contrib-name">@grid_runner</span></div>
+                <span class="contrib-score">2120</span>
             </div>
-            <div
-                style="text-align:center;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a3a;">
-                // more projects loading...</div>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">3.</span><div class="contrib-avatar"></div><span class="contrib-name">@intra</span></div>
+                <span class="contrib-score">1980</span>
+            </div>
         </div>
     </div>
 
-    <!-- Contact -->
-    <div class="panel-overlay" id="panel-contact" style="overflow:hidden;background:rgba(6,6,16,0.97);max-width:800px;">
-        <div class="panel-header" style="border-bottom:1px solid #1a1a2e;background:rgba(6,6,16,0.98);">
-            <h2 style="color:#aa66ff;">&gt; contact.exe</h2><button class="panel-close"
-                onclick="closePanel()">&times;</button>
+    <!-- Arsenal -->
+    <div class="panel-overlay" id="panel-arsenal">
+        <div class="panel-header">
+            <h2>&gt; arsenal.cfg</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
         </div>
-        <div class="panel-body" style="padding:0;position:relative;height:420px;overflow:hidden;">
-            <div class="carousel-scene">
-                <div class="carousel-ring" id="contactCarousel">
-                    <!-- GitHub -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(170,102,255,0.12);box-shadow:0 0 30px rgba(170,102,255,0.15);">
-                            &#128025;</div>
-                        <div class="carousel-label">GitHub</div>
-                        <div class="carousel-handle">@tercodingcoding</div>
-                        <a href="https://github.com/tercodingcoding" target="_blank" rel="noopener noreferrer"
-                            class="carousel-link">Open &rarr;</a>
-                    </div>
-                    <!-- Email -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(0,170,255,0.12);box-shadow:0 0 30px rgba(0,170,255,0.15);">&#9993;
-                        </div>
-                        <div class="carousel-label">Email</div>
-                        <div class="carousel-handle">intraswadaya@gmail.com</div>
-                        <a href="mailto:intraswadaya@gmail.com" class="carousel-link">Send &rarr;</a>
-                    </div>
-                    <!-- LinkedIn -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(0,119,181,0.15);box-shadow:0 0 30px rgba(0,119,181,0.15);">&#128188;
-                        </div>
-                        <div class="carousel-label">LinkedIn</div>
-                        <div class="carousel-handle">Intra Hidayat</div>
-                        <a href="https://www.linkedin.com/in/intra-hidayat-43443025a/" target="_blank"
-                            rel="noopener noreferrer" class="carousel-link">Connect &rarr;</a>
-                    </div>
-                    <!-- Instagram -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(225,48,108,0.12);box-shadow:0 0 30px rgba(225,48,108,0.15);">
-                            &#128247;</div>
-                        <div class="carousel-label">Instagram</div>
-                        <div class="carousel-handle">@intraswd</div>
-                        <a href="https://www.instagram.com/intraswd/" target="_blank" rel="noopener noreferrer"
-                            class="carousel-link">Follow &rarr;</a>
-                    </div>
-                </div>
+        <div class="panel-body">
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot g"></span><div><div class="status-tag">JAVASCRIPT</div><div class="status-count">CORE</div></div></div>
+                <span class="status-badge g">&#9650; 95%</span>
             </div>
-            <!-- Nav arrows -->
-            <button class="carousel-nav carousel-prev" onclick="rotateCarousel(-1)">&#9664;</button>
-            <button class="carousel-nav carousel-next" onclick="rotateCarousel(1)">&#9654;</button>
-            <!-- Dots -->
-            <div id="carouselDots"
-                style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10;">
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot b"></span><div><div class="status-tag">THREE.JS</div><div class="status-count">3D</div></div></div>
+                <span class="status-badge b">&#9650; 88%</span>
             </div>
-        </div>
-        <div
-            style="padding:10px 20px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3a5a;border-top:1px solid #1a1a2e;">
-            <span style="color:#aa66ff;">$</span> drag or use arrows to spin &mdash; <span
-                style="color:#aa66ff;">click</span> to connect_
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot p"></span><div><div class="status-tag">PYTHON</div><div class="status-count">BACKEND</div></div></div>
+                <span class="status-badge p">&#9650; 82%</span>
+            </div>
         </div>
     </div>
 
-    <canvas id="game-canvas"></canvas>
+    <!-- ══════════ PANELS: PROGRAMMING WORLD ══════════ -->
+
+    <!-- Programming Welcome -->
+    <div class="panel-overlay" id="panel-prog-welcome">
+        <div class="panel-header">
+            <h2>&gt; prog_welcome.exe</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body" style="text-align:center;padding:30px 20px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:24px;color:#00aaff;font-weight:700;margin-bottom:12px;">&gt;_ Dev Environment</div>
+            <p style="color:#6b8a8b;font-size:14px;max-width:450px;margin:0 auto 16px;line-height:1.6;">This world contains my technical documentation and coding experiments. Interaction pillars here provide deeper insights into my development workflow.</p>
+        </div>
+    </div>
+
+    <!-- Algorithms -->
+    <div class="panel-overlay" id="panel-algorithms">
+        <div class="panel-header">
+            <h2>&gt; algorithms.cpp</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="code-block">
+                <span class="cm">// Binary Search Implementation</span><br>
+                <span class="kw">fn</span> <span class="fn">binary_search</span>(arr, target) {<br>
+                &nbsp;&nbsp;<span class="kw">let</span> low = <span class="num">0</span>;<br>
+                &nbsp;&nbsp;<span class="kw">let</span> high = arr.length - <span class="num">1</span>;<br>
+                &nbsp;&nbsp;<span class="kw">while</span> (low &lt;= high) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">let</span> mid = Math.floor((low + high) / <span class="num">2</span>);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (arr[mid] === target) <span class="kw">return</span> mid;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (arr[mid] &lt; target) low = mid + <span class="num">1</span>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">else</span> high = mid - <span class="num">1</span>;<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;<span class="kw">return</span> -<span class="num">1</span>;<br>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects V2 -->
+    <div class="panel-overlay" id="panel-projects-v2">
+        <div class="panel-header">
+            <h2>&gt; projects.json</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a1a2a,#1a2a4a);"><span class="tag">#featured</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@intra</span> &bull; 2024</div>
+                    <h3>GridEngine 3D</h3>
+                    <p>A custom Three.js engine optimized for rendering complex voxel-based worlds in the browser with real-time lighting.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 42 upvotes</span><span>&#128172; 12</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenges -->
+    <div class="panel-overlay" id="panel-challenges">
+        <div class="panel-header">
+            <h2>&gt; challenges.bin</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot y"></span><div><div class="status-tag">LEETCODE</div><div class="status-count">HARD</div></div></div>
+                <span class="status-badge y">&#9650; 12 solved</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot r"></span><div><div class="status-tag">SYSTEM DESIGN</div><div class="status-count">ADVANCED</div></div></div>
+                <span class="status-badge r">&#9650; 5 cases</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sort -->
+    <div class="panel-overlay" id="panel-sort">
+        <div class="panel-header">
+            <h2>&gt; sort.cpp</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="code-block">
+                <span class="cm">// Quick Sort Partition</span><br>
+                <span class="kw">fn</span> <span class="fn">partition</span>(arr, low, high) {<br>
+                &nbsp;&nbsp;<span class="kw">let</span> pivot = arr[high];<br>
+                &nbsp;&nbsp;<span class="kw">let</span> i = low - <span class="num">1</span>;<br>
+                &nbsp;&nbsp;<span class="kw">for</span> (<span class="kw">let</span> j = low; j &lt; high; j++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (arr[j] &lt; pivot) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i++;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[arr[i], arr[j]] = [arr[j], arr[i]];<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;[arr[i + <span class="num">1</span>], arr[high]] = [arr[high], arr[i + <span class="num">1</span>]];<br>
+                &nbsp;&nbsp;<span class="kw">return</span> i + <span class="num">1</span>;<br>
+                }
+            </div>
+        </div>
+    </div>
+
+    <canvas id="game-canvas" tabindex="-1"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
@@ -1190,31 +1492,32 @@
                     ambient: 0x112211,
                     dirColor: 0x00ff66,
                     label: 'hub_main',
-                    stations: [{
-                        id: 'welcome',
-                        label: 'welcome.exe',
-                        pos: [0, 0, -10],
-                        color: 0x00ff66,
-                        panelId: 'panel-welcome'
-                    }, {
-                        id: 'about',
-                        label: 'about.md',
-                        pos: [-10, 0, 0],
-                        color: 0x00aaff,
-                        panelId: 'panel-about'
-                    }, {
-                        id: 'projects',
-                        label: 'projects.sh',
-                        pos: [10, 0, 0],
-                        color: 0xffaa00,
-                        panelId: 'panel-projects'
-                    }, {
-                        id: 'contact',
-                        label: 'contact.exe',
-                        pos: [0, 0, 10],
-                        color: 0xaa66ff,
-                        panelId: 'panel-contact'
-                    }]
+                    stations: [
+                        { id: 'welcome', label: 'welcome.exe', pos: [0, 0, -10], color: 0x00ff66, panelId: 'panel-welcome' },
+                        { id: 'activity', label: 'activity.log', pos: [-12, 0, -4], color: 0x00ff66, panelId: 'panel-activity' },
+                        { id: 'leaderboard', label: 'leaderboard.db', pos: [12, 0, -4], color: 0x00ff66, panelId: 'panel-leaderboard' },
+                        { id: 'arsenal', label: 'arsenal.cfg', pos: [0, 0, 12], color: 0x00aaff, panelId: 'panel-arsenal' },
+                        { id: 'portal_prog', label: '[PORTAL] programming', pos: [14, 0, 14], color: 0xff4466, panelId: null, isPortal: true, targetWorld: 'programming' }
+                    ]
+                },
+                programming: {
+                    bg: 0x020408,
+                    fog: 0x020408,
+                    fogDensity: 0.018,
+                    gridColor1: 0x0a1a3a,
+                    gridColor2: 0x060a1a,
+                    groundColor: 0x02040a,
+                    ambient: 0x111122,
+                    dirColor: 0x4488ff,
+                    label: 'prog_world',
+                    stations: [
+                        { id: 'prog-welcome', label: 'prog_welcome.exe', pos: [0, 0, -10], color: 0x00aaff, panelId: 'panel-prog-welcome' },
+                        { id: 'algorithms', label: 'algorithms.cpp', pos: [-10, 0, 2], color: 0x66ccff, panelId: 'panel-algorithms' },
+                        { id: 'projects', label: 'projects.json', pos: [10, 0, 2], color: 0xaa66ff, panelId: 'panel-projects-v2' },
+                        { id: 'challenges', label: 'challenges.bin', pos: [-6, 0, 12], color: 0xff8844, panelId: 'panel-challenges' },
+                        { id: 'sort', label: 'sort.cpp', pos: [6, 0, 12], color: 0x66ccff, panelId: 'panel-sort' },
+                        { id: 'portal_hub', label: '[PORTAL] hub', pos: [0, 0, 18], color: 0x00ff66, panelId: null, isPortal: true, targetWorld: 'hub' }
+                    ]
                 }
             };
 
@@ -1763,7 +2066,7 @@
                 });
 
                 // Environment: data pillars
-                const pillarColor = worldId === 'programming' ? 0x4488ff : 0x00ff66;
+                const pillarColor = cfg.dirColor;
                 for (let i = 0; i < 25; i++) {
                     const h = 2 + Math.random() * 8;
                     const m = new THREE.Mesh(new THREE.BoxGeometry(0.08, h, 0.08), new THREE.MeshStandardMaterial({
@@ -2155,6 +2458,14 @@
                 }
             }
 
+            // Expose for verification
+            window.buildWorld = buildWorld;
+            window.openPanel = openPanel;
+            window.closePanel = closePanel;
+            window.warpToWorld = warpToWorld;
+            window.getCurrentWorld = () => currentWorld;
+            window.worldConfigs = worldConfigs;
+
             function openPanel(id) {
                 const p = document.getElementById(id);
                 if (!p) return;
@@ -2467,12 +2778,12 @@
                 if (nearestStation && !activePanel && !isWarping) {
                     prompt.classList.add('visible');
                     if (nearestStation.isPortal) {
-                        prompt.innerHTML = 'Press <span class="key-hint">E</span> to enter <span style="color:#' +
+                        prompt.innerHTML = 'Tekan <span class="key-hint">E</span> untuk masuk <span style="color:#' +
                             nearestStation.color.toString(16).padStart(6, '0') + '">' + nearestStation.label +
                             '</span>';
                     } else {
                         prompt.innerHTML =
-                            'Press <span class="key-hint">E</span> to access <span style="color:#00ff66">' +
+                            'Tekan <span class="key-hint">E</span> untuk akses <span style="color:#00ff66">' +
                             nearestStation.label + '</span>';
                     }
                     document.getElementById('nearStation').textContent = nearestStation.label;
@@ -2546,7 +2857,6 @@
             runBoot(() => {
                 animate();
             });
-            animate();
         })();
 
         /* ═══ CONTACT CAROUSEL ═══ */
