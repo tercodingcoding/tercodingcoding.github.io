@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intra Swadaya Hidayat &mdash; Enter the Grid</title>
+    <title>Intra Swadaya Hidayat — Portfolio & Learning Hub</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -789,26 +789,237 @@
                 font-size: 13px;
             }
         }
+
+        /* ═══ PANEL COMPONENTS ═══ */
+        .panel-card {
+            background: rgba(10, 26, 16, 0.6);
+            border: 1px solid #1a3a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .panel-card:hover {
+            transform: translateY(-4px);
+            border-color: #00ff66;
+        }
+
+        .panel-card-img {
+            height: 140px;
+            display: flex;
+            align-items: flex-end;
+            padding: 12px;
+            position: relative;
+        }
+
+        .panel-card-img .tag {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            color: #00ff66;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 255, 102, 0.3);
+        }
+
+        .panel-card-body {
+            padding: 16px;
+        }
+
+        .panel-card-author {
+            font-size: 11px;
+            color: #3a5a3a;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .panel-card-author .aname {
+            color: #00ff66;
+        }
+
+        .panel-card-body h3 {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .panel-card-body p {
+            color: #6b8a6b;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .panel-card-footer {
+            padding: 12px 16px;
+            border-top: 1px solid rgba(0, 255, 102, 0.1);
+            display: flex;
+            justify-content: space-between;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #3a5a3a;
+        }
+
+        .panel-card-footer .arrow {
+            color: #00ff66;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 20, 0, 0.4);
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            border: 1px solid #132a13;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .status-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #fff;
+        }
+
+        .status-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #3a5a3a;
+        }
+
+        .status-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid;
+        }
+
+        /* Color classes */
+        .g { color: #00ff66; border-color: rgba(0, 255, 102, 0.3); background: rgba(0, 255, 102, 0.05); }
+        .b { color: #00aaff; border-color: rgba(0, 170, 255, 0.3); background: rgba(0, 170, 255, 0.05); }
+        .p { color: #aa66ff; border-color: rgba(170, 102, 255, 0.3); background: rgba(170, 102, 255, 0.05); }
+        .y { color: #ffaa00; border-color: rgba(255, 170, 0, 0.3); background: rgba(255, 170, 0, 0.05); }
+        .o { color: #ff8844; border-color: rgba(255, 136, 68, 0.3); background: rgba(255, 136, 68, 0.05); }
+        .r { color: #ff4466; border-color: rgba(255, 68, 102, 0.3); background: rgba(255, 68, 102, 0.05); }
+
+        .contrib-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(0, 255, 102, 0.05);
+        }
+
+        .contrib-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contrib-rank {
+            font-family: 'JetBrains Mono', monospace;
+            color: #1a3a1a;
+            font-size: 14px;
+            width: 24px;
+        }
+
+        .contrib-avatar {
+            width: 32px;
+            height: 32px;
+            background: #112a11;
+            border: 1px solid #1e3a1e;
+            border-radius: 6px;
+        }
+
+        .contrib-name {
+            font-family: 'JetBrains Mono', monospace;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .contrib-score {
+            font-family: 'JetBrains Mono', monospace;
+            color: #00ff66;
+            font-weight: 700;
+        }
+
+        .code-block {
+            background: #050a05;
+            border: 1px solid #1a2e1a;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #a9cba9;
+            overflow-x: auto;
+        }
+
+        .kw { color: #ff79c6; }
+        .fn { color: #8be9fd; }
+        .str { color: #50fa7b; }
+        .cm { color: #6272a4; }
+        .var { color: #ffb86c; }
+        .num { color: #bd93f9; }
+
+        .visually-hidden-focusable {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .visually-hidden-focusable:focus {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: auto;
+            height: auto;
+            padding: 10px 20px;
+            background: #00ff66;
+            color: #000;
+            z-index: 10001 !important;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 14px;
+        }
     </style>
 </head>
 
 <body>
+    <a href="#game-canvas" class="visually-hidden-focusable" tabindex="0">Skip to Content</a>
 
     <div class="boot-screen" id="bootScreen">
         <div class="boot-text" id="bootText">
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Initializing 3D engine...</span>
-            </div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Loading portfolio v1.0</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Building voxel grid
-                    world...</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Mounting project
-                    archives...</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Spawning
-                    avatar...</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Deploying 4
-                    stations...</span></div>
-            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">System ready. WASD + SPACE to
-                    explore_</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Initializing 3D engine...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Loading portfolio v2.0-Grid</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Building multi-world architecture...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Mounting neural archives...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Spawning grid avatar...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">Deploying 15 stations...</span></div>
+            <div class="boot-line"><span class="ok">[OK]</span> <span class="info">System ready. WASD + SPACE to explore_</span></div>
         </div>
         <div class="boot-bar-wrap">
             <div class="boot-bar" id="bootBar"></div>
@@ -822,7 +1033,7 @@
     <div class="hud hud-top">
         <div class="hud-logo"><span class="icon">I</span> Intra Swadaya Hidayat_</div>
     </div>
-    <button class="theme-toggle" id="themeToggle" type="button">MODE: GELAP</button>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme mode">MODE: GELAP</button>
     <div class="hud-world-label">world: <span class="wname" id="worldLabel">hub_main</span></div>
     <div class="hud-coords">
         <div>pos: <span class="val" id="coordX">0.0</span>, <span class="val" id="coordZ">0.0</span></div>
@@ -846,7 +1057,7 @@
             <div class="hud-hint">WASD = move | SPACE = jump | E = interact | ESC = close</div>
         </div>
     </div>
-    <div class="hud-minimap"><canvas id="minimap-canvas" width="160" height="160"></canvas></div>
+    <div class="hud-minimap"><canvas id="minimap-canvas" width="160" height="160" aria-label="World minimap"></canvas></div>
     <div class="interact-prompt" id="interactPrompt">Press <span class="key-hint">E</span> to access terminal</div>
 
     <!-- Mobile Touch Controls -->
@@ -864,164 +1075,191 @@
 
     <!-- ══════════ PANELS: HUB WORLD ══════════ -->
 
+    <!-- ══════════ PANELS: HUB WORLD ══════════ -->
+
     <!-- Welcome -->
     <div class="panel-overlay" id="panel-welcome">
         <div class="panel-header">
-            <h2>&gt; welcome.exe</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+            <h2>&gt; welcome.exe</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
         </div>
         <div class="panel-body" style="text-align:center;padding:30px 20px;">
-            <div
-                style="font-family:'JetBrains Mono',monospace;font-size:32px;color:#00ff66;font-weight:700;margin-bottom:12px;text-shadow:0 0 20px rgba(0,255,102,0.4);">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;color:#00ff66;font-weight:700;margin-bottom:12px;text-shadow:0 0 20px rgba(0,255,102,0.4);">
                 &gt;_ Hello, I'm Intra</div>
             <p style="color:#6b8a6b;font-size:14px;max-width:450px;margin:0 auto 16px;line-height:1.6;">Software
-                Developer & Lecturer. Walk around this 3D world and explore the stations to learn more about me and my
+                Developer & Lecturer. Walk around this 3D world and explore the stations to learn more about my
                 work.</p>
-            <div
-                style="display:inline-block;padding:4px 12px;background:rgba(0,255,102,0.1);border:1px solid #00ff66;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#00ff66;margin-bottom:16px;">
-                Portfolio v1.0</div>
+            <div style="display:inline-block;padding:4px 12px;background:rgba(0,255,102,0.1);border:1px solid #00ff66;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#00ff66;margin-bottom:16px;">
+                Portfolio v2.0-Grid</div>
         </div>
     </div>
 
-    <!-- About -->
-    <div class="panel-overlay" id="panel-about">
+    <!-- Activity -->
+    <div class="panel-overlay" id="panel-activity">
         <div class="panel-header">
-            <h2>&gt; about.md</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+            <h2>&gt; activity.log</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
         </div>
         <div class="panel-body">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:16px;">// who
-                am i</div>
-            <h3 style="font-size:20px;color:#00aaff;margin-bottom:12px;font-family:'JetBrains Mono',monospace;">Intra
-                Swadaya Hidayat</h3>
-            <p style="color:#6b8a8b;font-size:14px;line-height:1.7;margin-bottom:20px;">A passionate software developer
-                who loves building things for the web. I enjoy turning ideas into real, working products &mdash; from
-                front-end interfaces to back-end systems.</p>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:12px;">//
-                tech_stack</div>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">JavaScript</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">TypeScript</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">React</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">Node.js</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">Python</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">HTML/CSS</span>
-                <span
-                    style="padding:4px 10px;background:rgba(0,170,255,0.1);border:1px solid rgba(0,170,255,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#00aaff;">Git</span>
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a2a1a,#1a4a2a);"><span class="tag">#system</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@root</span> &bull; 2h ago</div>
+                    <h3>Grid Expansion Complete</h3>
+                    <p>Successfully deployed the multi-world architecture. Neural pathways are now stable across Hub, Programming, and AI domains.</p>
+                </div>
+                <div class="panel-card-footer"><span><span class="arrow">&#9650;</span> 128 upvotes</span><span>&#128172; 12</span></div>
             </div>
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3a5a6a;margin-bottom:12px;">//
-                interests</div>
-            <p style="color:#6b8a8b;font-size:13px;line-height:1.7;">Web development, open source, creative coding, game
-                dev, and exploring new technologies.</p>
         </div>
     </div>
 
-    <!-- Projects -->
-    <div class="panel-overlay" id="panel-projects">
+    <!-- Leaderboard -->
+    <div class="panel-overlay" id="panel-leaderboard">
         <div class="panel-header">
-            <h2>&gt; projects.sh</h2><button class="panel-close" onclick="closePanel()">&times;</button>
+            <h2>&gt; leaderboard.db</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
         </div>
         <div class="panel-body">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5a5a3a;margin-bottom:16px;">// ls
-                ~/projects</div>
-            <div
-                style="background:#111a11;border:1px solid #2e2e1a;border-radius:10px;padding:16px;margin-bottom:12px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                    <h3 style="font-size:15px;color:#ffaa00;font-family:'JetBrains Mono',monospace;">&#128193; 3D
-                        Portfolio</h3>
-                    <span
-                        style="padding:3px 8px;background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#ffaa00;">Three.js</span>
-                </div>
-                <p style="color:#6b7a5a;font-size:13px;line-height:1.6;margin-bottom:8px;">This website! A walkable 3D
-                    world built with Three.js as an interactive portfolio experience.</p>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a3a;">&#9733; JavaScript
-                    &bull; HTML/CSS</span>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">1.</span><div class="contrib-avatar"></div><span class="contrib-name">@intra</span></div>
+                <span class="contrib-score">9999</span>
             </div>
-            <div
-                style="background:#111a11;border:1px solid #2e2e1a;border-radius:10px;padding:16px;margin-bottom:12px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                    <h3 style="font-size:15px;color:#ffaa00;font-family:'JetBrains Mono',monospace;">&#128193; Project 2
-                    </h3>
-                    <span
-                        style="padding:3px 8px;background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.3);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#ffaa00;">Coming
-                        soon</span>
-                </div>
-                <p style="color:#6b7a5a;font-size:13px;line-height:1.6;margin-bottom:8px;">More projects coming soon.
-                    Stay tuned!</p>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a3a;">&#9733; TBD</span>
+            <div class="contrib-row">
+                <div class="contrib-left"><span class="contrib-rank">2.</span><div class="contrib-avatar"></div><span class="contrib-name">@guest_42</span></div>
+                <span class="contrib-score">7500</span>
             </div>
-            <div
-                style="text-align:center;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#4a5a3a;">
-                // more projects loading...</div>
         </div>
     </div>
 
-    <!-- Contact -->
-    <div class="panel-overlay" id="panel-contact" style="overflow:hidden;background:rgba(6,6,16,0.97);max-width:800px;">
-        <div class="panel-header" style="border-bottom:1px solid #1a1a2e;background:rgba(6,6,16,0.98);">
-            <h2 style="color:#aa66ff;">&gt; contact.exe</h2><button class="panel-close"
-                onclick="closePanel()">&times;</button>
+    <!-- Arsenal -->
+    <div class="panel-overlay" id="panel-arsenal">
+        <div class="panel-header">
+            <h2>&gt; arsenal.cfg</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
         </div>
-        <div class="panel-body" style="padding:0;position:relative;height:420px;overflow:hidden;">
-            <div class="carousel-scene">
-                <div class="carousel-ring" id="contactCarousel">
-                    <!-- GitHub -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(170,102,255,0.12);box-shadow:0 0 30px rgba(170,102,255,0.15);">
-                            &#128025;</div>
-                        <div class="carousel-label">GitHub</div>
-                        <div class="carousel-handle">@tercodingcoding</div>
-                        <a href="https://github.com/tercodingcoding" target="_blank" rel="noopener noreferrer"
-                            class="carousel-link">Open &rarr;</a>
-                    </div>
-                    <!-- Email -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(0,170,255,0.12);box-shadow:0 0 30px rgba(0,170,255,0.15);">&#9993;
-                        </div>
-                        <div class="carousel-label">Email</div>
-                        <div class="carousel-handle">intraswadaya@gmail.com</div>
-                        <a href="mailto:intraswadaya@gmail.com" class="carousel-link">Send &rarr;</a>
-                    </div>
-                    <!-- LinkedIn -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(0,119,181,0.15);box-shadow:0 0 30px rgba(0,119,181,0.15);">&#128188;
-                        </div>
-                        <div class="carousel-label">LinkedIn</div>
-                        <div class="carousel-handle">Intra Hidayat</div>
-                        <a href="https://www.linkedin.com/in/intra-hidayat-43443025a/" target="_blank"
-                            rel="noopener noreferrer" class="carousel-link">Connect &rarr;</a>
-                    </div>
-                    <!-- Instagram -->
-                    <div class="carousel-card">
-                        <div class="carousel-icon"
-                            style="background:rgba(225,48,108,0.12);box-shadow:0 0 30px rgba(225,48,108,0.15);">
-                            &#128247;</div>
-                        <div class="carousel-label">Instagram</div>
-                        <div class="carousel-handle">@intraswd</div>
-                        <a href="https://www.instagram.com/intraswd/" target="_blank" rel="noopener noreferrer"
-                            class="carousel-link">Follow &rarr;</a>
-                    </div>
+        <div class="panel-body">
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot g"></span><div><div class="status-tag">THREE.JS</div><div class="status-count">CORE_ENGINE</div></div></div>
+                <span class="status-badge g">&#9650; 100%</span>
+            </div>
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot b"></span><div><div class="status-tag">REACT</div><div class="status-count">UI_MODULE</div></div></div>
+                <span class="status-badge b">&#9650; 92%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ PANELS: PROGRAMMING WORLD ══════════ -->
+
+    <!-- Prog Welcome -->
+    <div class="panel-overlay" id="panel-prog-welcome">
+        <div class="panel-header">
+            <h2>&gt; prog-welcome.exe</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#0a1a2a,#1a2a4a);"><span class="tag">#programming</span></div>
+                <div class="panel-card-body">
+                    <div class="panel-card-author"><span class="aname">@dev_intra</span> &bull; Current</div>
+                    <h3>Code Sanctuary</h3>
+                    <p>Welcome to the logic core. Here you can find the algorithms and architectural patterns that power my projects.</p>
                 </div>
             </div>
-            <!-- Nav arrows -->
-            <button class="carousel-nav carousel-prev" onclick="rotateCarousel(-1)">&#9664;</button>
-            <button class="carousel-nav carousel-next" onclick="rotateCarousel(1)">&#9654;</button>
-            <!-- Dots -->
-            <div id="carouselDots"
-                style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10;">
+        </div>
+    </div>
+
+    <!-- Algorithms -->
+    <div class="panel-overlay" id="panel-algorithms">
+        <div class="panel-header">
+            <h2>&gt; algorithms.cpp</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="code-block">
+                <span class="cm">// Binary Search Implementation</span><br>
+                <span class="kw">int</span> <span class="fn">binarySearch</span>(<span class="kw">int</span> arr[], <span class="kw">int</span> n, <span class="kw">int</span> x) {<br>
+                &nbsp;&nbsp;<span class="kw">int</span> low = <span class="num">0</span>, high = n - <span class="num">1</span>;<br>
+                &nbsp;&nbsp;<span class="kw">while</span> (low &lt;= high) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">int</span> mid = low + (high - low) / <span class="num">2</span>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (arr[mid] == x) <span class="kw">return</span> mid;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (arr[mid] &lt; x) low = mid + <span class="num">1</span>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">else</span> high = mid - <span class="num">1</span>;<br>
+                &nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;<span class="kw">return</span> -<span class="num">1</span>;<br>
+                }
             </div>
         </div>
-        <div
-            style="padding:10px 20px 14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3a5a;border-top:1px solid #1a1a2e;">
-            <span style="color:#aa66ff;">$</span> drag or use arrows to spin &mdash; <span
-                style="color:#aa66ff;">click</span> to connect_
+    </div>
+
+    <!-- Projects (v2) -->
+    <div class="panel-overlay" id="panel-projects-v2">
+        <div class="panel-header">
+            <h2>&gt; projects.json</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#1a0a2a,#2a1a4a);"><span class="tag">#web3</span></div>
+                <div class="panel-card-body">
+                    <h3>Decentralized Auth</h3>
+                    <p>Building a secure, blockchain-based authentication system for enterprise applications.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenges -->
+    <div class="panel-overlay" id="panel-challenges">
+        <div class="panel-header">
+            <h2>&gt; challenges.bin</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot o"></span><div><div class="status-tag">QUICKSORT_OPTIMIZATION</div><div class="status-count">PENDING</div></div></div>
+                <span class="status-badge o">&#9650; HARD</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sort -->
+    <div class="panel-overlay" id="panel-sort">
+        <div class="panel-header">
+            <h2>&gt; sort.cpp</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="code-block">
+                <span class="cm">// Merge Sort Fragment</span><br>
+                <span class="kw">void</span> <span class="fn">merge</span>(<span class="kw">int</span> arr[], <span class="kw">int</span> l, <span class="kw">int</span> m, <span class="kw">int</span> r) {<br>
+                &nbsp;&nbsp;<span class="kw">int</span> n1 = m - l + <span class="num">1</span>;<br>
+                &nbsp;&nbsp;<span class="kw">int</span> n2 = r - m;<br>
+                &nbsp;&nbsp;<span class="cm">// implementation details...</span><br>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ PANELS: AI WORLD ══════════ -->
+
+    <!-- Weights -->
+    <div class="panel-overlay" id="panel-weights">
+        <div class="panel-header">
+            <h2>&gt; neural_net.weights</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="status-row">
+                <div class="status-left"><span class="status-dot p"></span><div><div class="status-tag">LAYER_01</div><div class="status-count">FLOAT32</div></div></div>
+                <span class="status-badge p">VALID</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Training -->
+    <div class="panel-overlay" id="panel-training">
+        <div class="panel-header">
+            <h2>&gt; training.log</h2><button class="panel-close" onclick="closePanel()" aria-label="Close panel">&times;</button>
+        </div>
+        <div class="panel-body">
+            <div class="panel-card">
+                <div class="panel-card-img" style="background:linear-gradient(135deg,#2a0a1a,#4a1a2a);"><span class="tag">#ml</span></div>
+                <div class="panel-card-body">
+                    <h3>Epoch 500 reached</h3>
+                    <p>Loss: 0.0042. Accuracy: 99.8%. Model convergence achieved.</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1190,31 +1428,49 @@
                     ambient: 0x112211,
                     dirColor: 0x00ff66,
                     label: 'hub_main',
-                    stations: [{
-                        id: 'welcome',
-                        label: 'welcome.exe',
-                        pos: [0, 0, -10],
-                        color: 0x00ff66,
-                        panelId: 'panel-welcome'
-                    }, {
-                        id: 'about',
-                        label: 'about.md',
-                        pos: [-10, 0, 0],
-                        color: 0x00aaff,
-                        panelId: 'panel-about'
-                    }, {
-                        id: 'projects',
-                        label: 'projects.sh',
-                        pos: [10, 0, 0],
-                        color: 0xffaa00,
-                        panelId: 'panel-projects'
-                    }, {
-                        id: 'contact',
-                        label: 'contact.exe',
-                        pos: [0, 0, 10],
-                        color: 0xaa66ff,
-                        panelId: 'panel-contact'
-                    }]
+                    stations: [
+                        { id: 'welcome', label: 'welcome.exe', pos: [0, 0, -10], color: 0x00ff66, panelId: 'panel-welcome' },
+                        { id: 'activity', label: 'activity.log', pos: [-10, 0, -4], color: 0x00aaff, panelId: 'panel-activity' },
+                        { id: 'leaderboard', label: 'leaderboard.db', pos: [10, 0, -4], color: 0x00ff66, panelId: 'panel-leaderboard' },
+                        { id: 'arsenal', label: 'arsenal.cfg', pos: [0, 0, 8], color: 0x00aaff, panelId: 'panel-arsenal' },
+                        { id: 'portal_prog', label: '[PORTAL] programming', pos: [-8, 0, 12], color: 0xff4466, panelId: null, isPortal: true, targetWorld: 'programming' },
+                        { id: 'portal_ai', label: '[PORTAL] ai', pos: [8, 0, 12], color: 0xff4466, panelId: null, isPortal: true, targetWorld: 'ai' }
+                    ]
+                },
+                programming: {
+                    bg: 0x020308,
+                    fog: 0x020308,
+                    fogDensity: 0.018,
+                    gridColor1: 0x0a1a3a,
+                    gridColor2: 0x060a1a,
+                    groundColor: 0x03050a,
+                    ambient: 0x111122,
+                    dirColor: 0x4488ff,
+                    label: 'prog_world',
+                    stations: [
+                        { id: 'prog-welcome', label: 'prog-welcome.exe', pos: [0, 0, -10], color: 0x4488ff, panelId: 'panel-prog-welcome' },
+                        { id: 'algorithms', label: 'algorithms.cpp', pos: [-10, 0, 0], color: 0x66ccff, panelId: 'panel-algorithms' },
+                        { id: 'projects-v2', label: 'projects.json', pos: [10, 0, 0], color: 0x4488ff, panelId: 'panel-projects-v2' },
+                        { id: 'challenges', label: 'challenges.bin', pos: [-6, 0, 10], color: 0xff8844, panelId: 'panel-challenges' },
+                        { id: 'sort', label: 'sort.cpp', pos: [6, 0, 10], color: 0x66ccff, panelId: 'panel-sort' },
+                        { id: 'portal_hub_prog', label: '[PORTAL] hub', pos: [0, 0, 16], color: 0x00ff66, panelId: null, isPortal: true, targetWorld: 'hub' }
+                    ]
+                },
+                ai: {
+                    bg: 0x050205,
+                    fog: 0x050205,
+                    fogDensity: 0.020,
+                    gridColor1: 0x2a0a2a,
+                    gridColor2: 0x1a061a,
+                    groundColor: 0x080308,
+                    ambient: 0x221122,
+                    dirColor: 0xaa66ff,
+                    label: 'ai_world',
+                    stations: [
+                        { id: 'weights', label: 'neural_net.weights', pos: [-8, 0, 0], color: 0xaa66ff, panelId: 'panel-weights' },
+                        { id: 'training', label: 'training.log', pos: [8, 0, 0], color: 0xaa66ff, panelId: 'panel-training' },
+                        { id: 'portal_hub_ai', label: '[PORTAL] hub', pos: [0, 0, 12], color: 0x00ff66, panelId: null, isPortal: true, targetWorld: 'hub' }
+                    ]
                 }
             };
 
@@ -1763,7 +2019,7 @@
                 });
 
                 // Environment: data pillars
-                const pillarColor = worldId === 'programming' ? 0x4488ff : 0x00ff66;
+                const pillarColor = cfg.dirColor;
                 for (let i = 0; i < 25; i++) {
                     const h = 2 + Math.random() * 8;
                     const m = new THREE.Mesh(new THREE.BoxGeometry(0.08, h, 0.08), new THREE.MeshStandardMaterial({
@@ -2541,12 +2797,19 @@
                 syncMinimapSize();
             });
 
+            // Expose for verification
+            window.buildWorld = buildWorld;
+            window.warpToWorld = warpToWorld;
+            window.openPanel = openPanel;
+            window.closePanel = closePanel;
+            window.getCurrentWorld = () => currentWorld;
+            window.worldConfigs = worldConfigs;
+
             // Init hub world and start
             buildWorld('hub');
             runBoot(() => {
                 animate();
             });
-            animate();
         })();
 
         /* ═══ CONTACT CAROUSEL ═══ */
